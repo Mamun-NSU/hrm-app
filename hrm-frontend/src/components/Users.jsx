@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-
+import { Container, Table, Form, Button, Row, Col, Card } from "react-bootstrap";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({ name: "", email: "", role_id: "" });
   const [editingId, setEditingId] = useState(null);
 
-  // Fetch all users
   const fetchUsers = async () => {
     try {
       const res = await api.get("/users");
@@ -21,10 +20,8 @@ export default function Users() {
     fetchUsers();
   }, []);
 
-  // Handle form changes
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Create or update user
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -32,7 +29,7 @@ export default function Users() {
         await api.put(`/users/${editingId}`, form);
         setEditingId(null);
       } else {
-        await api.post("/users", { ...form, password: "default123" }); // default password
+        await api.post("/users", { ...form, password: "default123" });
       }
       setForm({ name: "", email: "", role_id: "" });
       fetchUsers();
@@ -41,13 +38,11 @@ export default function Users() {
     }
   };
 
-  // Edit user
   const handleEdit = (user) => {
     setForm({ name: user.name, email: user.email, role_id: user.role_id || "" });
     setEditingId(user.id);
   };
 
-  // Delete user
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure?")) {
       await api.delete(`/users/${id}`);
@@ -56,41 +51,85 @@ export default function Users() {
   };
 
   return (
-    <div>
-      <h2>Users</h2>
+    <Container className="mt-5">
+      <Card className="p-4 shadow">
+        <h2 className="text-center mb-4">Users Management</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
-        <input name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-        <input name="role_id" placeholder="Role ID" value={form.role_id} onChange={handleChange} />
-        <button type="submit">{editingId ? "Update User" : "Add User"}</button>
-      </form>
+        <Form onSubmit={handleSubmit} className="mb-4">
+          <Row className="g-2">
+            <Col md={3}>
+              <Form.Control
+                name="name"
+                placeholder="Name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+            </Col>
+            <Col md={3}>
+              <Form.Control
+                name="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </Col>
+            <Col md={3}>
+              <Form.Control
+                name="role_id"
+                placeholder="Role ID"
+                value={form.role_id}
+                onChange={handleChange}
+              />
+            </Col>
+            <Col md={3}>
+              <Button type="submit" variant={editingId ? "warning" : "primary"} className="w-100">
+                {editingId ? "Update User" : "Add User"}
+              </Button>
+            </Col>
+          </Row>
+        </Form>
 
-      <table border="1" style={{ marginTop: "20px", width: "100%", textAlign: "left" }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role ID</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
-            <tr key={u.id}>
-              <td>{u.id}</td>
-              <td>{u.name}</td>
-              <td>{u.email}</td>
-              <td>{u.role_id || "-"}</td>
-              <td>
-                <button onClick={() => handleEdit(u)}>Edit</button>
-                <button onClick={() => handleDelete(u.id)}>Delete</button>
-              </td>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role ID</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <tr key={u.id}>
+                <td>{u.id}</td>
+                <td>{u.name}</td>
+                <td>{u.email}</td>
+                <td>{u.role_id || "-"}</td>
+                <td>
+                  <Button
+                    variant="info"
+                    size="sm"
+                    className="me-2"
+                    onClick={() => handleEdit(u)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleDelete(u.id)}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Card>
+    </Container>
   );
 }
