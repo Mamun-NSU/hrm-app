@@ -2,25 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+
+
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'me']);
-
-
-
-
-
-// Route::post('/register', [AuthController::class, 'register'])
-//     ->withoutMiddleware([VerifyCsrfToken::class]);
-
-// Route::post('/login', [AuthController::class, 'login'])
-//     ->withoutMiddleware([VerifyCsrfToken::class]);
-
-
 
 
 
@@ -30,6 +20,8 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
+
+Route::apiResource('employees', EmployeeController::class);
 
 
 

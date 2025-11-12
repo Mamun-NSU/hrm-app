@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Employee extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'department_id',
+        'designation_id',
+        'employee_code',
+        'name',
+        'email',
+        'phone',
+        'gender',
+        'date_of_birth',
+        'join_date',
+        'employment_status',
+        'salary_base',
+    ];
+
+    // Relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function department()
+    {
+        ##Will work after Department
+        // return $this->belongsTo(Department::class);
+    }
+
+    public function designation()
+    {
+        ##Will work after Designation
+        // return $this->belongsTo(Designation::class);
+    }
+}
