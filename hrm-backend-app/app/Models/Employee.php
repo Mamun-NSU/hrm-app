@@ -32,13 +32,11 @@ class Employee extends Model
 
     public function department()
     {
-        ##Will work after Department
-        // return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class);
     }
 
     public function designation()
     {
-        ##Will work after Designation
-        // return $this->belongsTo(Designation::class);
+        return $this->belongsTo(Designation::class);
     }
 }

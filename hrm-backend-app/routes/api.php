@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\DepartmentController;
+use App\Http\Controllers\API\DesignationController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\UserController;
 
@@ -24,6 +26,10 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::apiResource('employees', EmployeeController::class);
 
 
+Route::apiResource('departments', DepartmentController::class);
+
+
+Route::apiResource('designations', DesignationController::class);
 
 
 
