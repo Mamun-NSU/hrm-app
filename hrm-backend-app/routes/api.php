@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\DesignationController;
 use App\Http\Controllers\API\EmployeeController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 
 
@@ -33,6 +34,14 @@ Route::apiResource('designations', DesignationController::class);
 
 
 
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/attendance', [AttendanceController::class, 'index']);
+    Route::get('/attendance/{id}', [AttendanceController::class, 'show']);
+    Route::post('/attendance', [AttendanceController::class, 'markAttendance']); // login/logout
+    Route::put('/attendance/{id}', [AttendanceController::class, 'update']);
+    Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
+});
 
 
 
