@@ -23,8 +23,6 @@ return new class extends Migration {
           ->onDelete('set null');
 
     $table->string('employee_code')->unique();
-    $table->string('name');
-    $table->string('email')->unique();
     $table->string('phone')->nullable();
     $table->enum('gender', ['Male', 'Female', 'Other'])->nullable();
     $table->date('date_of_birth')->nullable();
