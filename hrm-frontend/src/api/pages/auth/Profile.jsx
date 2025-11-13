@@ -7,9 +7,9 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+  // Navigate back to home page
+  const goBack = () => {
+    navigate("/"); // Redirect to home page (Employee List)
   };
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Profile = () => {
         const response = await api.get("/user");
         setUser(response.data);
       } catch (error) {
-        navigate("/login");
+        navigate("/login"); // Redirect to login if not authenticated
       }
     };
     fetchUser();
@@ -32,13 +32,16 @@ const Profile = () => {
     );
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "100vh" }}
+    >
       <Card className="p-4 shadow" style={{ maxWidth: "400px", width: "100%" }}>
         <h3 className="text-center mb-3">Profile</h3>
         <p><strong>Name:</strong> {user.name}</p>
         <p><strong>Email:</strong> {user.email}</p>
-        <Button variant="danger" className="w-100 mt-3" onClick={logout}>
-          Logout
+        <Button variant="primary" className="w-100 mt-3" onClick={goBack}>
+          Back
         </Button>
       </Card>
     </Container>

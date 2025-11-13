@@ -13,17 +13,41 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api.post("/login", form);
-      localStorage.setItem("token", response.data.token); // save token
-      toast.success("Login successful!");
-      navigate("/profile");
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Login failed");
-    }
-  };
+  e.preventDefault();
+  try {
+    // 1. Login request
+    const response = await api.post("/login", form);
+    const token = response.data.token;
+    localStorage.setItem("token", token); // save token
+
+    // 2. Mark check-in (login) attendance
+    await api.post(
+      "/attendance",
+      { type: "login" },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    toast.success("Login successful and attendance recorded!");
+    navigate("/profile");
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Login failed");
+  }
+};
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await api.post("/login", form);
+  //     localStorage.setItem("token", response.data.token); // save token
+  //     toast.success("Login successful!");
+  //     navigate("/profile");
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || "Login failed");
+  //   }
+  // };
 
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>

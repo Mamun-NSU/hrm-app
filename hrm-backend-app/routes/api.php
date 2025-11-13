@@ -37,13 +37,12 @@ Route::apiResource('designations', DesignationController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index']);
+    Route::post('/attendance/mark', [AttendanceController::class, 'markAttendance']);
     Route::get('/attendance/{id}', [AttendanceController::class, 'show']);
     Route::post('/attendance', [AttendanceController::class, 'markAttendance']); // login/logout
     Route::put('/attendance/{id}', [AttendanceController::class, 'update']);
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
 });
-
-
 
 
 
