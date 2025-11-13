@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axios";
+import { toast } from "react-toastify";
 
 const EmployeeEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [departments, setDepartments] = useState([]);
   const [designations, setDesignations] = useState([]);
   const [users, setUsers] = useState([]);
@@ -24,65 +25,75 @@ const EmployeeEdit = () => {
     employment_status: "Active",
     salary_base: ""
   });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetchDepartments();
-    fetchDesignations();
-    fetchUsers();
-    fetchEmployee();
+    fetchInitialData();
   }, []);
 
-  const fetchDepartments = async () => {
-    const res = await api.get("/departments");
-    setDepartments(res.data);
-  };
-
-  const fetchDesignations = async () => {
-    const res = await api.get("/designations");
-    setDesignations(res.data);
-  };
-
-  const fetchUsers = async () => {
-    const res = await api.get("/users");
-    setUsers(res.data);
-  };
-
-  const fetchEmployee = async () => {
-    const res = await api.get(`/employees/${id}`);
-    setForm({
-      user_id: res.data.user_id || "",
-      department_id: res.data.department_id || "",
-      designation_id: res.data.designation_id || "",
-      employee_code: res.data.employee_code || "",
-      name: res.data.name || "",
-      email: res.data.email || "",
-      phone: res.data.phone || "",
-      gender: res.data.gender || "",
-      date_of_birth: res.data.date_of_birth || "",
-      join_date: res.data.join_date || "",
-      employment_status: res.data.employment_status || "Active",
-      salary_base: res.data.salary_base || ""
-    });
-  };
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const fetchInitialData = async () => {
     try {
-      await api.put(`/employees/${id}`, form);
-      alert("Employee updated successfully!");
-      navigate("/employees");
-    } catch (err) {
-      console.error(err);
-      alert("Error updating employee.");
+      const [deptRes, desigRes, usersRes, empRes] = await Promise.all([
+        api.get("/departments"),
+        api.get("/designations"),
+        api.get("/users"),
+        api.get(`/employees/${id}`)
+      ]);
+
+      setDepartments(deptRes.data);
+      setDesignations(desigRes.data);
+      setUsers(usersRes.data);
+
+      setForm({
+        user_id: empRes.data.user_id || "",
+        department_id: empRes.data.department_id || "",
+        designation_id: empRes.data.designation_id || "",
+        employee_code: empRes.data.employee_code || "",
+        name: empRes.data.name || "",
+        email: empRes.data.email || "",
+        phone: empRes.data.phone || "",
+        gender: empRes.data.gender || "",
+        date_of_birth: empRes.data.date_of_birth || "",
+        join_date: empRes.data.join_date || "",
+        employment_status: empRes.data.employment_status || "Active",
+        salary_base: empRes.data.salary_base || ""
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to load employee data!");
+    } finally {
+      setLoading(false);
     }
   };
 
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await api.put(`/employees/${id}`, form);
+      toast.success("Employee updated successfully!");
+      navigate("/employees");
+    } catch (err) {
+      console.error(err);
+      toast.error("Error updating employee.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center mt-5">
+        <Spinner animation="border" />
+      </div>
+    );
+  }
+
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 shadow-sm">
       <Card.Header>
         <h3>Edit Employee</h3>
       </Card.Header>
@@ -172,7 +183,16 @@ const EmployeeEdit = () => {
             <Form.Control type="number" name="salary_base" value={form.salary_base} onChange={handleChange} />
           </Form.Group>
 
-          <Button type="submit" variant="primary">Update Employee</Button>
+          <Button type="submit" variant="primary" disabled={saving}>
+            {saving ? <Spinner animation="border" size="sm" /> : "Update Employee"}
+          </Button>
+          <Button
+            variant="secondary"
+            className="ms-2"
+            onClick={() => navigate("/employees")}
+          >
+            Cancel
+          </Button>
         </Form>
       </Card.Body>
     </Card>
