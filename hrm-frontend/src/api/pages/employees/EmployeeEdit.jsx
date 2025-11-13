@@ -50,8 +50,6 @@ const EmployeeEdit = () => {
         department_id: empRes.data.department_id || "",
         designation_id: empRes.data.designation_id || "",
         employee_code: empRes.data.employee_code || "",
-        name: empRes.data.name || "",
-        email: empRes.data.email || "",
         phone: empRes.data.phone || "",
         gender: empRes.data.gender || "",
         date_of_birth: empRes.data.date_of_birth || "",
@@ -132,16 +130,6 @@ const EmployeeEdit = () => {
           <Form.Group className="mb-3">
             <Form.Label>Employee Code</Form.Label>
             <Form.Control type="text" name="employee_code" value={form.employee_code} onChange={handleChange} required />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" name="name" value={form.name} onChange={handleChange} required />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" name="email" value={form.email} onChange={handleChange} required />
           </Form.Group>
 
           <Form.Group className="mb-3">

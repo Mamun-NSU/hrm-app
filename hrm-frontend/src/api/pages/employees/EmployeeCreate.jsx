@@ -11,8 +11,6 @@ const EmployeeCreate = () => {
     department_id: "",
     designation_id: "",
     employee_code: "",
-    name: "",
-    email: "",
     phone: "",
     gender: "",
     date_of_birth: "",
@@ -98,16 +96,6 @@ const EmployeeCreate = () => {
           <Form.Group className="mb-3">
             <Form.Label>Employee Code</Form.Label>
             <Form.Control type="text" name="employee_code" onChange={handleChange} required />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" name="name" onChange={handleChange} required />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" name="email" onChange={handleChange} required />
           </Form.Group>
 
           <Form.Group className="mb-3">
