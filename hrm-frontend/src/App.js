@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-
-// Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import api from "./api/axios";
 
 // Auth
@@ -20,7 +19,6 @@ import Users from "./components/Users";
 import EmployeeList from "./api/pages/employees/EmployeeList";
 import EmployeeCreate from "./api/pages/employees/EmployeeCreate";
 import EmployeeEdit from "./api/pages/employees/EmployeeEdit";
-import EmployeeView from "./api/pages/employees/EmployeeView";
 import EmployeeDetails from "./api/pages/employees/EmployeeDetails";
 
 // Departments
@@ -40,61 +38,73 @@ import AttendanceCheck from "./api/pages/attendance/AttendanceCheck";
 import AttendanceEdit from "./api/pages/attendance/AttendanceEdit";
 import AttendanceList from "./api/pages/attendance/AttendanceList";
 
-// Role
+// Roles
 import RoleList from "./api/pages/role/RoleList";
 import RoleCreate from "./api/pages/role/RoleCreate";
 import RoleEdit from "./api/pages/role/RoleEdit";
 import RoleView from "./api/pages/role/RoleView";
 
-
-
-
-
 function AppWrapper() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  // Fetch current user on mount
+  // Fetch current user and detect admin
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
         setUser(null);
+        setIsAdmin(false);
         return;
       }
 
       try {
         const response = await api.get("/user");
-        setUser(response.data);
+        const loggedUser = response.data;
+        setUser(loggedUser);
+
+        // Detect Admin using role_id (Admin = 1)
+        const adminStatus = loggedUser?.role_id === 1;
+
+        // console.log("=== ADMIN DETECTION ===");
+        // console.log("Logged user:", loggedUser);
+        // console.log("role_id:", loggedUser?.role_id);
+        // console.log("Is Admin?", adminStatus);
+        // console.log("=======================");
+
+        setIsAdmin(adminStatus);
+
       } catch (error) {
+        console.error("Failed to fetch user:", error);
         setUser(null);
+        setIsAdmin(false);
       }
     };
 
     fetchUser();
   }, []);
 
- const handleLogout = async () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    try {
-      // 1. Mark check-out attendance
-      await api.post(
-        "/attendance",
-        { type: "logout" },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch (error) {
-      console.error("Failed to record check-out:", error);
+  // Logout
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        await api.post(
+          "/attendance",
+          { type: "logout" },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.error("Failed to record check-out:", error);
+      }
     }
-  }
 
-  // 2. Remove token and navigate
-  localStorage.removeItem("token");
-  setUser(null);
-  navigate("/login");
-};
-
+    localStorage.removeItem("token");
+    setUser(null);
+    setIsAdmin(false);
+    navigate("/login");
+  };
 
   return (
     <>
@@ -105,14 +115,22 @@ function AppWrapper() {
           <Navbar.Brand as={Link} to="/">HRM App</Navbar.Brand>
           <Nav className="me-auto">
 
-            {/* Common Links */}
-            <Nav.Link as={Link} to="/users">Users</Nav.Link>
+            {/* Admin Only Menu */}
+            {isAdmin && (
+              <>
+                <Nav.Link as={Link} to="/users">Users</Nav.Link>
+                <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
+                <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
+                <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
+              </>
+            )}
+
+            {/* Common Menu */}
             <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
-            <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
-            <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
             <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
-            <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
-              {!user ? (
+
+            {/* Auth Links */}
+            {!user ? (
               <>
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/register">Register</Nav.Link>
@@ -133,39 +151,49 @@ function AppWrapper() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
 
-        {/* Users */}
-        <Route path="/users" element={<Users />} />
+        {/* Users (Admin only) */}
+        {isAdmin && <Route path="/users" element={<Users />} />}
 
-        {/* Employee Routes */}
+        {/* Employees */}
         <Route path="/employees" element={<EmployeeList />} />
         <Route path="/employees/create" element={<EmployeeCreate />} />
         <Route path="/employees/:id/edit" element={<EmployeeEdit />} />
-        {/* <Route path="/employees/:id" element={<EmployeeView />} /> */}
         <Route path="/employees/:id" element={<EmployeeDetails />} />
 
-        {/* Department Routes */}
-        <Route path="/departments" element={<DepartmentList />} />
-        <Route path="/departments/create" element={<DepartmentCreate />} />
-        <Route path="/departments/:id/edit" element={<DepartmentEdit />} />
-        <Route path="/departments/:id" element={<DepartmentView />} />
+        {/* Departments (Admin only) */}
+        {isAdmin && (
+          <>
+            <Route path="/departments" element={<DepartmentList />} />
+            <Route path="/departments/create" element={<DepartmentCreate />} />
+            <Route path="/departments/:id/edit" element={<DepartmentEdit />} />
+            <Route path="/departments/:id" element={<DepartmentView />} />
+          </>
+        )}
 
-        {/* Designation Routes */}
-        <Route path="/designations" element={<DesignationList />} />
-        <Route path="/designations/create" element={<DesignationCreate />} />
-        <Route path="/designations/:id/edit" element={<DesignationEdit />} />
-        <Route path="/designations/:id" element={<DesignationView />} />
+        {/* Designations (Admin only) */}
+        {isAdmin && (
+          <>
+            <Route path="/designations" element={<DesignationList />} />
+            <Route path="/designations/create" element={<DesignationCreate />} />
+            <Route path="/designations/:id/edit" element={<DesignationEdit />} />
+            <Route path="/designations/:id" element={<DesignationView />} />
+          </>
+        )}
 
-        {/* Attendance Routes */}
+        {/* Attendance */}
         <Route path="/attendance" element={<AttendanceCheck />} />
         <Route path="/attendance/:id/edit" element={<AttendanceEdit />} />
         <Route path="/attendance/list" element={<AttendanceList />} />
 
-        {/* Roles Routes */}
-        <Route path="/roles" element={<RoleList />} />
-        <Route path="/roles/create" element={<RoleCreate />} />
-        <Route path="/roles/:id/edit" element={<RoleEdit />} />
-        <Route path="/roles/:id" element={<RoleView />} />
-
+        {/* Roles (Admin only) */}
+        {isAdmin && (
+          <>
+            <Route path="/roles" element={<RoleList />} />
+            <Route path="/roles/create" element={<RoleCreate />} />
+            <Route path="/roles/:id/edit" element={<RoleEdit />} />
+            <Route path="/roles/:id" element={<RoleView />} />
+          </>
+        )}
 
         {/* Default Route */}
         <Route path="/" element={<EmployeeList />} />
@@ -181,4 +209,3 @@ export default function App() {
     </Router>
   );
 }
-

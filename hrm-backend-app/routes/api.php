@@ -28,12 +28,11 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::apiResource('employees', EmployeeController::class);
 
 
-Route::apiResource('departments', DepartmentController::class);
-
-
-Route::apiResource('designations', DesignationController::class);
-
-
+Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+    Route::apiResource('departments', DepartmentController::class);
+    Route::apiResource('designations', DesignationController::class);
+    Route::apiResource('roles', RoleController::class);
+});
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -45,13 +44,14 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/roles', [RoleController::class, 'index']);
-    Route::post('/roles', [RoleController::class, 'store']);
-    Route::get('/roles/{id}', [RoleController::class, 'show']);
-    Route::put('/roles/{id}', [RoleController::class, 'update']);
-    Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
-});
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::get('/roles', [RoleController::class, 'index']);
+//     Route::post('/roles', [RoleController::class, 'store']);
+//     Route::get('/roles/{id}', [RoleController::class, 'show']);
+//     Route::put('/roles/{id}', [RoleController::class, 'update']);
+//     Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
+// });
+
 
 
 

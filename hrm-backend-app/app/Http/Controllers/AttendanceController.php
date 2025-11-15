@@ -11,14 +11,32 @@ use Illuminate\Support\Facades\Auth;
 class AttendanceController extends Controller
 {
     // Show all attendance
-    public function index()
-    {
-        $attendances = Attendance::with(['employee.user'])
+
+public function index()
+{
+    $user = Auth::user();
+
+    // 1. Admin → show all
+    if ($user->role && $user->role->name === 'Admin') {
+        return Attendance::with(['employee.user'])
             ->orderBy('date', 'desc')
             ->get();
-
-        return response()->json($attendances);
     }
+
+    // 2. Employee (including role_id = null) → show only their records
+    $employee = Employee::where('user_id', $user->id)->first();
+
+    if (!$employee) {
+        return response()->json(['message' => 'Employee record not found'], 404);
+    }
+
+    return Attendance::with(['employee.user'])
+        ->where('employee_id', $employee->id)
+        ->orderBy('date', 'desc')
+        ->get();
+}
+
+
 
     // Auto attendance (Login / Logout)
     public function markAttendance(Request $request)
