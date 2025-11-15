@@ -13,4 +13,12 @@ class Role extends Model
         'name',
         'description',
     ];
+
+    /**
+     * Relationship: Role has many Users
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -12,26 +12,46 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role_id', // ✅ Add this line
+        'role_id', // Role ID reference
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast.
+     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
-    // ✅ Add this relationship
+    /**
+     * Relationship: User belongs to a Role.
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Relationship: User has one Employee record.
+     */
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
 }
+

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -11,16 +12,28 @@ class EmployeeController extends Controller
     // GET /api/employees
     public function index()
     {
-        return response()->json(Employee::with(['user', 'department', 'designation'])->get());
+        $employees = Employee::with(['user.role', 'department', 'designation'])->get();
+
+        // Append role_name to each employee
+        $employees->transform(function ($employee) {
+            $employee->role_name = $employee->user ? ($employee->user->role->name ?? 'Not Assigned') : 'Not Assigned';
+            return $employee;
+        });
+
+        return response()->json($employees);
     }
 
     // GET /api/employees/{id}
     public function show($id)
     {
-        $employee = Employee::with(['user', 'department', 'designation'])->find($id);
+        $employee = Employee::with(['user.role', 'department', 'designation'])->find($id);
         if (!$employee) {
             return response()->json(['message' => 'Employee not found'], 404);
         }
+
+        // // Add role_name
+        // $employee->role_name = $employee->user ? ($employee->user->role->name ?? 'Not Assigned') : 'Not Assigned';
+
         return response()->json($employee);
     }
 
@@ -41,6 +54,10 @@ class EmployeeController extends Controller
         ]);
 
         $employee = Employee::create($validated);
+
+        // Add role_name after creation
+        $employee->load('user.role');
+        $employee->role_name = $employee->user ? ($employee->user->role->name ?? 'Not Assigned') : 'Not Assigned';
 
         return response()->json([
             'message' => 'Employee created successfully',
@@ -69,6 +86,10 @@ class EmployeeController extends Controller
         ]);
 
         $employee->update($validated);
+
+        // Add role_name after update
+        $employee->load('user.role');
+        $employee->role_name = $employee->user ? ($employee->user->role->name ?? 'Not Assigned') : 'Not Assigned';
 
         return response()->json([
             'message' => 'Employee updated successfully',
