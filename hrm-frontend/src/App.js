@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import api from "./api/axios";
+
 // Auth
 import Login from "./api/pages/auth/Login";
 import Register from "./api/pages/auth/Register";
@@ -15,6 +21,7 @@ import EmployeeList from "./api/pages/employees/EmployeeList";
 import EmployeeCreate from "./api/pages/employees/EmployeeCreate";
 import EmployeeEdit from "./api/pages/employees/EmployeeEdit";
 import EmployeeView from "./api/pages/employees/EmployeeView";
+import EmployeeDetails from "./api/pages/employees/EmployeeDetails";
 
 // Departments
 import DepartmentList from "./api/pages/department/DepartmentList";
@@ -33,12 +40,14 @@ import AttendanceCheck from "./api/pages/attendance/AttendanceCheck";
 import AttendanceEdit from "./api/pages/attendance/AttendanceEdit";
 import AttendanceList from "./api/pages/attendance/AttendanceList";
 
-// Toast
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import api from "./api/axios";
-import EmployeeDetails from "./api/pages/employees/EmployeeDetails";
+// Role
+import RoleList from "./api/pages/role/RoleList";
+import RoleCreate from "./api/pages/role/RoleCreate";
+import RoleEdit from "./api/pages/role/RoleEdit";
+import RoleView from "./api/pages/role/RoleView";
+
+
+
 
 
 function AppWrapper() {
@@ -118,6 +127,7 @@ function AppWrapper() {
             <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
             <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
             <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
+            <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
               {!user ? (
               <>
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
@@ -165,6 +175,13 @@ function AppWrapper() {
         <Route path="/attendance" element={<AttendanceCheck />} />
         <Route path="/attendance/:id/edit" element={<AttendanceEdit />} />
         <Route path="/attendance/list" element={<AttendanceList />} />
+
+        {/* Roles Routes */}
+        <Route path="/roles" element={<RoleList />} />
+        <Route path="/roles/create" element={<RoleCreate />} />
+        <Route path="/roles/:id/edit" element={<RoleEdit />} />
+        <Route path="/roles/:id" element={<RoleView />} />
+
 
         {/* Default Route */}
         <Route path="/" element={<EmployeeList />} />

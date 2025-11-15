@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
-import AttendanceService from "../../AttendanceService";
+import AttendanceService from "../../services/AttendanceService";
 
 
 const AttendanceCheck = ({ employeeId }) => {

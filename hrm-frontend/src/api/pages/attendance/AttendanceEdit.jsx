@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import AttendanceService from "../../AttendanceService";
+import AttendanceService from "../../services/AttendanceService";
 
 
 const AttendanceEdit = () => {

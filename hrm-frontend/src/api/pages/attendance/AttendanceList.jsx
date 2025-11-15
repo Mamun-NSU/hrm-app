@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import AttendanceService from "../../AttendanceService";
+import AttendanceService from "../../services/AttendanceService";
+
 
 const AttendanceList = () => {
   const [records, setRecords] = useState([]);
