@@ -5,23 +5,36 @@ import { Container, Card, Button, Spinner } from "react-bootstrap";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [employeeId, setEmployeeId] = useState(null);
   const navigate = useNavigate();
 
-  // Navigate back to home page
+  // Go back to home page (Employee List)
   const goBack = () => {
-    navigate("/"); // Redirect to home page (Employee List)
+    navigate("/");
+  };
+
+  // Go to employee details page
+  const goToDetails = () => {
+    if (employeeId) {
+      navigate(`/employees/${employeeId}`);
+    }
   };
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await api.get("/user");
+        const response = await api.get("/user"); // logged-in user
         setUser(response.data);
+
+        // Fetch employee belonging to this user
+        const empRes = await api.get(`/employees/${response.data.id}`);
+        setEmployeeId(empRes.data?.id);
       } catch (error) {
-        navigate("/login"); // Redirect to login if not authenticated
+        navigate("/login");
       }
     };
-    fetchUser();
+
+    fetchProfile();
   }, [navigate]);
 
   if (!user)
@@ -38,11 +51,24 @@ const Profile = () => {
     >
       <Card className="p-4 shadow" style={{ maxWidth: "400px", width: "100%" }}>
         <h3 className="text-center mb-3">Profile</h3>
+
         <p><strong>Name:</strong> {user.name}</p>
         <p><strong>Email:</strong> {user.email}</p>
-        <Button variant="primary" className="w-100 mt-3" onClick={goBack}>
-          Back
-        </Button>
+
+        <div className="d-flex gap-2 mt-3">
+          <Button variant="secondary" className="w-50" onClick={goBack}>
+            Back
+          </Button>
+
+          <Button
+            variant="info"
+            className="w-50"
+            onClick={goToDetails}
+            disabled={!employeeId}
+          >
+            Details
+          </Button>
+        </div>
       </Card>
     </Container>
   );

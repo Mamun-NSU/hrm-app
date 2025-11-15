@@ -38,6 +38,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "./api/axios";
+import EmployeeDetails from "./api/pages/employees/EmployeeDetails";
 
 
 function AppWrapper() {
@@ -145,7 +146,8 @@ function AppWrapper() {
         <Route path="/employees" element={<EmployeeList />} />
         <Route path="/employees/create" element={<EmployeeCreate />} />
         <Route path="/employees/:id/edit" element={<EmployeeEdit />} />
-        <Route path="/employees/:id" element={<EmployeeView />} />
+        {/* <Route path="/employees/:id" element={<EmployeeView />} /> */}
+        <Route path="/employees/:id" element={<EmployeeDetails />} />
 
         {/* Department Routes */}
         <Route path="/departments" element={<DepartmentList />} />
