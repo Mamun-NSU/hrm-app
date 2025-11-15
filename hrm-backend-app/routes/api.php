@@ -7,6 +7,7 @@ use App\Http\Controllers\API\DesignationController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 
 
@@ -42,6 +43,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/attendance/{id}', [AttendanceController::class, 'update']);
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
 });
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/roles', [RoleController::class, 'index']);
+    Route::post('/roles', [RoleController::class, 'store']);
+    Route::get('/roles/{id}', [RoleController::class, 'show']);
+    Route::put('/roles/{id}', [RoleController::class, 'update']);
+    Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
+});
+
 
 
 
