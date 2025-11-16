@@ -44,6 +44,12 @@ import RoleCreate from "./api/pages/role/RoleCreate";
 import RoleEdit from "./api/pages/role/RoleEdit";
 import RoleView from "./api/pages/role/RoleView";
 
+// Leave Management
+import LeaveList from "./api/pages/leaves/LeaveList";
+import LeaveCreate from "./api/pages/leaves/LeaveCreate";
+import LeaveEdit from "./api/pages/leaves/LeaveEdit";
+import LeaveView from "./api/pages/leaves/LeaveView";
+
 function AppWrapper() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -66,15 +72,7 @@ function AppWrapper() {
 
         // Detect Admin using role_id (Admin = 1)
         const adminStatus = loggedUser?.role_id === 1;
-
-        // console.log("=== ADMIN DETECTION ===");
-        // console.log("Logged user:", loggedUser);
-        // console.log("role_id:", loggedUser?.role_id);
-        // console.log("Is Admin?", adminStatus);
-        // console.log("=======================");
-
         setIsAdmin(adminStatus);
-
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setUser(null);
@@ -122,7 +120,13 @@ function AppWrapper() {
                 <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
                 <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
                 <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
+                <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
               </>
+            )}
+
+             {/* Employee Menu */}
+            {!isAdmin && user && (
+              <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
             )}
 
             {/* Common Menu */}
@@ -194,6 +198,16 @@ function AppWrapper() {
             <Route path="/roles/:id" element={<RoleView />} />
           </>
         )}
+
+        {/* Leave Management */}
+        {user && (
+          <>
+            <Route path="/leaves" element={<LeaveList user={user} />} />
+            {user?.role_id === 3 && <Route path="/leaves/create" element={<LeaveCreate />} />}
+          </>
+        )}
+
+       
 
         {/* Default Route */}
         <Route path="/" element={<EmployeeList />} />

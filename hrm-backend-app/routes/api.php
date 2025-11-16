@@ -8,6 +8,8 @@ use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\LeaveRequestController;
+use App\Http\Controllers\LeaveTypeController;
 
 
 
@@ -42,6 +44,23 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/attendance/{id}', [AttendanceController::class, 'update']);
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
 });
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/leaves', [LeaveRequestController::class, 'index']);   // view my leaves
+    Route::post('/leaves', [LeaveRequestController::class, 'store']);  // request leave
+
+    Route::middleware('isAdmin')->group(function () {
+        Route::put('/leaves/{id}', [LeaveRequestController::class, 'update']);  // approve/reject
+        Route::delete('/leaves/{id}', [LeaveRequestController::class, 'destroy']); // delete leave
+    });
+});
+
+
+Route::get('/leave-types', [LeaveTypeController::class, 'index'])->middleware('auth:sanctum');
+
+
+
 
 
 // Route::middleware('auth:sanctum')->group(function () {
