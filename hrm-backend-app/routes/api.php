@@ -10,6 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\SalaryStructureController;
 
 
 
@@ -61,15 +63,14 @@ Route::get('/leave-types', [LeaveTypeController::class, 'index'])->middleware('a
 
 
 
+Route::middleware(['auth:sanctum'])->group(function () {
 
+    // Salary Structure Routes
+    Route::apiResource('salary-structures', SalaryStructureController::class);
 
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::get('/roles', [RoleController::class, 'index']);
-//     Route::post('/roles', [RoleController::class, 'store']);
-//     Route::get('/roles/{id}', [RoleController::class, 'show']);
-//     Route::put('/roles/{id}', [RoleController::class, 'update']);
-//     Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
-// });
+    // Payroll Routes
+    Route::apiResource('payrolls', PayrollController::class);
+});
 
 
 
