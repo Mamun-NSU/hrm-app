@@ -33,6 +33,12 @@ import DesignationCreate from "./api/pages/designation/DesignationCreate";
 import DesignationEdit from "./api/pages/designation/DesignationEdit";
 import DesignationView from "./api/pages/designation/DesignationView";
 
+// Salary Structures (Admin only)
+import SalaryStructureList from "./api/pages/salary-structure/SalaryStructureList";
+import SalaryStructureCreate from "./api/pages/salary-structure/SalaryStructureCreate";
+import SalaryStructureEdit from "./api/pages/salary-structure/SalaryStructureEdit";
+
+
 // Attendance
 import AttendanceCheck from "./api/pages/attendance/AttendanceCheck";
 import AttendanceEdit from "./api/pages/attendance/AttendanceEdit";
@@ -44,15 +50,14 @@ import RoleCreate from "./api/pages/role/RoleCreate";
 import RoleEdit from "./api/pages/role/RoleEdit";
 import RoleView from "./api/pages/role/RoleView";
 
-// Leave Management
-import LeaveList from "./api/pages/leaves/LeaveList";
-import LeaveCreate from "./api/pages/leaves/LeaveCreate";
-import LeaveEdit from "./api/pages/leaves/LeaveEdit";
-import LeaveView from "./api/pages/leaves/LeaveView";
-
 // Payroll
 import PayrollList from "./api/pages/payroll/PayrollList";
 import PayrollCreate from "./api/pages/payroll/PayrollCreate";
+
+// Leave Management
+import LeaveList from "./api/pages/leaves/LeaveList";
+import LeaveCreate from "./api/pages/leaves/LeaveCreate";
+
 
 function AppWrapper() {
   const navigate = useNavigate();
@@ -75,7 +80,8 @@ function AppWrapper() {
         setUser(loggedUser);
 
         // Detect Admin using role_id (Admin = 1)
-        setIsAdmin(loggedUser?.role_id === 1);
+        const adminStatus = loggedUser?.role_id === 1;
+        setIsAdmin(adminStatus);
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setUser(null);
@@ -88,6 +94,19 @@ function AppWrapper() {
 
   // Logout
   const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        await api.post(
+          "/attendance",
+          { type: "logout" },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.error("Failed to record check-out:", error);
+      }
+    }
+
     localStorage.removeItem("token");
     setUser(null);
     setIsAdmin(false);
@@ -110,6 +129,7 @@ function AppWrapper() {
                 <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
                 <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
                 <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
+                <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
                 <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
                 <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
               </>
@@ -118,8 +138,8 @@ function AppWrapper() {
             {/* Employee Menu */}
             {!isAdmin && user && (
               <>
-                <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
-                <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
+              <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
+              <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
               </>
             )}
 
@@ -178,20 +198,19 @@ function AppWrapper() {
           </>
         )}
 
+        {/* Salary Structures (Admin only) */}
+        {isAdmin && (
+          <>
+            <Route path="/salary-structures" element={<SalaryStructureList />} />
+            <Route path="/salary-structures/create" element={<SalaryStructureCreate />} />
+            <Route path="/salary-structures/:id/edit" element={<SalaryStructureEdit />} />
+          </>
+        )}
+
         {/* Attendance */}
         <Route path="/attendance" element={<AttendanceCheck />} />
         <Route path="/attendance/:id/edit" element={<AttendanceEdit />} />
         <Route path="/attendance/list" element={<AttendanceList />} />
-
-        {/* Roles (Admin only) */}
-        {isAdmin && (
-          <>
-            <Route path="/roles" element={<RoleList />} />
-            <Route path="/roles/create" element={<RoleCreate />} />
-            <Route path="/roles/:id/edit" element={<RoleEdit />} />
-            <Route path="/roles/:id" element={<RoleView />} />
-          </>
-        )}
 
         {/* Leave Management */}
         {user && (
@@ -201,7 +220,7 @@ function AppWrapper() {
           </>
         )}
 
-        {/* Payroll */}
+                {/* Payroll */}
         {user && (
           <>
             {isAdmin && <Route path="/payrolls" element={<PayrollList />} />}
@@ -224,8 +243,6 @@ export default function App() {
     </Router>
   );
 }
-
-
 
 
 
@@ -284,15 +301,13 @@ export default function App() {
 // // Payroll
 // import PayrollList from "./api/pages/payroll/PayrollList";
 // import PayrollCreate from "./api/pages/payroll/PayrollCreate";
-// import PayrollEdit from "./api/pages/payroll/PayrollEdit";
-// import PayslipViewer from "./api/pages/payroll/PayslipViewer";
 
 // function AppWrapper() {
 //   const navigate = useNavigate();
 //   const [user, setUser] = useState(null);
 //   const [isAdmin, setIsAdmin] = useState(false);
 
-//   // Fetch current user
+//   // Fetch current user and detect admin
 //   useEffect(() => {
 //     const fetchUser = async () => {
 //       const token = localStorage.getItem("token");
@@ -306,6 +321,8 @@ export default function App() {
 //         const response = await api.get("/user");
 //         const loggedUser = response.data;
 //         setUser(loggedUser);
+
+//         // Detect Admin using role_id (Admin = 1)
 //         setIsAdmin(loggedUser?.role_id === 1);
 //       } catch (error) {
 //         console.error("Failed to fetch user:", error);
@@ -328,6 +345,7 @@ export default function App() {
 //   return (
 //     <>
 //       <ToastContainer />
+
 //       <Navbar bg="dark" variant="dark" expand="lg">
 //         <Container>
 //           <Navbar.Brand as={Link} to="/">HRM App</Navbar.Brand>
@@ -341,12 +359,17 @@ export default function App() {
 //                 <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
 //                 <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
 //                 <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
-//                 <Nav.Link as={Link} to="/payrolls">Payrolls</Nav.Link>
+//                 <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
 //               </>
 //             )}
 
 //             {/* Employee Menu */}
-//             {!isAdmin && user && <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>}
+//             {!isAdmin && user && (
+//               <>
+//                 <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
+//                 <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
+//               </>
+//             )}
 
 //             {/* Common Menu */}
 //             <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
@@ -426,15 +449,14 @@ export default function App() {
 //           </>
 //         )}
 
-//         {/* Payroll Management (Admin only) */}
-//         {isAdmin && (
-//           <>
-//             <Route path="/payrolls" element={<PayrollList />} />
-//             <Route path="/payrolls/create" element={<PayrollCreate />} />
-//             <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />
-//             <Route path="/payrolls/:id/payslip" element={<PayslipViewer />} />
-//           </>
-//         )}
+        // {/* Payroll */}
+        // {user && (
+        //   <>
+        //     {isAdmin && <Route path="/payrolls" element={<PayrollList />} />}
+        //     {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
+        //     {!isAdmin && <Route path="/payrolls" element={<PayrollList />} />} {/* Employee sees own payroll */}
+        //   </>
+        // )}
 
 //         {/* Default Route */}
 //         <Route path="/" element={<EmployeeList />} />
@@ -450,3 +472,5 @@ export default function App() {
 //     </Router>
 //   );
 // }
+
+
