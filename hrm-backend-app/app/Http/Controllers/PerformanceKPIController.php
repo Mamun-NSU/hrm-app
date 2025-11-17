@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class PerformanceKPIController extends Controller
 {
-    public function index() {
+    
+public function index() {
     return PerformanceKPI::all();
 }
 
@@ -20,9 +21,20 @@ public function store(Request $request) {
     return response()->json($kpi, 201);
 }
 
-public function show(PerformanceKPI $performanceKPI) {
-    return $performanceKPI;
+// public function show(PerformanceKPI $performanceKPI) {
+//     return $performanceKPI;
+// }
+
+public function show($id) {
+    $kpi = PerformanceKPI::find($id);
+
+    if (!$kpi) {
+        return response()->json(['message' => 'KPI not found'], 404);
+    }
+
+    return response()->json($kpi);
 }
+
 
 public function update(Request $request, PerformanceKPI $performanceKPI) {
     $validated = $request->validate([

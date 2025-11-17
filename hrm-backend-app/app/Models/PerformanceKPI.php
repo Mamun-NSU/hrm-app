@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PerformanceKPI extends Model
 {
     use HasFactory;
-
+    protected $table = 'performance_kpis';
     protected $fillable = ['name', 'description'];
 
     public function evaluations()

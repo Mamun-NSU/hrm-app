@@ -3,13 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\PerformanceEvaluation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PerformanceEvaluationController extends Controller
 {
+
     public function index() {
-        return PerformanceEvaluation::with('employee.user', 'kpi')->get();
+        $user = Auth::user();
+
+        if ($user->role_id === 1) {
+            // Admin: get all evaluations
+            $evaluations = PerformanceEvaluation::with('employee.user', 'kpi')->get();
+        } else {
+            // Non-admin: get only evaluations of the logged-in employee
+            $evaluations = PerformanceEvaluation::with('employee.user', 'kpi')
+                ->where('employee_id', $user->employee->id)
+                ->get();
+        }
+
+        return response()->json($evaluations);
     }
+
 
     public function store(Request $request) {
         $validated = $request->validate([

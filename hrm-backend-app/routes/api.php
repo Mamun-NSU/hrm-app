@@ -74,10 +74,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('payrolls', PayrollController::class);
 });
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
+
     Route::apiResource('performance-kpis', PerformanceKPIController::class);
     Route::apiResource('performance-evaluations', PerformanceEvaluationController::class);
+
 });
+
 
 
 

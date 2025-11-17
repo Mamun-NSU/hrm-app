@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PerformanceEvaluation extends Model
 {
     use HasFactory;
+    protected $table = 'performance_evaluations';
 
     protected $fillable = [
         'employee_id',
