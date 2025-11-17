@@ -70,6 +70,14 @@ import PerformanceEvaluationCreate from "./api/pages/performance/PerformanceEval
 import PerformanceEvaluationEdit from "./api/pages/performance/PerformanceEvaluationEdit";
 import PerformanceEvaluationView from "./api/pages/performance/PerformanceEvaluationView";
 
+import TrainingList from "./api/pages/training/TrainingList";
+import TrainingEdit from "./api/pages/training/TrainingEdit";
+import TrainingCreate from "./api/pages/training/TrainingCreate"; 
+import EmployeeTrainingList from "./api/pages/training/EmployeeTrainingList";
+import EmployeeTrainingEdit from "./api/pages/training/EmployeeTrainingEdit";
+import EmployeeTrainingCreate from "./api/pages/training/EmployeeTrainingCreate";
+
+
 
 
 function AppWrapper() {
@@ -145,9 +153,10 @@ function AppWrapper() {
                 <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
                 <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
                 <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
-                {/* Performance Modules */}
                 <Nav.Link as={Link} to="/performance-kpis">P. KPIs</Nav.Link>
                 <Nav.Link as={Link} to="/performance-evaluations">P. Evaluations</Nav.Link>
+                <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
+                <Nav.Link as={Link} to="/employee-trainings">E. Trainings</Nav.Link>
               </>
             )}
 
@@ -157,6 +166,8 @@ function AppWrapper() {
               <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
               <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
               <Nav.Link as={Link} to="/performance-evaluations">My P.E.</Nav.Link>
+              <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
+              <Nav.Link as={Link} to="/employee-trainings">My Trainings</Nav.Link>
               </>
             )}
 
@@ -282,6 +293,38 @@ function AppWrapper() {
             <Route path="/performance-evaluations/:id" element={<PerformanceEvaluationView />} />
           </>
         )}
+
+        {/* Training Routes */}
+        {user && (
+          <>
+            {isAdmin && (
+              <>
+                <Route path="/trainings" element={<TrainingList user={user} />} />
+                <Route path="/trainings/create" element={<TrainingCreate user={user} />} />
+                <Route path="/trainings/:id/edit" element={<TrainingEdit user={user} />} />
+              </>
+            )}
+            {!isAdmin && (
+              <Route path="/trainings" element={<TrainingList user={user} />} /> // Employee can view trainings
+            )}
+          </>
+        )}
+
+          {/* EmployeeTraining Routes */}
+          {user && (
+            <>
+              {isAdmin && (
+                <>
+                  <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
+                  <Route path="/employee-trainings/create" element={<EmployeeTrainingCreate user={user} />} />
+                  <Route path="/employee-trainings/:id/edit" element={<EmployeeTrainingEdit user={user} />} />
+                </>
+              )}
+              {!isAdmin && (
+                <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} /> // Employee can view their own trainings
+              )}
+            </>
+          )}
 
 
         {/* Default Route */}
