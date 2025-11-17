@@ -14,6 +14,8 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PerformanceEvaluationController;
 use App\Http\Controllers\PerformanceKPIController;
 use App\Http\Controllers\SalaryStructureController;
+use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\EmployeeTrainingController;
 
 
 
@@ -81,6 +83,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('performance-evaluations', PerformanceEvaluationController::class);
 
 });
+
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::apiResource('trainings', TrainingController::class);
+    Route::apiResource('employee-trainings', EmployeeTrainingController::class);
+
+});
+
 
 
 
