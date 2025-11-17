@@ -85,8 +85,8 @@ const LeaveList = ({ user }) => {
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Leave Requests</h3>
 
-        {/* Show apply button only for employees (role_id = 3) */}
-        {user?.role_id === 3 && (
+        {/* Show apply button for employees and other role with (role_id = 2,3,4) */}
+        {[2, 3, 4].includes(user?.role_id) && (
           <Link className="btn btn-primary" to="/leaves/create">
             + Apply for Leave
           </Link>

@@ -59,4 +59,10 @@ class Employee extends Model
     {
         return $this->hasMany(Payroll::class);
     }
+
+    // Relationship: One Employee can have many Performance Evaluations
+    public function performanceEvaluations()
+    {
+        return $this->hasMany(PerformanceEvaluation::class, 'employee_id');
+    }
 }

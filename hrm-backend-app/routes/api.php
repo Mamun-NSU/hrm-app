@@ -11,6 +11,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\PerformanceEvaluationController;
+use App\Http\Controllers\PerformanceKPIController;
 use App\Http\Controllers\SalaryStructureController;
 
 
@@ -71,6 +73,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Payroll Routes
     Route::apiResource('payrolls', PayrollController::class);
 });
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('performance-kpis', PerformanceKPIController::class);
+    Route::apiResource('performance-evaluations', PerformanceEvaluationController::class);
+});
+
 
 
 
