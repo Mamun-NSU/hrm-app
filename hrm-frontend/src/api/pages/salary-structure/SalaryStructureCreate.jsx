@@ -6,14 +6,32 @@ import api from "../../axios";
 
 const SalaryStructureCreate = () => {
   const [employees, setEmployees] = useState([]);
-  const [form, setForm] = useState({ employee_id: "", basic_salary: "" });
+  const [form, setForm] = useState({
+    employee_id: "",
+    basic_salary: "",
+    house_rent: "",
+    medical_allowance: "",
+    transport_allowance: "",
+    other_allowance: "",
+    taxes_deduction: "",
+    security_deduction: "",
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get("/employees")
+    api
+      .get("/employees")
       .then((res) => setEmployees(res.data))
       .catch(() => toast.error("Failed to load employees!"));
   }, []);
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,34 +47,110 @@ const SalaryStructureCreate = () => {
 
   return (
     <Card className="mt-4 shadow-sm">
-      <Card.Header><h3>Create Salary Structure</h3></Card.Header>
+      <Card.Header>
+        <h3>Create Salary Structure</h3>
+      </Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
+          {/* Employee */}
           <Form.Group className="mb-3">
             <Form.Label>Employee</Form.Label>
             <Form.Select
+              name="employee_id"
               value={form.employee_id}
-              onChange={(e) => setForm({ ...form, employee_id: e.target.value })}
+              onChange={handleChange}
               required
             >
               <option value="">Select Employee</option>
               {employees.map((emp) => (
-                <option key={emp.id} value={emp.id}>{emp.user?.name}</option>
+                <option key={emp.id} value={emp.id}>
+                  {emp.user?.name}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
 
+          {/* Basic Salary */}
           <Form.Group className="mb-3">
             <Form.Label>Basic Salary</Form.Label>
             <Form.Control
               type="number"
+              name="basic_salary"
               value={form.basic_salary}
-              onChange={(e) => setForm({ ...form, basic_salary: e.target.value })}
+              onChange={handleChange}
               required
             />
           </Form.Group>
 
-          <Button type="submit" variant="primary">Create</Button>
+          {/* Allowances */}
+          <h5 className="mt-4">Allowances</h5>
+
+          <Form.Group className="mb-3">
+            <Form.Label>House Rent</Form.Label>
+            <Form.Control
+              type="number"
+              name="house_rent"
+              value={form.house_rent}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Medical Allowance</Form.Label>
+            <Form.Control
+              type="number"
+              name="medical_allowance"
+              value={form.medical_allowance}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Transport Allowance</Form.Label>
+            <Form.Control
+              type="number"
+              name="transport_allowance"
+              value={form.transport_allowance}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Other Allowance</Form.Label>
+            <Form.Control
+              type="number"
+              name="other_allowance"
+              value={form.other_allowance}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          {/* Deductions */}
+          <h5 className="mt-4">Deductions</h5>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Taxes Deduction</Form.Label>
+            <Form.Control
+              type="number"
+              name="taxes_deduction"
+              value={form.taxes_deduction}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Security Deduction</Form.Label>
+            <Form.Control
+              type="number"
+              name="security_deduction"
+              value={form.security_deduction}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Button type="submit" variant="primary">
+            Create
+          </Button>
         </Form>
       </Card.Body>
     </Card>

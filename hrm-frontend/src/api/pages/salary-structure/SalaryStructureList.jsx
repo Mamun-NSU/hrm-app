@@ -28,7 +28,11 @@ const SalaryStructureList = () => {
   const handleEdit = (id) => navigate(`/salary-structures/${id}/edit`);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this salary structure?")) return;
+    if (
+      !window.confirm("Are you sure you want to delete this salary structure?")
+    )
+      return;
+
     try {
       await api.delete(`/salary-structures/${id}`);
       toast.success("Salary structure deleted successfully!");
@@ -43,7 +47,10 @@ const SalaryStructureList = () => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Salary Structures List</h3>
-        <Button variant="primary" onClick={() => navigate("/salary-structures/create")}>
+        <Button
+          variant="primary"
+          onClick={() => navigate("/salary-structures/create")}
+        >
           + Add Salary Structure
         </Button>
       </Card.Header>
@@ -69,8 +76,11 @@ const SalaryStructureList = () => {
             <tbody>
               {structures.length > 0 ? (
                 structures.map((s) => {
-                  const grossSalary = Number(s.basic_salary) + Number(s.allowance_amount);
-                  const netSalary = grossSalary - Number(s.deduction_amount);
+                  const grossSalary =
+                    Number(s.basic_salary) + Number(s.allowance_amount);
+                  const netSalary =
+                    grossSalary - Number(s.deduction_amount);
+
                   return (
                     <tr key={s.id}>
                       <td>{s.id}</td>
@@ -81,15 +91,30 @@ const SalaryStructureList = () => {
                       <td>{grossSalary}</td>
                       <td>{netSalary}</td>
                       <td>
-                        <Button variant="warning" size="sm" className="me-2" onClick={() => handleEdit(s.id)}>Edit</Button>
-                        <Button variant="danger" size="sm" onClick={() => handleDelete(s.id)}>Delete</Button>
+                        <Button
+                          variant="warning"
+                          size="sm"
+                          className="me-2"
+                          onClick={() => handleEdit(s.id)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => handleDelete(s.id)}
+                        >
+                          Delete
+                        </Button>
                       </td>
                     </tr>
                   );
                 })
               ) : (
                 <tr>
-                  <td colSpan="8" className="text-center">No salary structures found.</td>
+                  <td colSpan="8" className="text-center">
+                    No salary structures found.
+                  </td>
                 </tr>
               )}
             </tbody>

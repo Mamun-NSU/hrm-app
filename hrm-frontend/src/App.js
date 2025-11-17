@@ -223,9 +223,9 @@ function AppWrapper() {
                 {/* Payroll */}
         {user && (
           <>
-            {isAdmin && <Route path="/payrolls" element={<PayrollList />} />}
+            {isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
             {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
-            {!isAdmin && <Route path="/payrolls" element={<PayrollList />} />} {/* Employee sees own payroll */}
+            {!isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />} {/* Employee sees own payroll */}
           </>
         )}
 

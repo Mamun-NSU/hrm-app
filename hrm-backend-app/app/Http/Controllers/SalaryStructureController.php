@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class SalaryStructureController extends Controller
 {
     /**
-     * Display a listing of all salary structures.
+     * Show all salary structures
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class SalaryStructureController extends Controller
     }
 
     /**
-     * Store a newly created salary structure.
+     * Store a salary structure
      */
     public function store(Request $request)
     {
@@ -32,19 +32,32 @@ class SalaryStructureController extends Controller
             'medical_allowance'  => 'nullable|numeric|min:0',
             'transport_allowance'=> 'nullable|numeric|min:0',
             'other_allowance'    => 'nullable|numeric|min:0',
+            'taxes_deduction'    => 'nullable|numeric|min:0',
+            'security_deduction' => 'nullable|numeric|min:0',
         ]);
+
+        // Auto calculate totals
+        $validated['allowance_amount'] =
+            ($validated['house_rent'] ?? 0) +
+            ($validated['medical_allowance'] ?? 0) +
+            ($validated['transport_allowance'] ?? 0) +
+            ($validated['other_allowance'] ?? 0);
+
+        $validated['deduction_amount'] =
+            ($validated['taxes_deduction'] ?? 0) +
+            ($validated['security_deduction'] ?? 0);
 
         $structure = SalaryStructure::create($validated);
 
         return response()->json([
             'status' => true,
             'message' => 'Salary structure created successfully.',
-            'data' => $structure
+            'data' => $structure,
         ], 201);
     }
 
     /**
-     * Display a specific salary structure.
+     * Show a single salary structure
      */
     public function show(SalaryStructure $salaryStructure)
     {
@@ -57,7 +70,7 @@ class SalaryStructureController extends Controller
     }
 
     /**
-     * Update an existing salary structure.
+     * Update a salary structure
      */
     public function update(Request $request, SalaryStructure $salaryStructure)
     {
@@ -67,19 +80,32 @@ class SalaryStructureController extends Controller
             'medical_allowance'  => 'nullable|numeric|min:0',
             'transport_allowance'=> 'nullable|numeric|min:0',
             'other_allowance'    => 'nullable|numeric|min:0',
+            'taxes_deduction'    => 'nullable|numeric|min:0',
+            'security_deduction' => 'nullable|numeric|min:0',
         ]);
+
+        // Auto calculation on update
+        $validated['allowance_amount'] =
+            ($validated['house_rent'] ?? 0) +
+            ($validated['medical_allowance'] ?? 0) +
+            ($validated['transport_allowance'] ?? 0) +
+            ($validated['other_allowance'] ?? 0);
+
+        $validated['deduction_amount'] =
+            ($validated['taxes_deduction'] ?? 0) +
+            ($validated['security_deduction'] ?? 0);
 
         $salaryStructure->update($validated);
 
         return response()->json([
             'status' => true,
             'message' => 'Salary structure updated successfully.',
-            'data' => $salaryStructure
+            'data' => $salaryStructure,
         ], 200);
     }
 
     /**
-     * Remove the specified salary structure.
+     * Delete salary structure
      */
     public function destroy(SalaryStructure $salaryStructure)
     {
