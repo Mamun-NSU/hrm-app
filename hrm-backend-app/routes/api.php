@@ -16,7 +16,8 @@ use App\Http\Controllers\PerformanceKPIController;
 use App\Http\Controllers\SalaryStructureController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\EmployeeTrainingController;
-
+use App\Http\Controllers\RecruitmentController;
+use App\Http\Controllers\JobApplicationController;
 
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -90,6 +91,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('trainings', TrainingController::class);
     Route::apiResource('employee-trainings', EmployeeTrainingController::class);
 
+});
+
+
+// Public routes
+Route::get('recruitments', [RecruitmentController::class, 'index']);
+Route::get('recruitments/{id}', [RecruitmentController::class, 'show']);
+Route::post('job-applications', [JobApplicationController::class, 'store']);
+
+// Admin/HR routes
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('recruitments', RecruitmentController::class)->except(['index', 'show']);
+    Route::get('job-applications', [JobApplicationController::class, 'index']);
+    Route::patch('job-applications/{id}', [JobApplicationController::class, 'update']);
+    Route::delete('job-applications/{id}', [JobApplicationController::class, 'destroy']);
 });
 
 

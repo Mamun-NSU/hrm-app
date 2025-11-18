@@ -16,5 +16,11 @@ class Department extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    // Relationship with Recruitment
+    public function recruitments()
+    {
+        return $this->hasMany(Recruitment::class);
+    }
 }
 
