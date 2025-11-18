@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -37,6 +37,7 @@ import DesignationView from "./api/pages/designation/DesignationView";
 import SalaryStructureList from "./api/pages/salary-structure/SalaryStructureList";
 import SalaryStructureCreate from "./api/pages/salary-structure/SalaryStructureCreate";
 import SalaryStructureEdit from "./api/pages/salary-structure/SalaryStructureEdit";
+import SalaryStructureView from "./api/pages/salary-structure/SalaryStructureView";
 
 
 // Attendance
@@ -53,6 +54,8 @@ import RoleView from "./api/pages/role/RoleView";
 // Payroll
 import PayrollList from "./api/pages/payroll/PayrollList";
 import PayrollCreate from "./api/pages/payroll/PayrollCreate";
+import PayrollEdit from "./api/pages/payroll/PayrollEdit";
+import PayslipViewer from "./api/pages/payroll/PayslipViewer";
 
 // Leave Management
 import LeaveList from "./api/pages/leaves/LeaveList";
@@ -78,64 +81,136 @@ import EmployeeTrainingList from "./api/pages/training/EmployeeTrainingList";
 import EmployeeTrainingEdit from "./api/pages/training/EmployeeTrainingEdit";
 import EmployeeTrainingCreate from "./api/pages/training/EmployeeTrainingCreate";
 import EmployeeTrainingView from "./api/pages/training/EmployeeTrainingView";
-import PayrollEdit from "./api/pages/payroll/PayrollEdit";
+
+
 
 
 
 
 function AppWrapper() {
+
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // // Fetch current user and detect admin
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const token = localStorage.getItem("token");
+  //     if (!token) {
+  //       setUser(null);
+  //       setIsAdmin(false);
+  //       return;
+  //     }
+
+  //     try {
+  //       const response = await api.get("/user");
+  //       const loggedUser = response.data;
+  //       setUser(loggedUser);
+
+  //       // Detect Admin using role_id (Admin = 1)
+  //       const adminStatus = loggedUser?.role_id === 1;
+  //       setIsAdmin(adminStatus);
+  //     } catch (error) {
+  //       console.error("Failed to fetch user:", error);
+  //       setUser(null);
+  //       setIsAdmin(false);
+  //     }
+  //   };
+
+  //   fetchUser();
+  // }, []);
+
+
   // Fetch current user and detect admin
-  useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setUser(null);
-        setIsAdmin(false);
-        return;
-      }
-
-      try {
-        const response = await api.get("/user");
-        const loggedUser = response.data;
-        setUser(loggedUser);
-
-        // Detect Admin using role_id (Admin = 1)
-        const adminStatus = loggedUser?.role_id === 1;
-        setIsAdmin(adminStatus);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-        setUser(null);
-        setIsAdmin(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  // Logout
-  const handleLogout = async () => {
+useEffect(() => {
+  const fetchUser = async () => {
     const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        await api.post(
-          "/attendance",
-          { type: "logout" },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      } catch (error) {
-        console.error("Failed to record check-out:", error);
-      }
+    if (!token) {
+      setUser(null);
+      setIsAdmin(false);
+      return;
     }
 
-    localStorage.removeItem("token");
-    setUser(null);
-    setIsAdmin(false);
-    navigate("/login");
+    try {
+      const response = await api.get("/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const loggedUser = response.data;
+      setUser(loggedUser);
+
+      // Detect Admin using role_id (Admin = 1)
+      setIsAdmin(loggedUser.role_id === 1);
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+      setUser(null);
+      setIsAdmin(false);
+    }
   };
+
+  fetchUser();
+
+  // Optional: listen to storage changes (works if login occurs in another tab)
+  const handleStorageChange = () => fetchUser();
+  window.addEventListener("storage", handleStorageChange);
+
+  return () => {
+    window.removeEventListener("storage", handleStorageChange);
+  };
+}, []);
+
+
+  // // Logout
+  // const handleLogout = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     try {
+  //       await api.post(
+  //         "/attendance",
+  //         { type: "logout" },
+  //         { headers: { Authorization: `Bearer ${token}` } }
+  //       );
+  //     } catch (error) {
+  //       console.error("Failed to record check-out:", error);
+  //     }
+  //   }
+
+  //   localStorage.removeItem("token");
+  //   setUser(null);
+  //   setIsAdmin(false);
+  //   navigate("/login");
+  // };
+
+  // Logout
+const handleLogout = async () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    try {
+      // Record logout attendance
+      await api.post(
+        "/attendance",
+        { type: "logout" },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (error) {
+      console.error("Failed to record check-out:", error);
+      toast.warning("Logout attendance could not be recorded.");
+    }
+  }
+
+  // Clear user session
+  localStorage.removeItem("token");
+  setUser(null);
+  setIsAdmin(false);
+
+  // Navigate to login page
+  navigate("/login");
+
+  // Optional: display logout success
+  toast.success("You have logged out successfully.");
+};
+
 
   return (
     <>
@@ -196,7 +271,9 @@ function AppWrapper() {
 
       <Routes>
         {/* Auth Routes */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser} setIsAdmin={setIsAdmin} />}
+        />
+
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
 
@@ -245,6 +322,7 @@ function AppWrapper() {
             <Route path="/salary-structures" element={<SalaryStructureList />} />
             <Route path="/salary-structures/create" element={<SalaryStructureCreate />} />
             <Route path="/salary-structures/:id/edit" element={<SalaryStructureEdit />} />
+            <Route path="/salary-structures/:id" element={<SalaryStructureView />} />
           </>
         )}
 
@@ -265,6 +343,7 @@ function AppWrapper() {
         {user && (
           <>
           <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />
+          <Route path="/payrolls/:id/payslip" element={<PayslipViewer />} />
             {isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
             {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
             {!isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />} {/* Employee sees own payroll */}

@@ -9,6 +9,8 @@ import PerformanceKPIService from "../../services/PerformanceKPIService";
 
 const PerformanceEvaluationEdit = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     employee_id: "",
     kpi_id: "",
@@ -20,7 +22,7 @@ const PerformanceEvaluationEdit = () => {
   const [employees, setEmployees] = useState([]);
   const [kpis, setKpis] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +57,7 @@ const PerformanceEvaluationEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSaving(true);
     try {
       await PerformanceEvaluationService.update(id, form);
       toast.success("Evaluation updated successfully!");
@@ -62,6 +65,8 @@ const PerformanceEvaluationEdit = () => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to update evaluation!");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -140,7 +145,14 @@ const PerformanceEvaluationEdit = () => {
                 />
               </Form.Group>
 
-              <Button type="submit" className="w-100" variant="primary">Update Evaluation</Button>
+              <div className="d-flex justify-content-between">
+                <Button type="submit" variant="primary" disabled={saving}>
+                  {saving ? <Spinner animation="border" size="sm" /> : "Update Performance"}
+                </Button>
+                <Button variant="secondary" onClick={() => navigate("/performance-evaluations")}>
+                  Back
+                </Button>
+              </div>
             </Form>
           </Card>
         </Col>

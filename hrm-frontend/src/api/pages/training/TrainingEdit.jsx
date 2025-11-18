@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Form, Spinner } from "react-bootstrap";
+import { Card, Button, Form, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TrainingService from "../../services/TrainingService";
@@ -26,6 +26,7 @@ const TrainingEdit = () => {
       setTraining(res.data);
     } catch (error) {
       toast.error("Failed to load training!");
+      navigate("/trainings");
     } finally {
       setLoading(false);
     }
@@ -49,61 +50,71 @@ const TrainingEdit = () => {
     }
   };
 
-  if (loading) return <Spinner animation="border" />;
+  if (loading) return <Spinner animation="border" className="d-block mx-auto mt-5" />;
 
   return (
-    <Card className="mt-4 shadow-sm">
-      <Card.Header>
-        <h3>Edit Training</h3>
-        <Button variant="secondary" onClick={() => navigate("/trainings")}>Back</Button>
-      </Card.Header>
-      <Card.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              value={training.title}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              name="description"
-              value={training.description}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Start Date</Form.Label>
-            <Form.Control
-              type="date"
-              name="start_date"
-              value={training.start_date}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>End Date</Form.Label>
-            <Form.Control
-              type="date"
-              name="end_date"
-              value={training.end_date}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit" disabled={saving}>
-            {saving ? "Saving..." : "Update"}
-          </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <Row className="w-100">
+        <Col md={{ span: 6, offset: 3 }}>
+          <Card className="p-4 shadow">
+            <h3 className="text-center mb-4">Edit Training</h3>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="title"
+                  value={training.title}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  name="description"
+                  value={training.description}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Start Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="start_date"
+                  value={training.start_date}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>End Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="end_date"
+                  value={training.end_date}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+
+              <div className="d-flex gap-2">
+                <Button variant="secondary" className="w-50" onClick={() => navigate("/trainings")}>
+                  Back
+                </Button>
+                <Button variant="primary" className="w-50" type="submit" disabled={saving}>
+                  {saving ? "Saving..." : "Update Training"}
+                </Button>
+              </div>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

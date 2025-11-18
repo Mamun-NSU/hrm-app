@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Spinner } from "react-bootstrap";
+import { Card, Button, Spinner, Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
+import api from "../../axios";
 import { toast } from "react-toastify";
-import TrainingService from "../../services/TrainingService";
 
 const TrainingView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [training, setTraining] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+  // Get logged-in user from localStorage
+  const loggedInUser = JSON.parse(localStorage.getItem("user")) || {};
+  const isAdmin = loggedInUser.role_id === 1;
 
   useEffect(() => {
     fetchTraining();
@@ -16,32 +19,68 @@ const TrainingView = () => {
 
   const fetchTraining = async () => {
     try {
-      const res = await TrainingService.get(id);
+      const res = await api.get(`/trainings/${id}`);
       setTraining(res.data);
     } catch (error) {
-      toast.error("Failed to load training!");
-    } finally {
-      setLoading(false);
+      toast.error("Failed to load training details.");
+      navigate("/trainings");
     }
   };
 
-  if (loading) return <Spinner animation="border" />;
-
-  if (!training) return <p className="text-center">Training not found.</p>;
+  if (!training) {
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" /> Loading training details...
+      </Container>
+    );
+  }
 
   return (
-    <Card className="mt-4 shadow-sm">
-      <Card.Header>
-        <h3>Training Details</h3>
-        <Button variant="secondary" onClick={() => navigate("/trainings")}>Back</Button>
-      </Card.Header>
-      <Card.Body>
-        <p><strong>Title:</strong> {training.title}</p>
-        <p><strong>Description:</strong> {training.description}</p>
-        <p><strong>Start Date:</strong> {training.start_date}</p>
-        <p><strong>End Date:</strong> {training.end_date}</p>
-      </Card.Body>
-    </Card>
+    <Container className="mt-4 d-flex justify-content-center">
+      <Card className="shadow p-4" style={{ maxWidth: "650px", width: "100%" }}>
+        <h3 className="text-center mb-4">Training Details</h3>
+
+        <Row className="mb-2">
+          <Col sm={4}><strong>Title:</strong></Col>
+          <Col sm={8}>{training.title}</Col>
+        </Row>
+
+        <Row className="mb-2">
+          <Col sm={4}><strong>Description:</strong></Col>
+          <Col sm={8}>{training.description}</Col>
+        </Row>
+
+        <Row className="mb-2">
+          <Col sm={4}><strong>Start Date:</strong></Col>
+          <Col sm={8}>{training.start_date}</Col>
+        </Row>
+
+        <Row className="mb-4">
+          <Col sm={4}><strong>End Date:</strong></Col>
+          <Col sm={8}>{training.end_date}</Col>
+        </Row>
+
+        <div className="d-flex gap-2">
+          <Button
+            variant="secondary"
+            className={isAdmin ? "w-50" : "w-100"}
+            onClick={() => navigate("/trainings")}
+          >
+            Back
+          </Button>
+
+          {isAdmin && (
+            <Button
+              variant="warning"
+              className="w-50"
+              onClick={() => navigate(`/trainings/${id}/edit`)}
+            >
+              Edit
+            </Button>
+          )}
+        </div>
+      </Card>
+    </Container>
   );
 };
 

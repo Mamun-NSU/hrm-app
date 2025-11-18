@@ -1,29 +1,52 @@
+// src/pages/payrolls/PayslipViewer.jsx
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Card, Spinner } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import { Card, Button, Container, Spinner } from "react-bootstrap";
 import api from "../../axios";
 
 const PayslipViewer = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [payroll, setPayroll] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`/payrolls/${id}`).then((res) => setPayroll(res.data)).finally(() => setLoading(false));
+    const fetchPayroll = async () => {
+      try {
+        const res = await api.get(`/payrolls/${id}`);
+        setPayroll(res.data);
+      } catch (err) {
+        console.error("Failed to fetch payroll:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPayroll();
   }, [id]);
 
-  if (loading) return <Spinner animation="border" className="mt-5 d-block mx-auto" />;
+  if (loading) return <Spinner animation="border" className="d-block mx-auto mt-5" />;
 
   if (!payroll) return <p className="text-center mt-4">Payslip not found.</p>;
 
   return (
-    <Card className="mt-4 p-4 shadow-sm">
-      <h4>Payslip for {payroll.employee?.user?.name}</h4>
-      <p><strong>Month:</strong> {payroll.month_year}</p>
-      <p><strong>Gross Salary:</strong> {payroll.gross_salary}</p>
-      <p><strong>Net Salary:</strong> {payroll.net_salary}</p>
-      <p><strong>Generated At:</strong> {new Date(payroll.generated_at).toLocaleDateString()}</p>
-    </Card>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <Card className="p-4 shadow" style={{ maxWidth: "500px", width: "100%" }}>
+        <h3 className="text-center mb-4">Payslip Details</h3>
+        <p><strong>Employee:</strong> {payroll.employee?.employee_code ?? "—"}</p>
+        <p><strong>Month:</strong> {payroll.month_year}</p>
+        <p><strong>Gross Salary:</strong> {payroll.gross_salary}</p>
+        <p><strong>Net Salary:</strong> {payroll.net_salary}</p>
+        <p><strong>Generated At:</strong> {new Date(payroll.generated_at).toLocaleDateString()}</p>
+
+        <Button
+          variant="primary"
+          className="w-100 mt-3"
+          onClick={() => navigate("/payrolls")}
+        >
+          Back to List
+        </Button>
+      </Card>
+    </Container>
   );
 };
 

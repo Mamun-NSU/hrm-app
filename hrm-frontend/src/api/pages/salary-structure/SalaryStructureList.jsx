@@ -25,6 +25,7 @@ const SalaryStructureList = () => {
     }
   };
 
+  const handleView = (id) => navigate(`/salary-structures/${id}`);
   const handleEdit = (id) => navigate(`/salary-structures/${id}/edit`);
 
   const handleDelete = async (id) => {
@@ -92,6 +93,15 @@ const SalaryStructureList = () => {
                       <td>{netSalary}</td>
                       <td>
                         <Button
+                          variant="info"
+                          size="sm"
+                          className="me-2"
+                          onClick={() => handleView(s.id)}
+                        >
+                          View
+                        </Button>
+
+                        <Button
                           variant="warning"
                           size="sm"
                           className="me-2"
@@ -99,6 +109,7 @@ const SalaryStructureList = () => {
                         >
                           Edit
                         </Button>
+
                         <Button
                           variant="danger"
                           size="sm"
