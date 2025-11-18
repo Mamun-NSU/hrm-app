@@ -94,18 +94,55 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-// Public routes
-Route::get('recruitments', [RecruitmentController::class, 'index']);
-Route::get('recruitments/{id}', [RecruitmentController::class, 'show']);
-Route::post('job-applications', [JobApplicationController::class, 'store']);
+// --------------------------
+// Public Access
+// --------------------------
+Route::post('/job-applications/public', [JobApplicationController::class, 'storePublic']);
 
-// Admin/HR routes
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::apiResource('recruitments', RecruitmentController::class)->except(['index', 'show']);
-    Route::get('job-applications', [JobApplicationController::class, 'index']);
-    Route::patch('job-applications/{id}', [JobApplicationController::class, 'update']);
-    Route::delete('job-applications/{id}', [JobApplicationController::class, 'destroy']);
+// Public route to get all available jobs
+Route::get('/job-recruitments', [JobApplicationController::class, 'getOpenJobs']);
+
+
+// --------------------------
+// Employee Access
+// --------------------------
+Route::middleware('auth:sanctum')->group(function () {
+    // Employee can view their applications
+    Route::get('/job-applications/employee', [JobApplicationController::class, 'employeeIndex']);
+    // Employee can create new application
+    Route::post('/job-applications/employee', [JobApplicationController::class, 'storeEmployee']);
 });
+
+Route::middleware('auth:sanctum')->get('/job-applications/employee', [JobApplicationController::class, 'employeeIndex']);
+
+
+// --------------------------
+// Admin Access
+// --------------------------
+Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+    Route::get('/job-applications', [JobApplicationController::class, 'index']);
+    Route::get('/job-applications/{id}', [JobApplicationController::class, 'show']);
+    Route::put('/job-applications/{id}', [JobApplicationController::class, 'update']);
+    Route::delete('/job-applications/{id}', [JobApplicationController::class, 'destroy']);
+});
+
+
+// --------------------------
+// Public Access
+// --------------------------
+Route::get('/recruitments', [RecruitmentController::class, 'indexPublic']);
+
+// --------------------------
+// Admin Access
+// --------------------------
+Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+    Route::get('/admin/recruitments', [RecruitmentController::class, 'index']);
+    Route::post('/admin/recruitments', [RecruitmentController::class, 'store']);
+    Route::get('/admin/recruitments/{id}', [RecruitmentController::class, 'show']);
+    Route::put('/admin/recruitments/{id}', [RecruitmentController::class, 'update']);
+    Route::delete('/admin/recruitments/{id}', [RecruitmentController::class, 'destroy']);
+});
+
 
 
 

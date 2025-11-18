@@ -70,4 +70,10 @@ class Employee extends Model
     {
         return $this->hasMany(EmployeeTraining::class);
     }
+
+     // NEW — Employee internal job applications
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class);
+    }
 }

@@ -73,17 +73,31 @@ import PerformanceEvaluationCreate from "./api/pages/performance/PerformanceEval
 import PerformanceEvaluationEdit from "./api/pages/performance/PerformanceEvaluationEdit";
 import PerformanceEvaluationView from "./api/pages/performance/PerformanceEvaluationView";
 
+// Training
 import TrainingList from "./api/pages/training/TrainingList";
 import TrainingEdit from "./api/pages/training/TrainingEdit";
 import TrainingCreate from "./api/pages/training/TrainingCreate"; 
 import TrainingView from "./api/pages/training/TrainingView";
+
+// EmployeeTraining
 import EmployeeTrainingList from "./api/pages/training/EmployeeTrainingList";
 import EmployeeTrainingEdit from "./api/pages/training/EmployeeTrainingEdit";
 import EmployeeTrainingCreate from "./api/pages/training/EmployeeTrainingCreate";
 import EmployeeTrainingView from "./api/pages/training/EmployeeTrainingView";
 
+// Recruitments
+import RecruitmentList from "./api/pages/recruitments/RecruitmentList";
+import RecruitmentCreate from "./api/pages/recruitments/RecruitmentCreate";
+import RecruitmentEdit from "./api/pages/recruitments/RecruitmentEdit";
+import RecruitmentView from "./api/pages/recruitments/RecruitmentView";
 
-
+// Job Applications
+import JobApplicationCreate from "./api/pages/job-applications/JobApplicationCreate";
+import JobApplicationList from "./api/pages/job-applications/JobApplicationList";
+import JobApplicationEdit from "./api/pages/job-applications/JobApplicationEdit";
+import JobApplicationView from "./api/pages/job-applications/JobApplicationView";
+import JobApplicationApply from "./api/pages/job-applications/JobApplicationApply";
+import JobApplicationPublic from "./api/pages/job-applications/JobApplicationPublic";
 
 
 
@@ -92,34 +106,6 @@ function AppWrapper() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-
-  // // Fetch current user and detect admin
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (!token) {
-  //       setUser(null);
-  //       setIsAdmin(false);
-  //       return;
-  //     }
-
-  //     try {
-  //       const response = await api.get("/user");
-  //       const loggedUser = response.data;
-  //       setUser(loggedUser);
-
-  //       // Detect Admin using role_id (Admin = 1)
-  //       const adminStatus = loggedUser?.role_id === 1;
-  //       setIsAdmin(adminStatus);
-  //     } catch (error) {
-  //       console.error("Failed to fetch user:", error);
-  //       setUser(null);
-  //       setIsAdmin(false);
-  //     }
-  //   };
-
-  //   fetchUser();
-  // }, []);
 
 
   // Fetch current user and detect admin
@@ -159,27 +145,6 @@ useEffect(() => {
   };
 }, []);
 
-
-  // // Logout
-  // const handleLogout = async () => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     try {
-  //       await api.post(
-  //         "/attendance",
-  //         { type: "logout" },
-  //         { headers: { Authorization: `Bearer ${token}` } }
-  //       );
-  //     } catch (error) {
-  //       console.error("Failed to record check-out:", error);
-  //     }
-  //   }
-
-  //   localStorage.removeItem("token");
-  //   setUser(null);
-  //   setIsAdmin(false);
-  //   navigate("/login");
-  // };
 
   // Logout
 const handleLogout = async () => {
@@ -236,6 +201,8 @@ const handleLogout = async () => {
                 <Nav.Link as={Link} to="/performance-evaluations">P. Evaluations</Nav.Link>
                 <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
                 <Nav.Link as={Link} to="/employee-trainings">E. Trainings</Nav.Link>
+                <Nav.Link as={Link} to="/recruitments">Recruitments</Nav.Link>
+                <Nav.Link as={Link} to="/job-applications">Job Applications</Nav.Link>
               </>
             )}
 
@@ -245,8 +212,9 @@ const handleLogout = async () => {
               <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
               <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
               <Nav.Link as={Link} to="/performance-evaluations">My P.E.</Nav.Link>
-              {/* <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link> */}
               <Nav.Link as={Link} to="/employee-trainings">My Trainings</Nav.Link>
+              <Nav.Link as={Link} to="/job-applications">My Applications</Nav.Link> 
+              <Nav.Link as={Link} to="/job-applications/apply">Apply Now</Nav.Link>
               </>
             )}
 
@@ -254,9 +222,19 @@ const handleLogout = async () => {
             <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
             <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
 
+             {/* Admin/HR Menu */}
+              {isAdmin && (
+                <>
+                  <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
+                  <Nav.Link as={Link} to="/job-applications">Applications</Nav.Link>
+                </>
+              )}
+
             {/* Auth Links */}
             {!user ? (
               <>
+                <Nav.Link as={Link} to="/recruitments/public">Open Job Posts</Nav.Link>
+                <Nav.Link as={Link} to="/job-applications/public">Apply Now</Nav.Link>
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/register">Register</Nav.Link>
               </>
@@ -412,6 +390,45 @@ const handleLogout = async () => {
               <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} />} />
             </>
           )}
+
+          {/* // Public and Employee/User */}
+          <Route path="/recruitments" element={<RecruitmentList user={user} />} />
+          <Route path="/recruitments/:id" element={<RecruitmentView user={user} />} />
+
+          {/* // Admin Only */}
+          {isAdmin && (
+            <>
+              <Route path="/recruitments/create" element={<RecruitmentCreate />} />
+              <Route path="/recruitments/:id/edit" element={<RecruitmentEdit />} />
+            </>
+          )}
+
+        {/* // Public user can apply without login */}
+        <Route path="/job-applications/apply/:recruitmentId" element={<JobApplicationCreate />} />
+
+  
+          {user && (
+            <>
+              
+              <Route path="/job-applications" element={<JobApplicationList />} />
+              <Route path="/job-applications/apply" element={<JobApplicationApply />} />
+            </>
+          )}
+
+           {!user && (
+            <>
+              <Route path="/job-applications/public" element={<JobApplicationPublic />} />
+            </>
+          )}
+
+        {/* // Admin: Manage all applications */}
+        {isAdmin && (
+          <>
+            <Route path="/admin/job-applications" element={<JobApplicationList />} />
+            <Route path="/admin/job-applications/:id" element={<JobApplicationView />} />
+            <Route path="/admin/job-applications/:id/edit" element={<JobApplicationEdit />} />
+          </>
+        )}
 
 
         {/* Default Route */}
