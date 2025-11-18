@@ -102,15 +102,16 @@ const EmployeeTrainingEdit = () => {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Status</Form.Label>
-            <Form.Select name="status" value={record.status} onChange={handleChange} required>
-              <option value="">Select Status</option>
-              <option value="Pending">Pending</option>
-              <option value="Completed">Completed</option>
-              <option value="Cancelled">Cancelled</option>
-            </Form.Select>
-          </Form.Group>
+         <Form.Group className="mb-3">
+          <Form.Label>Status</Form.Label>
+          <Form.Select name="status" value={record.status} onChange={handleChange} required>
+            <option value="">Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="in_progress">In Progress</option>
+          </Form.Select>
+        </Form.Group>
+
 
           <Button variant="primary" type="submit" disabled={saving}>
             {saving ? "Saving..." : "Update"}

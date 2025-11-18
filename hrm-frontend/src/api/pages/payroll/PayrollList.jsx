@@ -112,14 +112,14 @@ const PayrollList = ({ user }) => {
                       {/* Show Edit + Delete only if Admin */}
                       {user?.role_id === 1 && (
                         <>
-                          <Button
+                          {/* <Button
                             variant="warning"
                             size="sm"
                             className="me-2"
                             onClick={() => handleEdit(p.id)}
                           >
                             Edit
-                          </Button>
+                          </Button> */}
 
                           <Button
                             variant="danger"

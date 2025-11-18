@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import api from "../../axios";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const PayrollCreate = () => {
   const [employees, setEmployees] = useState([]);
   const [salaryStructures, setSalaryStructures] = useState({});
   const [form, setForm] = useState({ employee_id: "", month_year: "" });
+  const navigate = useNavigate(); // Initialize navigate
 
   // Fetch employees and salary structures on mount
   useEffect(() => {
@@ -60,7 +62,7 @@ const PayrollCreate = () => {
     try {
       await api.post("/payrolls", payload);
       toast.success("Payroll generated successfully!");
-      setForm({ employee_id: "", month_year: "" });
+      navigate("/payrolls"); // Redirect to payrolls list
     } catch (err) {
       toast.error("Failed to generate payroll!");
       console.error(err);

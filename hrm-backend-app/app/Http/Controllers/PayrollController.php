@@ -27,6 +27,17 @@ class PayrollController extends Controller
         return response()->json($payrolls);
     }
 
+    public function show($id)
+    {
+        $payroll = Payroll::with('employee')->find($id);
+
+        if (!$payroll) {
+            return response()->json(['message' => 'Payroll not found'], 404);
+        }
+
+        return response()->json($payroll);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -41,7 +41,7 @@ class EmployeeTrainingController extends Controller
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required|exists:employees,id',
             'training_id' => 'required|exists:trainings,id',
-            'status' => 'required|string|in:pending,completed,in-progress',
+            'status' => 'required|string|in:pending,completed,in_progress,cancelled',
         ]);
 
         if ($validator->fails()) {
@@ -80,7 +80,7 @@ class EmployeeTrainingController extends Controller
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required|exists:employees,id',
             'training_id' => 'required|exists:trainings,id',
-            'status' => 'required|string|in:pending,completed,in-progress',
+            'status' => 'required|string|in:pending,completed,in_progress,cancelled',
         ]);
 
         if ($validator->fails()) {

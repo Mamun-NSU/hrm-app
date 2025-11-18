@@ -73,9 +73,12 @@ import PerformanceEvaluationView from "./api/pages/performance/PerformanceEvalua
 import TrainingList from "./api/pages/training/TrainingList";
 import TrainingEdit from "./api/pages/training/TrainingEdit";
 import TrainingCreate from "./api/pages/training/TrainingCreate"; 
+import TrainingView from "./api/pages/training/TrainingView";
 import EmployeeTrainingList from "./api/pages/training/EmployeeTrainingList";
 import EmployeeTrainingEdit from "./api/pages/training/EmployeeTrainingEdit";
 import EmployeeTrainingCreate from "./api/pages/training/EmployeeTrainingCreate";
+import EmployeeTrainingView from "./api/pages/training/EmployeeTrainingView";
+import PayrollEdit from "./api/pages/payroll/PayrollEdit";
 
 
 
@@ -147,9 +150,10 @@ function AppWrapper() {
             {isAdmin && (
               <>
                 <Nav.Link as={Link} to="/users">Users</Nav.Link>
-                <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
+                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                {/* <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
                 <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
-                <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
+                <Nav.Link as={Link} to="/roles">Roles</Nav.Link> */}
                 <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
                 <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
                 <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
@@ -166,7 +170,7 @@ function AppWrapper() {
               <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
               <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
               <Nav.Link as={Link} to="/performance-evaluations">My P.E.</Nav.Link>
-              <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
+              {/* <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link> */}
               <Nav.Link as={Link} to="/employee-trainings">My Trainings</Nav.Link>
               </>
             )}
@@ -183,7 +187,6 @@ function AppWrapper() {
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                 <Button variant="danger" className="ms-2" onClick={handleLogout}>Logout</Button>
               </>
             )}
@@ -261,6 +264,7 @@ function AppWrapper() {
                 {/* Payroll */}
         {user && (
           <>
+          <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />
             {isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
             {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
             {!isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />} {/* Employee sees own payroll */}
@@ -307,7 +311,10 @@ function AppWrapper() {
             {!isAdmin && (
               <Route path="/trainings" element={<TrainingList user={user} />} /> // Employee can view trainings
             )}
+            <Route path="/trainings/:id" element={<TrainingView user={user} />} />
           </>
+          
+
         )}
 
           {/* EmployeeTraining Routes */}
@@ -323,6 +330,7 @@ function AppWrapper() {
               {!isAdmin && (
                 <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} /> // Employee can view their own trainings
               )}
+              <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} />} />
             </>
           )}
 

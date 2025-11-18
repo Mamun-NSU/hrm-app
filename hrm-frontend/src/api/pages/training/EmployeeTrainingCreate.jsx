@@ -65,7 +65,7 @@ const EmployeeTrainingCreate = () => {
             <Form.Select name="status" value={data.status} onChange={handleChange}>
               <option value="pending">Pending</option>
               <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="in_progress">In Progress</option>
             </Form.Select>
           </Form.Group>
           <Button type="submit">{id ? "Update" : "Create"}</Button>
