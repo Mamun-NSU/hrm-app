@@ -39,9 +39,12 @@ const EmployeeList = ({ user }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Employees List</h3>
-        <Button variant="primary" onClick={() => navigate("/employees/create")}>
-          + Add Employee
-        </Button>
+        {user?.role_id === 1 && ( <>
+             <Button variant="primary" onClick={() => navigate("/employees/create")}>
+              + Add Employee
+            </Button>
+          </>
+        )}
       </Card.Header>
       <Card.Body>
         <Table striped bordered hover responsive>
