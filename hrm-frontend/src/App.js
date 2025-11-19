@@ -61,6 +61,12 @@ import PayslipViewer from "./api/pages/payroll/PayslipViewer";
 import LeaveList from "./api/pages/leaves/LeaveList";
 import LeaveCreate from "./api/pages/leaves/LeaveCreate";
 
+// Leave Type
+import LeaveTypeList from "./api/pages/leave-type/LeaveTypeList";
+import LeaveTypeCreate from "./api/pages/leave-type/LeaveTypeCreate";
+import LeaveTypeView from "./api/pages/leave-type/LeaveTypeView";
+import LeaveTypeEdit from "./api/pages/leave-type/LeaveTypeEdit";
+
 // Performance KPI
 import PerformanceKPIList from "./api/pages/performance/PerformanceKPIList";
 import PerformanceKPICreate from "./api/pages/performance/PerformanceKPICreate";
@@ -99,6 +105,7 @@ import JobApplicationView from "./api/pages/job-applications/JobApplicationView"
 import JobApplicationApply from "./api/pages/job-applications/JobApplicationApply";
 import JobApplicationPublic from "./api/pages/job-applications/JobApplicationPublic";
 import PublicRecruitmentList from "./api/pages/recruitments/PublicRecruitmentList";
+
 
 
 
@@ -232,7 +239,7 @@ const handleLogout = async () => {
               <Nav.Link as={Link} to="/employee-trainings">My Trainings</Nav.Link>
               <Nav.Link as={Link} to="/public-recruitments">Open Job Posts</Nav.Link>
               <Nav.Link as={Link} to="/job-applications">My Applications</Nav.Link> 
-              <Nav.Link as={Link} to="/job-applications/apply">Apply Now</Nav.Link>
+              {/* <Nav.Link as={Link} to="/job-applications/apply">Apply Now</Nav.Link> */}
               </>
             )}
 
@@ -275,6 +282,7 @@ const handleLogout = async () => {
             <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
             <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
             <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
+            <Nav.Link as={Link} to="/leave-types">Leave Types</Nav.Link>
             <Nav.Link as={Link} to="/performance-kpis">Performance KPIs</Nav.Link>
             <Nav.Link as={Link} to="/performance-evaluations">Performance Evaluations</Nav.Link>
             <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
@@ -296,10 +304,10 @@ const handleLogout = async () => {
         {isAdmin && <Route path="/users" element={<Users />} />}
 
         {/* Employees */}
-        <Route path="/employees" element={<EmployeeList />} />
+        <Route path="/employees" element={<EmployeeList user={user}/>} />
         <Route path="/employees/create" element={<EmployeeCreate />} />
-        <Route path="/employees/:id/edit" element={<EmployeeEdit />} />
-        <Route path="/employees/:id" element={<EmployeeDetails />} />
+        <Route path="/employees/:id/edit" element={<EmployeeEdit user={user} isAdmin={isAdmin}/>} />
+        <Route path="/employees/:id" element={<EmployeeDetails user={user}/>} />
 
         {/* Departments (Admin only) */}
         {isAdmin && (
@@ -354,7 +362,17 @@ const handleLogout = async () => {
           </>
         )}
 
-                {/* Payroll */}
+        {/* LeaveType (Admin only) */}
+        {isAdmin && (
+          <>
+          <Route path="/leave-types" element={<LeaveTypeList />} />
+          <Route path="/leave-types/create" element={<LeaveTypeCreate />} />
+          <Route path="/leave-types/:id" element={<LeaveTypeView />} />
+          <Route path="/leave-types/:id/edit" element={<LeaveTypeEdit />} />
+          </>
+        )}
+
+        {/* Payroll */}
         {user && (
           <>
           <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />

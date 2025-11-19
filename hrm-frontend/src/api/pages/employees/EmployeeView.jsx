@@ -76,6 +76,3 @@ const EmployeeView = () => {
     </Card>
   );
 };
-
-export default EmployeeView;
-

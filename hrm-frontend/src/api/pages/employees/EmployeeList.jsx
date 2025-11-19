@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../axios";
 
-const EmployeeList = () => {
+const EmployeeList = ({ user }) => {
   const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
 
@@ -79,21 +79,25 @@ const EmployeeList = () => {
                     >
                       Details
                     </Button>
-                    <Button
-                      variant="warning"
-                      size="sm"
-                      className="me-2"
-                      onClick={() => navigate(`/employees/${emp.id}/edit`)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleDelete(emp.id)}
-                    >
-                      Delete
-                    </Button>
+
+                    {/* Show Edit + Delete only if Admin */}
+                    {user?.role_id === 1 && (
+                      <>
+                        <Button
+                          variant="warning"
+                          size="sm"
+                          className="me-2"
+                          onClick={() => navigate(`/employees/${emp.id}/edit`)}>
+                          Edit
+                        </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => handleDelete(emp.id)}>
+                          Delete
+                        </Button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))

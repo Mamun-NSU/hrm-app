@@ -69,6 +69,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/leave-types', [LeaveTypeController::class, 'index'])->middleware('auth:sanctum');
 
+Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+    Route::post('/leave-types', [LeaveTypeController::class, 'store']);
+    Route::get('/leave-types/{id}', [LeaveTypeController::class, 'show']);
+    Route::put('/leave-types/{id}', [LeaveTypeController::class, 'update']);
+    Route::delete('/leave-types/{id}', [LeaveTypeController::class, 'destroy']);
+});
+
+
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

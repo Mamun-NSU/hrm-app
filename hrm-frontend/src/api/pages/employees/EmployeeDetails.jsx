@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axios";
 import { toast } from "react-toastify";
 
-const EmployeeDetails = () => {
+const EmployeeDetails = ({ user }) => {
   const { id } = useParams(); // employee id from URL
   const navigate = useNavigate();
 
@@ -102,19 +102,35 @@ const EmployeeDetails = () => {
           <Col sm={8}>{employee.salary_base}</Col>
         </Row>
 
-        <div className="d-flex gap-2">
-          <Button variant="secondary" className="w-50" onClick={() => navigate("/employees")}>
+        <div
+          className={
+            user?.role_id === 1
+              ? "d-flex gap-2"
+              : "d-flex justify-content-center"
+          }
+        >
+          {user?.role_id === 1 && (
+            <Button
+              variant="warning"
+              className="w-50"
+              onClick={() => navigate(`/employees/${employee.id}/edit`)}
+            >
+              Edit
+            </Button>
+          )}
+
+          <Button
+            variant="secondary"
+            className={user?.role_id === 1 ? "w-50" : "w-75"}
+            onClick={() => navigate("/employees")}
+          >
             Back
           </Button>
-
-          <Button variant="warning" className="w-50" onClick={() => navigate(`/employees/${employee.id}/edit`)}>
-            Edit
-          </Button>
         </div>
+
       </Card>
     </Container>
   );
 };
 
 export default EmployeeDetails;
-

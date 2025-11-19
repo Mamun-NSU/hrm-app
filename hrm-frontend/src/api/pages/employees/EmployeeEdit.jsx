@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axios";
 import { toast } from "react-toastify";
 
-const EmployeeEdit = () => {
+const EmployeeEdit = ({ user, isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const EmployeeEdit = () => {
     employment_status: "Active",
     salary_base: ""
   });
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -63,7 +64,8 @@ const EmployeeEdit = () => {
     fetchInitialData();
   }, [id]);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,50 +82,90 @@ const EmployeeEdit = () => {
     }
   };
 
-  if (loading) return <Spinner animation="border" className="d-block mx-auto mt-5" />;
+  if (loading)
+    return <Spinner animation="border" className="d-block mx-auto mt-5" />;
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "100vh" }}
+    >
       <Row className="w-100">
         <Col md={{ span: 6, offset: 3 }}>
           <Card className="p-4 shadow">
             <h2 className="text-center mb-4">Edit Employee</h2>
+
             <Form onSubmit={handleSubmit}>
+
+              {/* USER - ADMIN CAN EDIT */}
               <Form.Group className="mb-3">
                 <Form.Label>User</Form.Label>
-                <Form.Select name="user_id" value={form.user_id} onChange={handleChange} required>
+                <Form.Select
+                  name="user_id"
+                  value={form.user_id}
+                  onChange={handleChange}
+                  required
+                  disabled={!isAdmin}
+                >
                   <option value="">Select User</option>
-                  {users.map(u => (
-                    <option key={u.id} value={u.id}>{u.name}</option>
+                  {users.map((u) => (
+                    <option key={u.id} value={u.id}>
+                      {u.name}
+                    </option>
                   ))}
                 </Form.Select>
               </Form.Group>
 
+              {/* DEPARTMENT */}
               <Form.Group className="mb-3">
                 <Form.Label>Department</Form.Label>
-                <Form.Select name="department_id" value={form.department_id} onChange={handleChange}>
+                <Form.Select
+                  name="department_id"
+                  value={form.department_id}
+                  onChange={handleChange}
+                  disabled={!isAdmin}
+                >
                   <option value="">Select Department</option>
-                  {departments.map(d => (
-                    <option key={d.id} value={d.id}>{d.name}</option>
+                  {departments.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.name}
+                    </option>
                   ))}
                 </Form.Select>
               </Form.Group>
 
+              {/* DESIGNATION */}
               <Form.Group className="mb-3">
                 <Form.Label>Designation</Form.Label>
-                <Form.Select name="designation_id" value={form.designation_id} onChange={handleChange}>
+                <Form.Select
+                  name="designation_id"
+                  value={form.designation_id}
+                  onChange={handleChange}
+                  disabled={!isAdmin}
+                >
                   <option value="">Select Designation</option>
-                  {designations.map(d => (
-                    <option key={d.id} value={d.id}>{d.title}</option>
+                  {designations.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.title}
+                    </option>
                   ))}
                 </Form.Select>
               </Form.Group>
 
+              {/* EMPLOYEE CODE */}
               <Form.Group className="mb-3">
                 <Form.Label>Employee Code</Form.Label>
-                <Form.Control type="text" name="employee_code" value={form.employee_code} onChange={handleChange} required />
+                <Form.Control
+                  type="text"
+                  name="employee_code"
+                  value={form.employee_code}
+                  onChange={handleChange}
+                  required
+                  disabled={!isAdmin}
+                />
               </Form.Group>
 
+              {/* OTHER FIELDS ALWAYS EDITABLE */}
               <Form.Group className="mb-3">
                 <Form.Label>Phone</Form.Label>
                 <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
@@ -160,16 +202,37 @@ const EmployeeEdit = () => {
 
               <Form.Group className="mb-3">
                 <Form.Label>Salary Base</Form.Label>
-                <Form.Control type="number" name="salary_base" value={form.salary_base} onChange={handleChange} />
+                <Form.Control type="number" name="salary_base"  disabled={!isAdmin} value={form.salary_base} onChange={handleChange} />
               </Form.Group>
 
-              <div className="d-flex justify-content-between">
+              {/* <div className="d-flex justify-content-between"> 
                 <Button type="submit" variant="primary" disabled={saving}>
                   {saving ? <Spinner animation="border" size="sm" /> : "Update Employee"}
-                </Button>
+                </Button>          
                 <Button variant="secondary" onClick={() => navigate("/employees")}>
                   Back
                 </Button>
+              </div> */}
+
+              <div className="d-flex justify-content-between align-items-center gap-3 mt-4">
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="flex-grow-1"
+                  disabled={saving}
+                >
+                  {saving ? <Spinner animation="border" size="sm" /> : "Update"}
+                </Button>
+
+                <Button
+                  variant="secondary"
+                  className="flex-grow-1"
+                  onClick={() => navigate("/employees")}
+                >
+                  Back
+                </Button>
+
               </div>
             </Form>
           </Card>
@@ -180,3 +243,4 @@ const EmployeeEdit = () => {
 };
 
 export default EmployeeEdit;
+
