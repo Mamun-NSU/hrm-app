@@ -14,14 +14,14 @@ class JobApplicationController extends Controller
     // ========================
 
     public function getOpenJobs()
-{
-    // Fetch all open jobs along with their department
-    $jobs = \App\Models\Recruitment::with('department')
-        ->where('status', 'open') // optional: only open jobs
-        ->get();
+    {
+        // Fetch all open jobs along with their department
+        $jobs = \App\Models\Recruitment::with('department')
+            ->where('status', 'open') // optional: only open jobs
+            ->get();
 
-    return response()->json($jobs);
-}
+        return response()->json($jobs);
+    }
 
     public function storePublic(Request $request)
     {
@@ -140,7 +140,7 @@ class JobApplicationController extends Controller
         $application = JobApplication::findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:pending,reviewed,accepted,rejected',
+            'status' => 'required|in:pending,reviewed,hired,rejected,shortlisted',
         ]);
 
         $application->update([

@@ -69,11 +69,12 @@ const JobApplicationEdit = () => {
           <Form.Label>Status</Form.Label>
           <Form.Select value={status} onChange={(e) => setStatus(e.target.value)} required>
             <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
+            <option value="hired">Hire</option>
+            <option value="rejected">Reject</option>
+            <option value="reviewed">Review</option>
+            <option value="shortlisted">Shortlist</option>
           </Form.Select>
         </Form.Group>
-
         <Button type="submit">Update Status</Button>
       </Form>
     </Card>

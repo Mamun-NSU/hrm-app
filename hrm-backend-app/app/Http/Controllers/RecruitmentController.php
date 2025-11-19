@@ -49,13 +49,23 @@ class RecruitmentController extends Controller
     }
 
     // ========================
-    // Admin: Show single job post
+    // Admin: Show single job post with applications
     // ========================
     public function show($id)
     {
-        $recruitment = Recruitment::with('department')->findOrFail($id);
+        $recruitment = Recruitment::with([
+            'department',
+            'jobApplications' => function ($query) {
+                $query->orderBy('applied_at', 'desc');
+            },
+        ])->findOrFail($id);
+
+        // Include number of applications
+        $recruitment->applications_count = $recruitment->jobApplications->count();
+
         return response()->json($recruitment);
     }
+
 
     // ========================
     // Admin: Update job post

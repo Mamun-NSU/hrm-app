@@ -22,5 +22,11 @@ class Payroll extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    // Each payroll can access the employee's salary structure
+    public function salaryStructure()
+    {
+        return $this->hasOne(SalaryStructure::class, 'employee_id', 'employee_id');
+    }
 }
 

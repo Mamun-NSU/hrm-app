@@ -23,6 +23,18 @@ class EmployeeController extends Controller
         return response()->json($employees);
     }
 
+    // Fetch employees with salary structure and payrolls
+    public function employeesWithSalary()
+    {
+        $employees = Employee::with([
+            'user',              // relationship to user table
+            'salaryStructure',   // relationship to salary structure
+            'payrolls'           // relationship to payrolls
+        ])->get();
+
+        return response()->json($employees);
+    }
+
     // GET /api/employees/{id}
     public function show($id)
     {

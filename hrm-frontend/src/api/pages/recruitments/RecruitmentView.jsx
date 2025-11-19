@@ -15,7 +15,7 @@ const RecruitmentView = () => {
         const res = await api.get(`/admin/recruitments/${id}`);
         setRecruitment(res.data);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching recruitment:", err);
       } finally {
         setLoading(false);
       }
@@ -26,7 +26,8 @@ const RecruitmentView = () => {
   if (loading)
     return <Spinner animation="border" className="d-block mx-auto mt-5" />;
 
-  if (!recruitment) return <p className="mt-4 text-center">Job post not found.</p>;
+  if (!recruitment)
+    return <p className="mt-4 text-center">Job post not found.</p>;
 
   return (
     <Container
@@ -35,26 +36,36 @@ const RecruitmentView = () => {
     >
       <Card className="p-4 shadow" style={{ maxWidth: "700px", width: "100%" }}>
         <h3 className="text-center mb-4">Job Post Details</h3>
+
         <p>
           <strong>Position:</strong> {recruitment.position}
         </p>
+
         <p>
-          <strong>Department:</strong> {recruitment.department?.name || "N/A"}
+          <strong>Department:</strong>{" "}
+          {recruitment.department?.name || "N/A"}
         </p>
+
         <p>
           <strong>Status:</strong> {recruitment.status}
         </p>
+
         <p>
           <strong>Created At:</strong>{" "}
           {new Date(recruitment.created_at).toLocaleString()}
         </p>
+
         <p>
           <strong>Updated At:</strong>{" "}
           {new Date(recruitment.updated_at).toLocaleString()}
         </p>
 
-        <h5 className="mt-4">Applications</h5>
-        {recruitment.job_applications?.length ? (
+        {/* NEW: Show Total Applicants */}
+        <h5 className="mt-4">
+          Applications ({recruitment.job_applications?.length || 0})
+        </h5>
+
+        {recruitment.job_applications?.length > 0 ? (
           <Table striped bordered hover responsive>
             <thead>
               <tr>
@@ -66,6 +77,7 @@ const RecruitmentView = () => {
                 <th>Applied At</th>
               </tr>
             </thead>
+
             <tbody>
               {recruitment.job_applications.map((app, index) => (
                 <tr key={app.id}>
@@ -74,7 +86,11 @@ const RecruitmentView = () => {
                   <td>{app.applicant_email}</td>
                   <td>{app.applicant_phone}</td>
                   <td>{app.status}</td>
-                  <td>{new Date(app.applied_at).toLocaleDateString()}</td>
+                  <td>
+                    {app.applied_at
+                      ? new Date(app.applied_at).toLocaleString()
+                      : "N/A"}
+                  </td>
                 </tr>
               ))}
             </tbody>

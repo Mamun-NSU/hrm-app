@@ -2,36 +2,27 @@ import React, { useState, useEffect } from "react";
 import api from "../../axios";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 const PayrollCreate = () => {
   const [employees, setEmployees] = useState([]);
-  const [salaryStructures, setSalaryStructures] = useState({});
   const [form, setForm] = useState({ employee_id: "", month_year: "" });
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
-  // Fetch employees and salary structures on mount
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const res = await api.get("/employees");
-        setEmployees(res.data);
-
-        const salaryRes = await api.get("/salary-structures");
-        const salaryMap = {};
-        if (salaryRes.data.status && Array.isArray(salaryRes.data.data)) {
-          salaryRes.data.data.forEach((s) => {
-            salaryMap[s.employee_id] = s;
-          });
-        }
-        setSalaryStructures(salaryMap);
-      } catch (err) {
-        toast.error("Failed to load employees or salary structures");
-        console.error(err);
-      }
-    };
-    fetchEmployees();
+    fetchEmployeesWithSalary();
   }, []);
+
+  const fetchEmployeesWithSalary = async () => {
+    try {
+      // Fetch all employees with salary structure and existing payrolls
+      const res = await api.get("/employees-with-salary"); // You need to create this endpoint in backend
+      setEmployees(res.data);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to fetch employees or salary structures");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,12 +32,13 @@ const PayrollCreate = () => {
       return;
     }
 
-    const salary = salaryStructures[form.employee_id];
-    if (!salary) {
+    const employee = employees.find((e) => e.id === parseInt(form.employee_id));
+    if (!employee || !employee.salary_structure) {
       toast.error("Salary structure not found for this employee");
       return;
     }
 
+    const salary = employee.salary_structure;
     const basic = parseFloat(salary.basic_salary);
     const allowance = parseFloat(salary.allowance_amount);
     const deduction = parseFloat(salary.deduction_amount);
@@ -56,17 +48,26 @@ const PayrollCreate = () => {
       month_year: form.month_year,
       gross_salary: basic + allowance,
       net_salary: basic + allowance - deduction,
-      generated_at: new Date().toISOString().split("T")[0], // Today’s date in YYYY-MM-DD
+      generated_at: new Date().toISOString().split("T")[0],
     };
 
     try {
       await api.post("/payrolls", payload);
       toast.success("Payroll generated successfully!");
-      navigate("/payrolls"); // Redirect to payrolls list
+      navigate("/payrolls");
     } catch (err) {
-      toast.error("Failed to generate payroll!");
-      console.error(err);
+      console.error(err); // Full error object in console
+
+      // Show proper message in toast
+      if (err.response && err.response.data && err.response.data.message) {
+        toast.error(err.response.data.message); // Backend message
+      } else if (err.message) {
+        toast.error(err.message); // JS error fallback
+      } else {
+        toast.error("Failed to generate payroll!"); // Generic fallback
+      }
     }
+
   };
 
   return (
@@ -80,11 +81,16 @@ const PayrollCreate = () => {
             onChange={(e) => setForm({ ...form, employee_id: e.target.value })}
           >
             <option value="">Select Employee</option>
-            {employees.map((emp) => (
-              <option key={emp.id} value={emp.id}>
-                {emp.user?.name}
-              </option>
-            ))}
+            {employees.map((emp) => {
+              // Only show employees who have salary structure
+              if (!emp.salary_structure) return null;
+              return (
+                <option key={emp.id} value={emp.id}>
+                  {emp.user?.name} 
+                  {/* {" - "} Existing Payrolls: {emp.payrolls?.length || 0} */}
+                </option>
+              );
+            })}
           </Form.Select>
         </Form.Group>
 
@@ -94,24 +100,23 @@ const PayrollCreate = () => {
             type="month"
             value={form.month_year}
             onChange={(e) => setForm({ ...form, month_year: e.target.value })}
+            required
           />
         </Form.Group>
 
-        {/* Display calculated salary */}
-        {form.employee_id && salaryStructures[form.employee_id] && (
+        {form.employee_id && employees.find(e => e.id === parseInt(form.employee_id))?.salary_structure && (
           <div className="mb-3">
             <p>
-              <strong>Basic Salary:</strong> {salaryStructures[form.employee_id].basic_salary} <br />
-              <strong>Allowance:</strong> {salaryStructures[form.employee_id].allowance_amount} <br />
-              <strong>Deduction:</strong> {salaryStructures[form.employee_id].deduction_amount} <br />
+              <strong>Basic Salary:</strong> {employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.basic_salary} <br />
+              <strong>Allowance:</strong> {employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.allowance_amount} <br />
+              <strong>Deduction:</strong> {employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.deduction_amount} <br />
               <strong>Gross Salary:</strong>{" "}
-              {parseFloat(salaryStructures[form.employee_id].basic_salary) +
-                parseFloat(salaryStructures[form.employee_id].allowance_amount)}{" "}
-              <br />
+              {parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.basic_salary) +
+                parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.allowance_amount)} <br />
               <strong>Net Salary:</strong>{" "}
-              {parseFloat(salaryStructures[form.employee_id].basic_salary) +
-                parseFloat(salaryStructures[form.employee_id].allowance_amount) -
-                parseFloat(salaryStructures[form.employee_id].deduction_amount)}
+              {parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.basic_salary) +
+                parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.allowance_amount) -
+                parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.deduction_amount)}
             </p>
           </div>
         )}

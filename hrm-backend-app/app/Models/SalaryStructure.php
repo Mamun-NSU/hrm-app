@@ -38,4 +38,10 @@ class SalaryStructure extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+     // A salary structure can have multiple payrolls
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class, 'employee_id', 'employee_id');
+    }
 }

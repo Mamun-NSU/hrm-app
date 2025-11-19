@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Offcanvas } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -107,6 +107,8 @@ function AppWrapper() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
+  const toggleDrawer = () => setShowDrawer(!showDrawer);
 
 
   // Fetch current user and detect admin
@@ -185,32 +187,38 @@ const handleLogout = async () => {
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">HRM App</Navbar.Brand>
-          <Nav className="me-auto">
 
+
+           {isAdmin && (
+            <Button variant="outline-light" onClick={toggleDrawer}>
+              Menus
+            </Button>
+          )}
+          <Nav className="me-auto">
             {/* Admin Only Menu */}
             {isAdmin && (
               <>
-                <Nav.Link as={Link} to="/users">Users</Nav.Link>
-                <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                {/* <Nav.Link as={Link} to="/users">Users</Nav.Link> */}
                 {/* <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
                 <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
                 <Nav.Link as={Link} to="/roles">Roles</Nav.Link> */}
-                {/* <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
-                <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
+                {/* <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link> */}
                 <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
-                <Nav.Link as={Link} to="/performance-kpis">P. KPIs</Nav.Link>
-                <Nav.Link as={Link} to="/performance-evaluations">P. Evaluations</Nav.Link> */}
-                <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
+                <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
+                {/* <Nav.Link as={Link} to="/performance-kpis">P. KPIs</Nav.Link> */}
+                <Nav.Link as={Link} to="/performance-evaluations">P. Evaluations</Nav.Link>
+                {/* <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link> */}
                 <Nav.Link as={Link} to="/employee-trainings">E. Trainings</Nav.Link>
                 <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
-                <Nav.Link as={Link} to="/job-applications">Applications</Nav.Link>
+                <Nav.Link as={Link} to="/admin/job-applications">Applications</Nav.Link>
                 
               </>
             )}
 
             {user && (
               <>
-               <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
+              <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
+              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
               </>
             )}
 
@@ -228,10 +236,8 @@ const handleLogout = async () => {
               </>
             )}
 
-            {/* Common Menu */}
+             {/* Common Menu */}
             <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
-           
-            
 
             {/* Auth Links */}
             {!user ? (
@@ -249,6 +255,34 @@ const handleLogout = async () => {
           </Nav>
         </Container>
       </Navbar>
+
+
+      {/* start */}
+            {/* Drawer / Offcanvas for Admin Menu */}
+      <Offcanvas show={showDrawer} onHide={toggleDrawer} placement="start">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Admin Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Nav className="flex-column">
+            <Nav.Link as={Link} to="/users">Users</Nav.Link>
+            <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
+            <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
+            <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
+            <Nav.Link as={Link} to="/admin/job-applications">Applications</Nav.Link>
+            {/* Uncomment or add other admin links here */}
+            <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
+            <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
+            <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
+            <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
+            <Nav.Link as={Link} to="/performance-kpis">Performance KPIs</Nav.Link>
+            <Nav.Link as={Link} to="/performance-evaluations">Performance Evaluations</Nav.Link>
+            <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
+            <Nav.Link as={Link} to="/employee-trainings">Employee Trainings</Nav.Link>
+          </Nav>
+        </Offcanvas.Body>
+      </Offcanvas>
+      {/* end */}
 
       <Routes>
         {/* Auth Routes */}
@@ -428,7 +462,7 @@ const handleLogout = async () => {
         {/* // Admin: Manage all applications */}
         {isAdmin && (
           <>
-            <Route path="/admin/job-applications" element={<JobApplicationList />} />
+            <Route path="/admin/job-applications" element={<JobApplicationList user={user} isAdmin={isAdmin}/>} />
             <Route path="/admin/job-applications/:id" element={<JobApplicationView />} />
             <Route path="/admin/job-applications/:id/edit" element={<JobApplicationEdit />} />
           </>

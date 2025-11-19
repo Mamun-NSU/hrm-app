@@ -39,36 +39,50 @@ class PayrollController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'employee_id' => 'required|exists:employees,id',
-            'month_year'  => 'required|string',
-            'generated_at'=> 'required|date',
-        ]);
+        {
+            $validator = Validator::make($request->all(), [
+                'employee_id' => 'required|exists:employees,id',
+                'month_year'  => 'required|string', // format "YYYY-MM"
+                'generated_at'=> 'required|date',
+            ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            // Check if payroll already exists for this employee and month
+            $existingPayroll = Payroll::where('employee_id', $request->employee_id)
+                ->where('month_year', $request->month_year)
+                ->first();
+
+            if ($existingPayroll) {
+                return response()->json([
+                    'message' => 'Payroll for this employee already exists for the selected month.'
+                ], 422);
+            }
+
+            $salaryStructure = SalaryStructure::where('employee_id', $request->employee_id)->first();
+
+            if (!$salaryStructure) {
+                return response()->json([
+                    'message' => 'Salary structure not found for this employee.'
+                ], 422);
+            }
+
+            $grossSalary = $salaryStructure->basic_salary + $salaryStructure->allowance_amount;
+            $netSalary   = $grossSalary - $salaryStructure->deduction_amount;
+
+            $payroll = Payroll::create([
+                'employee_id' => $request->employee_id,
+                'month_year'  => $request->month_year,
+                'gross_salary'=> $grossSalary,
+                'net_salary'  => $netSalary,
+                'generated_at'=> $request->generated_at,
+            ]);
+
+            return response()->json($payroll, 201);
         }
 
-        $salaryStructure = SalaryStructure::where('employee_id', $request->employee_id)->first();
-
-        if (!$salaryStructure) {
-            return response()->json(['message' => 'Salary structure not found for this employee.'], 422);
-        }
-
-        $grossSalary = $salaryStructure->basic_salary + $salaryStructure->allowance_amount;
-        $netSalary   = $grossSalary - $salaryStructure->deduction_amount;
-
-        $payroll = Payroll::create([
-            'employee_id' => $request->employee_id,
-            'month_year'  => $request->month_year,
-            'gross_salary'=> $grossSalary,
-            'net_salary'  => $netSalary,
-            'generated_at'=> $request->generated_at,
-        ]);
-
-        return response()->json($payroll, 201);
-    }
 
     public function update(Request $request, $id)
     {

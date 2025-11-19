@@ -36,6 +36,9 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 Route::apiResource('employees', EmployeeController::class);
 
+// Employees with salary structure and payrolls
+Route::get('/employees-with-salary', [EmployeeController::class, 'employeesWithSalary']);
+
 
 Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::apiResource('departments', DepartmentController::class);

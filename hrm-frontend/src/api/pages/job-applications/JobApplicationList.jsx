@@ -9,6 +9,7 @@ const JobApplicationList = ({ user, isAdmin }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     fetchApplications();
   }, []);
@@ -28,8 +29,8 @@ const JobApplicationList = ({ user, isAdmin }) => {
     }
   };
 
-  const handleEdit = (id) => navigate(`/job-applications/${id}/edit`);
-  const handleView = (id) => navigate(`/job-applications/${id}`);
+  const handleEdit = (id) => navigate(`/admin/job-applications/${id}/edit`);
+  const handleView = (id) => navigate(`/admin/job-applications/${id}`);
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure to delete this application?")) return;
     try {
