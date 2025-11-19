@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Spinner } from "react-bootstrap";
+import { Card, Button, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import api from "../../axios";
 
-const PublicRecruitmentList = () => {
+const PublicRecruitmentList = ({ user, isAdmin }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -22,26 +22,78 @@ const PublicRecruitmentList = () => {
     fetchJobs();
   }, []);
 
-  if (loading) return <Spinner animation="border" className="mt-5" />;
-
   return (
-    <div className="mt-4">
-      <h2>Open Job Posts</h2>
-      {jobs.map((job) => (
-        <Card key={job.id} className="mb-3 shadow-sm">
-          <Card.Body>
-            <Card.Title>{job.position}</Card.Title>
-            <Card.Text>Department: {job.department?.name || "N/A"}</Card.Text>
-            <Button
-              variant="primary"
-              onClick={() => navigate(`/job-apply/${job.id}`)}
-            >
-              Apply Now
-            </Button>
-          </Card.Body>
-        </Card>
-      ))}
-    </div>
+    <Card className="mt-4 shadow-sm">
+      <Card.Header>
+        <h3 className="mb-0">Open Job Posts</h3>
+      </Card.Header>
+
+      <Card.Body>
+        {loading ? (
+          <div className="d-flex justify-content-center mt-5">
+            <Spinner animation="border" />
+          </div>
+        ) : (
+          <Table striped bordered hover responsive>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Apply</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {jobs.length > 0 ? (
+                jobs.map((job) => (
+                  <tr key={job.id}>
+                    <td>{job.id}</td>
+                    <td>{job.position}</td>
+                    <td>{job.department?.name || "N/A"}</td>
+                    <td>
+                      <span
+                        className={`badge ${
+                          job.status === "open" ? "bg-success" : "bg-secondary"
+                        }`}
+                      >
+                        {job.status}
+                      </span>
+                    </td>
+                      <td>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={() => {
+                          if (!user) {
+                            // Public visitor
+                            navigate("/job-applications/public");
+                          } else if (!isAdmin) {
+                            // Employee (not admin)
+                            navigate("/job-applications/apply");
+                          } else {
+                            alert("Admins cannot apply for job posts.");
+                          }
+                        }}
+                      >
+                        Apply Now
+                      </Button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center">
+                    No job posts available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+        )}
+      </Card.Body>
+    </Card>
   );
 };
 

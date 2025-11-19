@@ -98,6 +98,7 @@ import JobApplicationEdit from "./api/pages/job-applications/JobApplicationEdit"
 import JobApplicationView from "./api/pages/job-applications/JobApplicationView";
 import JobApplicationApply from "./api/pages/job-applications/JobApplicationApply";
 import JobApplicationPublic from "./api/pages/job-applications/JobApplicationPublic";
+import PublicRecruitmentList from "./api/pages/recruitments/PublicRecruitmentList";
 
 
 
@@ -194,17 +195,25 @@ const handleLogout = async () => {
                 {/* <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
                 <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
                 <Nav.Link as={Link} to="/roles">Roles</Nav.Link> */}
-                <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
+                {/* <Nav.Link as={Link} to="/salary-structures">Salary Structures</Nav.Link>
                 <Nav.Link as={Link} to="/leaves">Leaves Requests</Nav.Link>
                 <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
                 <Nav.Link as={Link} to="/performance-kpis">P. KPIs</Nav.Link>
-                <Nav.Link as={Link} to="/performance-evaluations">P. Evaluations</Nav.Link>
+                <Nav.Link as={Link} to="/performance-evaluations">P. Evaluations</Nav.Link> */}
                 <Nav.Link as={Link} to="/trainings">Trainings</Nav.Link>
                 <Nav.Link as={Link} to="/employee-trainings">E. Trainings</Nav.Link>
-                <Nav.Link as={Link} to="/recruitments">Recruitments</Nav.Link>
-                <Nav.Link as={Link} to="/job-applications">Job Applications</Nav.Link>
+                <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
+                <Nav.Link as={Link} to="/job-applications">Applications</Nav.Link>
+                
               </>
             )}
+
+            {user && (
+              <>
+               <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
+              </>
+            )}
+
 
             {/* Employee Menu */}
             {!isAdmin && user && (
@@ -213,6 +222,7 @@ const handleLogout = async () => {
               <Nav.Link as={Link} to="/payrolls">My Payrolls</Nav.Link>
               <Nav.Link as={Link} to="/performance-evaluations">My P.E.</Nav.Link>
               <Nav.Link as={Link} to="/employee-trainings">My Trainings</Nav.Link>
+              <Nav.Link as={Link} to="/public-recruitments">Open Job Posts</Nav.Link>
               <Nav.Link as={Link} to="/job-applications">My Applications</Nav.Link> 
               <Nav.Link as={Link} to="/job-applications/apply">Apply Now</Nav.Link>
               </>
@@ -220,21 +230,14 @@ const handleLogout = async () => {
 
             {/* Common Menu */}
             <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
-            <Nav.Link as={Link} to="/attendance/list">Attendance List</Nav.Link>
-
-             {/* Admin/HR Menu */}
-              {isAdmin && (
-                <>
-                  <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
-                  <Nav.Link as={Link} to="/job-applications">Applications</Nav.Link>
-                </>
-              )}
+           
+            
 
             {/* Auth Links */}
             {!user ? (
               <>
-                <Nav.Link as={Link} to="/recruitments/public">Open Job Posts</Nav.Link>
-                <Nav.Link as={Link} to="/job-applications/public">Apply Now</Nav.Link>
+                <Nav.Link as={Link} to="/public-recruitments">Open Job Posts</Nav.Link>
+                {/* <Nav.Link as={Link} to="/job-applications/public">Apply Now</Nav.Link> */}
                 <Nav.Link as={Link} to="/login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/register">Register</Nav.Link>
               </>
@@ -392,12 +395,13 @@ const handleLogout = async () => {
           )}
 
           {/* // Public and Employee/User */}
-          <Route path="/recruitments" element={<RecruitmentList user={user} />} />
+          <Route path="/public-recruitments" element={<PublicRecruitmentList user={user} isAdmin={isAdmin} />} />
           <Route path="/recruitments/:id" element={<RecruitmentView user={user} />} />
 
           {/* // Admin Only */}
           {isAdmin && (
             <>
+              <Route path="/recruitments" element={<RecruitmentList />} />
               <Route path="/recruitments/create" element={<RecruitmentCreate />} />
               <Route path="/recruitments/:id/edit" element={<RecruitmentEdit />} />
             </>

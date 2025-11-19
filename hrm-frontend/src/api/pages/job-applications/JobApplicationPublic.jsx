@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const JobApplicationPublic = () => {
+  const navigate = useNavigate(); // <--- ADD THIS
+
   const [jobs, setJobs] = useState([]);
   const [formData, setFormData] = useState({
     recruitment_id: "",
@@ -37,7 +40,7 @@ const JobApplicationPublic = () => {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://127.0.0.1:8000/api/job-applications/public",
         {
           recruitment_id: formData.recruitment_id,
@@ -45,11 +48,13 @@ const JobApplicationPublic = () => {
           applicant_email: formData.email,
           resume_link: formData.resume_link,
           cover_letter: formData.cover_letter,
-          applicant_phone: "0000000000", // optional placeholder if backend requires phone
+          applicant_phone: "0000000000",
         }
       );
 
       setSuccessMessage("Application submitted successfully!");
+
+      // Clear form
       setFormData({
         recruitment_id: "",
         name: "",
@@ -57,6 +62,12 @@ const JobApplicationPublic = () => {
         cover_letter: "",
         resume_link: "",
       });
+
+      // ⭐ redirect to /register after 1 second
+      setTimeout(() => {
+        navigate("/register");
+      }, 1000);
+
     } catch (error) {
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors);
@@ -88,7 +99,9 @@ const JobApplicationPublic = () => {
               </option>
             ))}
           </Form.Select>
-          {errors.recruitment_id && <div className="text-danger">{errors.recruitment_id[0]}</div>}
+          {errors.recruitment_id && (
+            <div className="text-danger">{errors.recruitment_id[0]}</div>
+          )}
         </Form.Group>
 
         {/* Name */}
@@ -101,7 +114,9 @@ const JobApplicationPublic = () => {
             onChange={handleChange}
             required
           />
-          {errors.applicant_name && <div className="text-danger">{errors.applicant_name[0]}</div>}
+          {errors.applicant_name && (
+            <div className="text-danger">{errors.applicant_name[0]}</div>
+          )}
         </Form.Group>
 
         {/* Email */}
@@ -114,7 +129,9 @@ const JobApplicationPublic = () => {
             onChange={handleChange}
             required
           />
-          {errors.applicant_email && <div className="text-danger">{errors.applicant_email[0]}</div>}
+          {errors.applicant_email && (
+            <div className="text-danger">{errors.applicant_email[0]}</div>
+          )}
         </Form.Group>
 
         {/* Cover Letter */}
@@ -127,7 +144,9 @@ const JobApplicationPublic = () => {
             value={formData.cover_letter}
             onChange={handleChange}
           />
-          {errors.cover_letter && <div className="text-danger">{errors.cover_letter[0]}</div>}
+          {errors.cover_letter && (
+            <div className="text-danger">{errors.cover_letter[0]}</div>
+          )}
         </Form.Group>
 
         {/* Resume Link */}
@@ -141,7 +160,9 @@ const JobApplicationPublic = () => {
             onChange={handleChange}
             required
           />
-          {errors.resume_link && <div className="text-danger">{errors.resume_link[0]}</div>}
+          {errors.resume_link && (
+            <div className="text-danger">{errors.resume_link[0]}</div>
+          )}
         </Form.Group>
 
         <Button type="submit" variant="primary">
@@ -157,7 +178,7 @@ export default JobApplicationPublic;
 
 // import React, { useState, useEffect } from "react";
 // import { Form, Button, Alert } from "react-bootstrap";
-// import api from "../../axios"; // Your axios instance
+// import axios from "axios";
 
 // const JobApplicationPublic = () => {
 //   const [jobs, setJobs] = useState([]);
@@ -171,11 +192,11 @@ export default JobApplicationPublic;
 //   const [errors, setErrors] = useState({});
 //   const [successMessage, setSuccessMessage] = useState("");
 
-//   // Fetch open jobs
+//   // Fetch open jobs on mount
 //   useEffect(() => {
 //     const fetchJobs = async () => {
 //       try {
-//         const response = await api.get("/job-recruitments"); // Replace with your jobs API
+//         const response = await axios.get("http://127.0.0.1:8000/api/job-recruitments");
 //         setJobs(response.data);
 //       } catch (error) {
 //         console.error("Error fetching jobs:", error);
@@ -184,22 +205,28 @@ export default JobApplicationPublic;
 //     fetchJobs();
 //   }, []);
 
-//   // Handle input changes
 //   const handleChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value,
-//     });
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
 //   };
 
-//   // Handle form submit
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setErrors({});
 //     setSuccessMessage("");
 
 //     try {
-//       const response = await api.post("/job-applications/public", formData);
+//       const response = await axios.post(
+//         "http://127.0.0.1:8000/api/job-applications/public",
+//         {
+//           recruitment_id: formData.recruitment_id,
+//           applicant_name: formData.name,
+//           applicant_email: formData.email,
+//           resume_link: formData.resume_link,
+//           cover_letter: formData.cover_letter,
+//           applicant_phone: "0000000000", // optional placeholder if backend requires phone
+//         }
+//       );
+
 //       setSuccessMessage("Application submitted successfully!");
 //       setFormData({
 //         recruitment_id: "",
@@ -239,9 +266,7 @@ export default JobApplicationPublic;
 //               </option>
 //             ))}
 //           </Form.Select>
-//           {errors.recruitment_id && (
-//             <div className="text-danger">{errors.recruitment_id[0]}</div>
-//           )}
+//           {errors.recruitment_id && <div className="text-danger">{errors.recruitment_id[0]}</div>}
 //         </Form.Group>
 
 //         {/* Name */}
@@ -254,7 +279,7 @@ export default JobApplicationPublic;
 //             onChange={handleChange}
 //             required
 //           />
-//           {errors.name && <div className="text-danger">{errors.name[0]}</div>}
+//           {errors.applicant_name && <div className="text-danger">{errors.applicant_name[0]}</div>}
 //         </Form.Group>
 
 //         {/* Email */}
@@ -267,7 +292,7 @@ export default JobApplicationPublic;
 //             onChange={handleChange}
 //             required
 //           />
-//           {errors.email && <div className="text-danger">{errors.email[0]}</div>}
+//           {errors.applicant_email && <div className="text-danger">{errors.applicant_email[0]}</div>}
 //         </Form.Group>
 
 //         {/* Cover Letter */}
@@ -279,11 +304,8 @@ export default JobApplicationPublic;
 //             name="cover_letter"
 //             value={formData.cover_letter}
 //             onChange={handleChange}
-//             required
 //           />
-//           {errors.cover_letter && (
-//             <div className="text-danger">{errors.cover_letter[0]}</div>
-//           )}
+//           {errors.cover_letter && <div className="text-danger">{errors.cover_letter[0]}</div>}
 //         </Form.Group>
 
 //         {/* Resume Link */}
@@ -297,9 +319,7 @@ export default JobApplicationPublic;
 //             onChange={handleChange}
 //             required
 //           />
-//           {errors.resume_link && (
-//             <div className="text-danger">{errors.resume_link[0]}</div>
-//           )}
+//           {errors.resume_link && <div className="text-danger">{errors.resume_link[0]}</div>}
 //         </Form.Group>
 
 //         <Button type="submit" variant="primary">
