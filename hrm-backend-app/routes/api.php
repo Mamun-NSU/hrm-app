@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\DesignationController;
-use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Employee\EmployeeManagementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LeaveRequestController;
@@ -34,7 +35,21 @@ Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
-Route::apiResource('employees', EmployeeController::class);
+// Route::apiResource('employees', EmployeeController::class);
+
+
+// Read operations: index, show, destroy
+Route::prefix('employees')->group(function () {
+    Route::get('/', [EmployeeController::class, 'index']);        // List all employees
+    Route::get('/{id}', [EmployeeController::class, 'show']);     // Show single employee
+    Route::delete('/{id}', [EmployeeController::class, 'destroy']); // Delete employee
+});
+
+// Write operations: store, update
+Route::prefix('employees')->group(function () {
+    Route::post('/', [EmployeeManagementController::class, 'store']); // Create employee
+    Route::put('/{id}', [EmployeeManagementController::class, 'update']); // Update employee
+});
 
 // Employees with salary structure and payrolls
 Route::get('/employees-with-salary', [EmployeeController::class, 'employeesWithSalary']);
