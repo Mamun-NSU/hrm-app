@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\StoreEmployeeRequest;
 use App\Http\Requests\Employee\UpdateEmployeeRequest;
-use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\Employee\EmployeeResource;
 use App\Services\Employee\EmployeeService;
 use App\Repositories\Employee\EmployeeRepository;
 use Illuminate\Http\JsonResponse;

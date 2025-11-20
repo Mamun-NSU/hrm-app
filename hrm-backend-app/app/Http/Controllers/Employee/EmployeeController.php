@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\Employee\EmployeeResource;
 use App\Repositories\Employee\EmployeeRepository;
 use Illuminate\Http\JsonResponse;
 

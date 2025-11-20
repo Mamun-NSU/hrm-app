@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\DepartmentController;
-use App\Http\Controllers\API\DesignationController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Department\DepartmentController;
+use App\Http\Controllers\Designation\DesignationController;
 use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Employee\EmployeeManagementController;
 use App\Http\Controllers\UserController;
@@ -55,9 +55,30 @@ Route::prefix('employees')->group(function () {
 Route::get('/employees-with-salary', [EmployeeController::class, 'employeesWithSalary']);
 
 
+
+// Departments
+Route::prefix('departments')->group(function () {
+    Route::get('/', [DepartmentController::class, 'index']);
+    Route::get('/{id}', [DepartmentController::class, 'show']);
+    Route::post('/', [DepartmentController::class, 'store']);
+    Route::put('/{id}', [DepartmentController::class, 'update']);
+    Route::delete('/{id}', [DepartmentController::class, 'destroy']);
+});
+
+// Designations
+Route::prefix('designations')->group(function () {
+    Route::get('/', [DesignationController::class, 'index']);
+    Route::get('/{id}', [DesignationController::class, 'show']);
+    Route::post('/', [DesignationController::class, 'store']);
+    Route::put('/{id}', [DesignationController::class, 'update']);
+    Route::delete('/{id}', [DesignationController::class, 'destroy']);
+});
+
+
+
 Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-    Route::apiResource('departments', DepartmentController::class);
-    Route::apiResource('designations', DesignationController::class);
+    // Route::apiResource('departments', DepartmentController::class);
+    // Route::apiResource('designations', DesignationController::class);
     Route::apiResource('roles', RoleController::class);
 });
 
