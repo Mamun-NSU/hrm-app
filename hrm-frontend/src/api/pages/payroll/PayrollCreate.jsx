@@ -17,7 +17,7 @@ const PayrollCreate = () => {
     try {
       // Fetch all employees with salary structure and existing payrolls
       const res = await api.get("/employees-with-salary"); // You need to create this endpoint in backend
-      setEmployees(res.data);
+      setEmployees(res.data.data);
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch employees or salary structures");

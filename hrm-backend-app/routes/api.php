@@ -7,6 +7,8 @@ use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Designation\DesignationController;
 use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Employee\EmployeeManagementController;
+use App\Http\Controllers\Employee\EmployeeSalaryController;
+// use App\Http\Controllers\Employee\EmployeeSalaryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LeaveRequestController;
@@ -35,9 +37,6 @@ Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
-// Route::apiResource('employees', EmployeeController::class);
-
-
 // Read operations: index, show, destroy
 Route::prefix('employees')->group(function () {
     Route::get('/', [EmployeeController::class, 'index']);        // List all employees
@@ -52,7 +51,9 @@ Route::prefix('employees')->group(function () {
 });
 
 // Employees with salary structure and payrolls
-Route::get('/employees-with-salary', [EmployeeController::class, 'employeesWithSalary']);
+Route::get('/employees-with-salary', [EmployeeSalaryController::class, 'employeesWithSalary']);
+
+
 
 
 
