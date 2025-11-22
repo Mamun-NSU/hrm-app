@@ -16,8 +16,8 @@ const EmployeeDetails = ({ user }) => {
 
   const fetchEmployee = async () => {
     try {
-      const response = await api.get(`/employees/${id}`);
-      setEmployee(response.data);
+      const response = await api.get(`/employee/${id}/show`);
+      setEmployee(response.data.data.employee);
     } catch (error) {
       toast.error("Failed to load employee details.");
       navigate("/employees"); // redirect back to list

@@ -47,7 +47,7 @@ const EmployeeCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/employees", form);
+      await api.post("/employee/store", form);
       alert("Employee created successfully!");
       setForm({ ...form, employee_code: "", name: "", email: "", phone: "", salary_base: "" });
     } catch (err) {
@@ -100,7 +100,7 @@ const EmployeeCreate = () => {
 
           <Form.Group className="mb-3">
             <Form.Label>Phone</Form.Label>
-            <Form.Control type="text" name="phone" onChange={handleChange} />
+            <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
           </Form.Group>
 
           <Form.Group className="mb-3">

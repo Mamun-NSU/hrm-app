@@ -10,7 +10,7 @@ class EmployeeShowController extends Controller
 {
     public function __invoke(Employee $employee): JsonResponse
     {
-        $employee = $employee->with(['department', 'designation', 'user.role']);
+        $employee = $employee->load(['department', 'designation', 'user.role']);
 
         return response()->json([
             'data' => [

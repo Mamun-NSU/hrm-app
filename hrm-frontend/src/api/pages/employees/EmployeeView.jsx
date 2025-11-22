@@ -10,9 +10,9 @@ const EmployeeView = () => {
 
   useEffect(() => {
     axios
-      .get(`/employees/${id}`)
+      .get(`/employee/${id}/show`)
       .then((res) => {
-        setEmployee(res.data); // API returns single employee object
+        setEmployee(response.data.data.employee); // API returns single employee object
       })
       .catch((err) => {
         console.error("Error fetching employee:", err);

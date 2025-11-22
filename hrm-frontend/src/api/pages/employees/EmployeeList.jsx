@@ -14,8 +14,8 @@ const EmployeeList = ({ user }) => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await api.get("/employees");
-      setEmployees(response.data);
+      const response = await api.get("/employee/list");
+      setEmployees(response.data.data.employees);
     } catch (error) {
       console.error("Error fetching employees:", error);
       toast.error("Failed to load employees!");
@@ -25,7 +25,7 @@ const EmployeeList = ({ user }) => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
-        await api.delete(`/employees/${id}`);
+        await api.delete(`/employee/${id}/delete`);
         toast.success("Employee deleted successfully!");
         fetchEmployees(); // Refresh the list
       } catch (error) {

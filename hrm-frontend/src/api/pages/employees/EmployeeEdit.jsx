@@ -35,24 +35,25 @@ const EmployeeEdit = ({ user, isAdmin }) => {
           api.get("/departments"),
           api.get("/designations"),
           api.get("/users"),
-          api.get(`/employees/${id}`)
+          api.get(`/employee/${id}/show`)
         ]);
 
+        
         setDepartments(deptRes.data);
         setDesignations(desigRes.data);
         setUsers(usersRes.data);
 
         setForm({
-          user_id: empRes.data.user_id || "",
-          department_id: empRes.data.department_id || "",
-          designation_id: empRes.data.designation_id || "",
-          employee_code: empRes.data.employee_code || "",
-          phone: empRes.data.phone || "",
-          gender: empRes.data.gender || "",
-          date_of_birth: empRes.data.date_of_birth || "",
-          join_date: empRes.data.join_date || "",
-          employment_status: empRes.data.employment_status || "Active",
-          salary_base: empRes.data.salary_base || ""
+          user_id: empRes.data.data.employee.user_id || "",
+          department_id: empRes.data.data.employee.department_id || "",
+          designation_id: empRes.data.data.employee.designation_id || "",
+          employee_code: empRes.data.data.employee.employee_code || "",
+          phone: empRes.data.data.employee.phone || "",
+          gender: empRes.data.data.employee.gender || "",
+          date_of_birth: empRes.data.data.employee.date_of_birth || "",
+          join_date: empRes.data.data.employee.join_date || "",
+          employment_status: empRes.data.data.employee.employment_status || "Active",
+          salary_base: empRes.data.data.employee.salary_base || ""
         });
       } catch (error) {
         console.error(error);
@@ -71,7 +72,7 @@ const EmployeeEdit = ({ user, isAdmin }) => {
     e.preventDefault();
     setSaving(true);
     try {
-      await api.put(`/employees/${id}`, form);
+      await api.put(`/employee/${id}/update`, form);
       toast.success("Employee updated successfully!");
       navigate("/employees");
     } catch (err) {

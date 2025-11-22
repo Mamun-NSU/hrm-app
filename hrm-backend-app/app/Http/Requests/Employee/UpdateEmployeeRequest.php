@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateEmployeeRequest extends FormRequest
 {
@@ -18,7 +19,11 @@ class UpdateEmployeeRequest extends FormRequest
         return [
             'department_id' => 'nullable|exists:departments,id',
             'designation_id' => 'nullable|exists:designations,id',
-            'employee_code' => 'required|unique:employees,employee_code,' . $employeeId,
+            'employee_code' => [
+            'required',
+                Rule::unique('employees', 'employee_code')
+                ->ignore($this->employee->id),
+            ],
             'phone' => 'nullable|string|max:20',
             'gender' => 'nullable|in:Male,Female,Other',
             'date_of_birth' => 'nullable|date',
