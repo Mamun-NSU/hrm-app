@@ -29,14 +29,6 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-Route::prefix('departments')->group(function () {
-    Route::get('/', [DepartmentController::class, 'index']);
-    Route::get('/{id}', [DepartmentController::class, 'show']);
-    Route::post('/', [DepartmentController::class, 'store']);
-    Route::put('/{id}', [DepartmentController::class, 'update']);
-    Route::delete('/{id}', [DepartmentController::class, 'destroy']);
-});
-
 Route::prefix('designations')->group(function () {
     Route::get('/', [DesignationController::class, 'index']);
     Route::get('/{id}', [DesignationController::class, 'show']);
@@ -120,3 +112,4 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
 });
 
 require __DIR__ . '/employee.php';
+require __DIR__ . '/department.php';
