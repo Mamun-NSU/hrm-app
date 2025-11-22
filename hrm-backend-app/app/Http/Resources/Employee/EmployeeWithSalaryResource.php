@@ -10,21 +10,15 @@ class EmployeeWithSalaryResource extends JsonResource
     {
         return [
             'id'   => $this->id,
-
-            // Frontend expects: emp.user?.name
-            'user' => [
-                'name' => $this->user->name ?? null
-            ],
-
-            // Frontend expects salary_structure.*
+            'payrolls' => $this->payrolls,
             'salary_structure' => $this->salaryStructure ? [
                 'basic_salary'      => $this->salaryStructure->basic_salary,
                 'allowance_amount'  => $this->salaryStructure->allowance_amount,
                 'deduction_amount'  => $this->salaryStructure->deduction_amount,
             ] : null,
-
-            // Frontend expects existing payrolls
-            'payrolls' => $this->payrolls,
+            'user' => [
+                'name' => $this->user->name ?? null
+            ],
         ];
     }
 }

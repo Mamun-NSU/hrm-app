@@ -10,23 +10,17 @@ class Employee extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'date_of_birth',
         'department_id',
         'designation_id',
         'employee_code',
-        'phone',
-        'gender',
-        'date_of_birth',
-        'join_date',
         'employment_status',
+        'gender',
+        'join_date',
+        'phone',
         'salary_base',
+        'user_id',
     ];
-
-    // Relationships
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function department()
     {
@@ -38,14 +32,20 @@ class Employee extends Model
         return $this->belongsTo(Designation::class);
     }
 
+    public function employeeTrainings()
+    {
+        return $this->hasMany(EmployeeTraining::class);
+    }
+
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class);
+    }
+
+
     public function leaveRequests()
     {
         return $this->hasMany(LeaveRequest::class);
-    }
-
-    public function salaryStructure()
-    {
-        return $this->hasOne(SalaryStructure::class);
     }
 
     public function payrolls()
@@ -58,7 +58,11 @@ class Employee extends Model
         return $this->hasMany(PerformanceEvaluation::class, 'employee_id');
     }
 
-    // EmployeeTraining relationships
+    public function salaryStructure()
+    {
+        return $this->hasOne(SalaryStructure::class);
+    }
+
     public function trainings()
     {
         return $this->belongsToMany(Training::class, 'employee_trainings')
@@ -66,14 +70,8 @@ class Employee extends Model
                     ->withTimestamps();
     }
 
-    public function employeeTrainings()
+    public function user()
     {
-        return $this->hasMany(EmployeeTraining::class);
-    }
-
-     // NEW — Employee internal job applications
-    public function jobApplications()
-    {
-        return $this->hasMany(JobApplication::class);
+        return $this->belongsTo(User::class);
     }
 }

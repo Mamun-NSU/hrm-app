@@ -8,7 +8,7 @@ class EmployeeSalaryRepository
 {
     public function getEmployeesWithSalary()
     {
-        return Employee::with(['user', 'salaryStructure', 'payrolls'])
+        return Employee::with(['payrolls','salaryStructure','user'])
             ->orderBy('id')
             ->get();
     }

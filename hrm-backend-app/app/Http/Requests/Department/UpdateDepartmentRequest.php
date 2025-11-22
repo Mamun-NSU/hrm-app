@@ -11,6 +11,6 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->route('id');
-        return ['name' => 'required|string|max:255|unique:departments,name,' . $id];
+        return ['name' => 'required|string|max:255|unique:departments,name,'.$id];
     }
 }

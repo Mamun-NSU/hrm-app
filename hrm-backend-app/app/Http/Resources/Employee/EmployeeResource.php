@@ -12,30 +12,24 @@ class EmployeeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                => $this->id,
-            'employee_code'     => $this->employee_code,
-            'phone'             => $this->phone,
-            'gender'            => $this->gender,
             'date_of_birth'     => $this->date_of_birth,
-            'join_date'         => $this->join_date,
-            'employment_status' => $this->employment_status,
-            'salary_base'       => $this->salary_base,
-
-            // RELATIONSHIPS
             'department'  => $this->whenLoaded('department', fn() =>
                 new DepartmentResource($this->department)
             ),
-
             'designation' => $this->whenLoaded('designation', fn() =>
                 new DesignationResource($this->designation)
             ),
-
+            'employee_code' => $this->employee_code,
+            'employment_status' => $this->employment_status,
+            'gender' => $this->gender,
+            'id' => $this->id,
+            'join_date'         => $this->join_date,
+            'phone'             => $this->phone,
+            'role_name' => $this->user?->role?->name ?? 'Not Assigned',
+            'salary_base'       => $this->salary_base,
             'user' => $this->whenLoaded('user', fn() =>
                 new UserResource($this->user)
             ),
-
-            // EXTRA FIELD — Role Name (Safe)
-            'role_name' => $this->user?->role?->name ?? 'Not Assigned',
         ];
     }
 }

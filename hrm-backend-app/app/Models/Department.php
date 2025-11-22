@@ -11,13 +11,11 @@ class Department extends Model
 
     protected $fillable = ['name'];
 
-    // Relationship with Employee
     public function employees()
     {
         return $this->hasMany(Employee::class);
     }
 
-    // Relationship with Recruitment
     public function recruitments()
     {
         return $this->hasMany(Recruitment::class);

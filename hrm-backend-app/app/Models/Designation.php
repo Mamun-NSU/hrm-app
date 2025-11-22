@@ -11,7 +11,6 @@ class Designation extends Model
 
     protected $fillable = ['title'];
 
-    // Relationship with Employee
     public function employees()
     {
         return $this->hasMany(Employee::class);
