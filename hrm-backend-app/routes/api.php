@@ -57,7 +57,7 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::apiResource('salary-structures', SalaryStructureController::class);
+    // Route::apiResource('salary-structures', SalaryStructureController::class);
     Route::apiResource('payrolls', PayrollController::class);
 });
 
@@ -101,4 +101,6 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
 require __DIR__ . '/department.php';
 require __DIR__ . '/designation.php';
 require __DIR__ . '/employee.php';
+require __DIR__ . '/payroll.php';
 require __DIR__ . '/role.php';
+require __DIR__ . '/salary-structure.php';
