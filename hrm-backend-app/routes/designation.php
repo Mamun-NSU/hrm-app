@@ -10,7 +10,6 @@ use App\Http\Controllers\Designation\{
 };
 
 Route::prefix('designation')->group(function () {
-
     Route::get('list', DesignationListController::class);
     Route::post('store', DesignationStoreController::class);
     Route::prefix('{designation}')->group(function () {

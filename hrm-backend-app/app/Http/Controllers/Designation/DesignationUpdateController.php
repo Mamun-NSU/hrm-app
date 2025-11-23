@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Designation;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Designation\UpdateDesignationRequest;
+use App\Http\Requests\Designation\DesignationUpdateRequest;
 use App\Models\Designation;
 use Illuminate\Http\JsonResponse;
 
 class DesignationUpdateController extends Controller
 {
-    public function __invoke(UpdateDesignationRequest $request, Designation $designation): JsonResponse
+    public function __invoke(DesignationUpdateRequest $request, Designation $designation): JsonResponse
     {
         $designation->update($request->validated());
 

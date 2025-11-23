@@ -1,5 +1,4 @@
-<?php
-
+<!-- 
 namespace App\Http\Controllers\Designation;
 
 use App\Http\Controllers\Controller;
@@ -59,4 +58,4 @@ class DesignationController extends Controller
         $this->repo->delete($designation);
         return response()->json(['message' => 'Designation deleted successfully']);
     }
-}
+} -->

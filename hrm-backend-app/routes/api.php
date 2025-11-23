@@ -3,10 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\Department\DepartmentController;
-use App\Http\Controllers\Designation\DesignationController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\PayrollController;
@@ -29,9 +26,9 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-    Route::apiResource('roles', RoleController::class);
-});
+// Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+//     // Route::apiResource('roles', RoleController::class);
+// });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index']);
@@ -101,6 +98,7 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::delete('/admin/recruitments/{id}', [RecruitmentController::class, 'destroy']);
 });
 
-require __DIR__ . '/employee.php';
 require __DIR__ . '/department.php';
 require __DIR__ . '/designation.php';
+require __DIR__ . '/employee.php';
+require __DIR__ . '/role.php';

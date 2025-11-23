@@ -4,7 +4,7 @@ namespace App\Http\Requests\Designation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDesignationRequest extends FormRequest
+class DesignationUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,14 +16,16 @@ class StoreDesignationRequest extends FormRequest
         return [
             'title.max' => 'The designation title cannot exceed 255 characters.',
             'title.required' => 'The designation title is required.',
-            'title.unique' => 'This designation already exists.', 
+            'title.unique' => 'This designation already exists.',
         ];
     }
 
     public function rules(): array
     {
+        $id = $this->route('id');
+        
         return [
-            'title' => 'required|string|max:255|unique:designations,title',
+            'title' => 'required|string|max:255|unique:designations,title,' . $id,
         ];
     }
 }

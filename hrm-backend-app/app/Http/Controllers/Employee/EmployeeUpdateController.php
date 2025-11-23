@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Employee\UpdateEmployeeRequest;
+use App\Http\Requests\Employee\EmployeeUpdateRequest;
 use App\Models\Employee;
 use Illuminate\Http\JsonResponse;
 
 class EmployeeUpdateController extends Controller
 {
     public function __invoke(
-        UpdateEmployeeRequest $request,
+        EmployeeUpdateRequest $request,
         Employee $employee, 
     ): JsonResponse
     {
