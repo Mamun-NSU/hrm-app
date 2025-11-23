@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import api from "../../axios";
+import api from "./employee.api";
 
 const EmployeeCreate = () => {
   const [departments, setDepartments] = useState([]);
@@ -26,13 +26,17 @@ const EmployeeCreate = () => {
   }, []);
 
   const fetchDepartments = async () => {
-    const res = await api.get("/departments");
-    setDepartments(res.data);
+    const res = await api.get("/department/list");
+    console.log("department Data: ");
+    console.log(res.data.data.departments);
+    setDepartments(res.data.data.departments);
   };
 
   const fetchDesignations = async () => {
-    const res = await api.get("/designations");
-    setDesignations(res.data);
+    const res = await api.get("/designation/list");
+    console.log("designation Data: ");
+    console.log(res.data.data.designations);
+    setDesignations(res.data.data.designations);
   };
 
   const fetchUsers = async () => {

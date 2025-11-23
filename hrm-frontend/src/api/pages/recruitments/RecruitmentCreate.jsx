@@ -17,7 +17,7 @@ const RecruitmentCreate = () => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const res = await api.get("/departments");
+        const res = await api.get("/department/list");
         setDepartments(res.data);
       } catch (err) {
         console.error(err);

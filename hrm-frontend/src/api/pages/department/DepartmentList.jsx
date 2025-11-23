@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./department.api";
 
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
@@ -15,8 +15,8 @@ const DepartmentList = () => {
 
   const fetchDepartments = async () => {
     try {
-      const response = await api.get("/departments");
-      setDepartments(response.data);
+      const response = await api.get("/department/list");
+      setDepartments(response.data.data.departments);
     } catch (error) {
       console.error("Error fetching departments:", error);
       toast.error("Failed to load departments!");
@@ -30,7 +30,7 @@ const DepartmentList = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this department?")) {
       try {
-        await api.delete(`/departments/${id}`);
+        await api.delete(`/department/${id}/delete`);
         toast.success("Department deleted successfully!");
         fetchDepartments(); // refresh list
       } catch (error) {

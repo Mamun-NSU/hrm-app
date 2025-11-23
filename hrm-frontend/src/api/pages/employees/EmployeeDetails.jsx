@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner, Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "./employee.api";
 import { toast } from "react-toastify";
 
 const EmployeeDetails = ({ user }) => {

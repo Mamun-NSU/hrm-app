@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./employee.api";
 
 const EmployeeList = ({ user }) => {
   const [employees, setEmployees] = useState([]);

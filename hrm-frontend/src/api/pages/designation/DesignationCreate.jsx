@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import api from "../../axios";
 import { toast } from "react-toastify";
+import api from "./designation.api";
 
 const DesignationCreate = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +11,7 @@ const DesignationCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/designations", { title });
+      await api.post("/designation/store", { title });
       toast.success("Designation created successfully!");
       navigate("/designations");
     } catch (error) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./department.api";
 
 const DepartmentCreate = () => {
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ const DepartmentCreate = () => {
     }
     setLoading(true);
     try {
-      await api.post("/departments", { name });
+      await api.post("/department/store", { name });
       toast.success("Department created successfully!");
       navigate("/departments");
     } catch (error) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./department.api";
 
 const DepartmentEdit = () => {
   const { id } = useParams();
@@ -16,8 +16,8 @@ const DepartmentEdit = () => {
 
   const fetchDepartment = async () => {
     try {
-      const response = await api.get(`/departments/${id}`);
-      setName(response.data.name || "");
+      const response = await api.get(`/department/${id}/show`);
+      setName(response.data.data.department.name || "");
     } catch (error) {
       console.error("Error fetching department:", error);
       toast.error("Failed to load department details!");
@@ -32,12 +32,17 @@ const DepartmentEdit = () => {
     }
     setLoading(true);
     try {
-      await api.put(`/departments/${id}`, { name });
+      await api.put(`/department/${id}/update`, { name });
       toast.success("Department updated successfully!");
       navigate("/departments");
     } catch (error) {
       console.error("Error updating department:", error);
-      toast.error("Failed to update department!");
+      const serverMessage =
+        error.response?.data?.message ||
+        error.response?.data?.errors?.name?.[0] ||
+        "Failed to update department!";
+
+      toast.error(serverMessage);
     } finally {
       setLoading(false);
     }

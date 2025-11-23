@@ -20,7 +20,7 @@ const RecruitmentEdit = () => {
       try {
         const [recruitRes, deptRes] = await Promise.all([
           api.get(`/admin/recruitments/${id}`),
-          api.get("/departments"),
+          api.get("/department/list"),
         ]);
         setForm({
           position: recruitRes.data.position,

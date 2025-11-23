@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./designation.api";
 
 const DesignationEdit = () => {
   const { id } = useParams();
@@ -17,8 +17,8 @@ const DesignationEdit = () => {
 
   const fetchDesignation = async () => {
     try {
-      const response = await api.get(`/designations/${id}`);
-      setTitle(response.data.title || "");
+      const response = await api.get(`/designation/${id}/show`);
+      setTitle(response.data.data.designation.title || "");
     } catch (error) {
       console.error("Error fetching designation:", error);
       toast.error("Failed to fetch designation details!");
@@ -35,13 +35,18 @@ const DesignationEdit = () => {
     }
     setSaving(true);
     try {
-      await api.put(`/designations/${id}`, { title });
+      await api.put(`/designation/${id}/update`, { title });
       toast.success("Designation updated successfully!");
       navigate("/designations");
     } catch (error) {
-      console.error("Error updating designation:", error);
-      toast.error("Failed to update designation!");
-    } finally {
+        console.error("Error updating designation:", error);
+        const serverMessage =
+          error.response?.data?.message ||
+          error.response?.data?.errors?.name?.[0] ||
+          "Failed to update designation!";
+    
+          toast.error(serverMessage);
+        } finally {
       setSaving(false);
     }
   };

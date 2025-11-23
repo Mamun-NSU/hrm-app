@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./designation.api";
 
 const DesignationList = () => {
   const [designations, setDesignations] = useState([]);
@@ -15,8 +15,8 @@ const DesignationList = () => {
 
   const fetchDesignations = async () => {
     try {
-      const response = await api.get("/designations");
-      setDesignations(response.data);
+      const response = await api.get("/designation/list");
+      setDesignations(response.data.data.designations);
     } catch (error) {
       console.error("Error fetching designations:", error);
       toast.error("Failed to load designations!");
@@ -30,7 +30,7 @@ const DesignationList = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this designation?")) {
       try {
-        await api.delete(`/designations/${id}`);
+        await api.delete(`/designation/${id}/delete`);
         toast.success("Designation deleted successfully!");
         fetchDesignations(); // refresh list
       } catch (error) {

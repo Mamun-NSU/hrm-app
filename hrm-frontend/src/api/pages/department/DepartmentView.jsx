@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./department.api";
 
 const DepartmentView = () => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const DepartmentView = () => {
 
   const fetchDepartment = async () => {
     try {
-      const response = await api.get(`/departments/${id}`);
+      const response = await api.get(`/department/${id}/show`);
       setDepartment(response.data);
     } catch (error) {
       console.error("Error fetching department:", error);

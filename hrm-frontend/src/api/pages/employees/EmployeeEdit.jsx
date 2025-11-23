@@ -1,9 +1,8 @@
-// src/pages/employees/EmployeeEdit.jsx
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../axios";
 import { toast } from "react-toastify";
+import api from "./employee.api";
 
 const EmployeeEdit = ({ user, isAdmin }) => {
   const { id } = useParams();
@@ -32,8 +31,8 @@ const EmployeeEdit = ({ user, isAdmin }) => {
     const fetchInitialData = async () => {
       try {
         const [deptRes, desigRes, usersRes, empRes] = await Promise.all([
-          api.get("/departments"),
-          api.get("/designations"),
+          api.get("/department/list"),
+          api.get("/designation/list"),
           api.get("/users"),
           api.get(`/employee/${id}/show`)
         ]);

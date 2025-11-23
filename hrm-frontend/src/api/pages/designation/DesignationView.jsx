@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../axios";
 import { toast } from "react-toastify";
+import api from "./designation.api";
 
 const DesignationView = () => {
   const { id } = useParams();
@@ -16,8 +16,8 @@ const DesignationView = () => {
 
   const fetchDesignation = async () => {
     try {
-      const response = await api.get(`/designations/${id}`);
-      setDesignation(response.data);
+      const response = await api.get(`/designation/${id}/show`);
+      setDesignation(response.data.data.designation);
     } catch (error) {
       console.error("Error fetching designation:", error);
       toast.error("Failed to fetch designation details!");
