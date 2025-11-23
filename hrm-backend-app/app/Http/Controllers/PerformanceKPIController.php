@@ -21,10 +21,6 @@ public function store(Request $request) {
     return response()->json($kpi, 201);
 }
 
-// public function show(PerformanceKPI $performanceKPI) {
-//     return $performanceKPI;
-// }
-
 public function show($id) {
     $kpi = PerformanceKPI::find($id);
 
