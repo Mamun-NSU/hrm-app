@@ -29,17 +29,7 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-Route::prefix('designations')->group(function () {
-    Route::get('/', [DesignationController::class, 'index']);
-    Route::get('/{id}', [DesignationController::class, 'show']);
-    Route::post('/', [DesignationController::class, 'store']);
-    Route::put('/{id}', [DesignationController::class, 'update']);
-    Route::delete('/{id}', [DesignationController::class, 'destroy']);
-});
-
 Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-    // Route::apiResource('departments', DepartmentController::class);
-    // Route::apiResource('designations', DesignationController::class);
     Route::apiResource('roles', RoleController::class);
 });
 
@@ -113,3 +103,4 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
 
 require __DIR__ . '/employee.php';
 require __DIR__ . '/department.php';
+require __DIR__ . '/designation.php';
