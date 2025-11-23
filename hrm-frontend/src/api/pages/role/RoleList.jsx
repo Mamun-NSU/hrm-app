@@ -18,7 +18,7 @@ const RoleList = () => {
   const fetchRoles = async () => {
     try {
       const response = await RoleService.getAll();
-      setRoles(response.data);
+      setRoles(response.data.data.roles);
     } catch (error) {
       console.error("Error fetching roles:", error);
       toast.error("Failed to load roles!");

@@ -14,7 +14,7 @@ const RoleView = () => {
     const fetchRole = async () => {
       try {
         const response = await RoleService.get(id);
-        setRole(response.data);
+        setRole(response.data.data.role);
       } catch (error) {
         console.error("Failed to fetch role:", error);
       }

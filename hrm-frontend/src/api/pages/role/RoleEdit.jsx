@@ -15,7 +15,7 @@ const RoleEdit = () => {
     const fetchRole = async () => {
       try {
         const response = await RoleService.get(id);
-        setForm({ name: response.data.name, description: response.data.description });
+        setForm({ name: response.data.data.role.name, description: response.data.data.role.description });
       } catch (error) {
         toast.error("Failed to load role data!");
       } finally {

@@ -38,8 +38,8 @@ const EmployeeEdit = ({ user, isAdmin }) => {
         ]);
 
         
-        setDepartments(deptRes.data);
-        setDesignations(desigRes.data);
+        setDepartments(deptRes.data.data.departments);
+        setDesignations(desigRes.data.data.designations);
         setUsers(usersRes.data);
 
         setForm({
