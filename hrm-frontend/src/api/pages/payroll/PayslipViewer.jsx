@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card, Button, Container, Spinner } from "react-bootstrap";
-import api from "../../axios";
+import api from "./payroll.api";
 
 const PayslipViewer = () => {
   const { id } = useParams();
@@ -13,8 +13,8 @@ const PayslipViewer = () => {
   useEffect(() => {
     const fetchPayroll = async () => {
       try {
-        const res = await api.get(`/payrolls/${id}`);
-        setPayroll(res.data);
+        const res = await api.get(`/payroll/${id}/show`);
+        setPayroll(res.data.data.payroll);
       } catch (err) {
         console.error("Failed to fetch payroll:", err);
       } finally {

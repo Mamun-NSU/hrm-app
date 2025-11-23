@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../axios";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import api from "./payroll.api";
 
 const PayrollEdit = () => {
   const { id } = useParams();
@@ -10,13 +10,13 @@ const PayrollEdit = () => {
   const [form, setForm] = useState({ month_year: "", gross_salary: "", net_salary: "" });
 
   useEffect(() => {
-    api.get(`/payrolls/${id}`).then((res) => setForm(res.data)).catch(() => toast.error("Failed to load payroll!"));
+    api.get(`/payroll/${id}/show`).then((res) => setForm(res.data.data.payroll)).catch(() => toast.error("Failed to load payroll!"));
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/payrolls/${id}`, form);
+      await api.put(`/payroll/${id}/update`, form);
       toast.success("Payroll updated successfully!");
       navigate("/payrolls");
     } catch (err) {

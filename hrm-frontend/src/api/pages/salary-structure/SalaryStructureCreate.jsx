@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./salary-structure.api";
 
 const SalaryStructureCreate = () => {
   const [employees, setEmployees] = useState([]);
@@ -21,9 +21,9 @@ const SalaryStructureCreate = () => {
 
   useEffect(() => {
     api
-      .get("/employees")
-      .then((res) => setEmployees(res.data))
-      .catch(() => toast.error("Failed to load employees!"));
+      .get("/employee/list")
+      .then((res) => setEmployees(res.data.data.employees))
+      .catch(() => toast.error("Failed to load employees!"));     
   }, []);
 
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ const SalaryStructureCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/salary-structures", form);
+      await api.post("/salary-structure/store", form);
       toast.success("Salary structure created successfully!");
       navigate("/salary-structures");
     } catch (err) {

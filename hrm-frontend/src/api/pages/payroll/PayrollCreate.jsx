@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import api from "../../axios";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import api from "./payroll.api";
 
 const PayrollCreate = () => {
   const [employees, setEmployees] = useState([]);
@@ -15,9 +15,8 @@ const PayrollCreate = () => {
 
   const fetchEmployeesWithSalary = async () => {
     try {
-      // Fetch all employees with salary structure and existing payrolls
-      const res = await api.get("/employees-with-salary"); // You need to create this endpoint in backend
-      setEmployees(res.data.data);
+      const res = await api.get('employee/with-salary'); 
+      setEmployees(res.data);
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch employees or salary structures");
@@ -52,19 +51,18 @@ const PayrollCreate = () => {
     };
 
     try {
-      await api.post("/payrolls", payload);
+      await api.post("/payroll/store", payload);
       toast.success("Payroll generated successfully!");
       navigate("/payrolls");
     } catch (err) {
-      console.error(err); // Full error object in console
+      console.error(err); 
 
-      // Show proper message in toast
       if (err.response && err.response.data && err.response.data.message) {
-        toast.error(err.response.data.message); // Backend message
+        toast.error(err.response.data.message);
       } else if (err.message) {
-        toast.error(err.message); // JS error fallback
+        toast.error(err.message);
       } else {
-        toast.error("Failed to generate payroll!"); // Generic fallback
+        toast.error("Failed to generate payroll!");
       }
     }
 
@@ -82,7 +80,6 @@ const PayrollCreate = () => {
           >
             <option value="">Select Employee</option>
             {employees.map((emp) => {
-              // Only show employees who have salary structure
               if (!emp.salary_structure) return null;
               return (
                 <option key={emp.id} value={emp.id}>

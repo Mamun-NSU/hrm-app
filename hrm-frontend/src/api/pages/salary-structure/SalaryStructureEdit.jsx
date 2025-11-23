@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Form, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./salary-structure.api";
 
 const SalaryStructureEdit = () => {
   const { id } = useParams();
@@ -24,8 +24,8 @@ const SalaryStructureEdit = () => {
   useEffect(() => {
     const fetchStructure = async () => {
       try {
-        const res = await api.get(`/salary-structures/${id}`);
-        const s = res.data.data;
+        const res = await api.get(`/salary-structure/${id}/show`);
+        const s = res.data.data.salary_structure;
 
         setForm({
           basic_salary: s.basic_salary ?? "",
@@ -56,7 +56,7 @@ const SalaryStructureEdit = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      await api.put(`/salary-structures/${id}`, form);
+      await api.put(`/salary-structure/${id}/update`, form);
       toast.success("Salary structure updated successfully!");
       navigate("/salary-structures");
     } catch (err) {

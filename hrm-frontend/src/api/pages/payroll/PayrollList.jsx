@@ -2,18 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./payroll.api";
+
 
 const PayrollList = ({ user }) => {
   const [payrolls, setPayrolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // Debug log for user role
-  console.log("=== PAYROLL LIST USER DEBUG START ===");
-  console.log("User object:", user);
-  console.log("User role_id:", user?.role_id);
-  console.log("=== PAYROLL LIST USER DEBUG END ===");
 
   useEffect(() => {
     fetchPayrolls();
@@ -22,8 +17,8 @@ const PayrollList = ({ user }) => {
   const fetchPayrolls = async () => {
     setLoading(true);
     try {
-      const response = await api.get("/payrolls");
-      let payrollData = response.data;
+      const response = await api.get("/payroll/list");
+      let payrollData = response.data.data.payrolls;
 
       // If Employee (role_id !== 1), show only their own payrolls
       if (user?.role_id !== 1) {
@@ -46,7 +41,7 @@ const PayrollList = ({ user }) => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this payroll?")) return;
     try {
-      await api.delete(`/payrolls/${id}`);
+      await api.delete(`/payroll/${id}/delete`);
       toast.success("Payroll deleted successfully!");
       fetchPayrolls();
     } catch (error) {
@@ -61,8 +56,6 @@ const PayrollList = ({ user }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Payrolls</h3>
-
-        {/* Show Generate Payroll only for Admin */}
         {user?.role_id === 1 && (
           <Button variant="primary" onClick={() => navigate("/payrolls/create")}>
             + Generate Payroll
@@ -99,7 +92,6 @@ const PayrollList = ({ user }) => {
                     <td>{p.net_salary}</td>
                     <td>{new Date(p.generated_at).toLocaleDateString()}</td>
                     <td>
-                      {/* Always show Payslip button */}
                       <Button
                         variant="info"
                         size="sm"
@@ -108,19 +100,8 @@ const PayrollList = ({ user }) => {
                       >
                         Payslip
                       </Button>
-
-                      {/* Show Edit + Delete only if Admin */}
                       {user?.role_id === 1 && (
                         <>
-                          {/* <Button
-                            variant="warning"
-                            size="sm"
-                            className="me-2"
-                            onClick={() => handleEdit(p.id)}
-                          >
-                            Edit
-                          </Button> */}
-
                           <Button
                             variant="danger"
                             size="sm"

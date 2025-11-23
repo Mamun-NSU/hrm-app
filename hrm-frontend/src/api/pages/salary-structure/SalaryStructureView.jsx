@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./salary-structure.api";
+
 
 const SalaryStructureView = ({ user }) => {
   const { id } = useParams();
@@ -17,8 +18,8 @@ const SalaryStructureView = ({ user }) => {
   useEffect(() => {
     const fetchStructure = async () => {
       try {
-        const res = await api.get(`/salary-structures/${id}`);
-        setStructure(res.data.data);
+        const res = await api.get(`/salary-structure/${id}/show`);
+        setStructure(res.data.data.salary_structure);
       } catch (error) {
         console.error(error);
         toast.error("Failed to load salary structure!");

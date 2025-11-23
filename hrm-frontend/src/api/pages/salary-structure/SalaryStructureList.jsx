@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./salary-structure.api";
 
 const SalaryStructureList = () => {
   const [structures, setStructures] = useState([]);
@@ -15,8 +15,8 @@ const SalaryStructureList = () => {
 
   const fetchStructures = async () => {
     try {
-      const res = await api.get("/salary-structures");
-      setStructures(res.data.data);
+      const res = await api.get(`/salary-structure/list`);
+      setStructures(res.data.data.salary_structures);
     } catch (err) {
       console.error("Error fetching salary structures:", err);
       toast.error("Failed to load salary structures!");
@@ -35,7 +35,7 @@ const SalaryStructureList = () => {
       return;
 
     try {
-      await api.delete(`/salary-structures/${id}`);
+      await api.delete(`/salary-structure/${id}/delete`);
       toast.success("Salary structure deleted successfully!");
       fetchStructures();
     } catch (err) {
