@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmployeeTrainingService from "../../services/EmployeeTrainingService";
 import TrainingService from "../../services/TrainingService";
-import EmployeeService from "../../services/EmployeeService"; // create this for fetching employees
+import EmployeeService from "../../services/EmployeeService"; 
 
 const EmployeeTrainingCreate = () => {
   const { id } = useParams();
@@ -21,12 +21,12 @@ const EmployeeTrainingCreate = () => {
   const fetchOptions = async () => {
     try {
       const [trainRes, empRes] = await Promise.all([TrainingService.getAll(), EmployeeService.getAll()]);
-      setTrainings(trainRes.data); setEmployees(empRes.data);
+      setTrainings(trainRes.data.data.trainings); setEmployees(empRes.data.data.employees);
     } catch { toast.error("Failed to load options"); }
   };
 
   const fetchEmployeeTraining = async (id) => {
-    try { const res = await EmployeeTrainingService.get(id); setData(res.data); }
+    try { const res = await EmployeeTrainingService.get(id); setData(res.data.data.employee); }
     catch { toast.error("Failed to load record"); }
   };
 

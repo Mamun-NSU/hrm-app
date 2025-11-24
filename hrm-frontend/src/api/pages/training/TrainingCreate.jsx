@@ -12,7 +12,7 @@ const TrainingCreate = () => {
   useEffect(() => { if (id) fetchTraining(id); }, [id]);
 
   const fetchTraining = async (id) => {
-    try { const res = await TrainingService.get(id); setTraining(res.data); }
+    try { const res = await TrainingService.get(id); setTraining(res.data.data.training); }
     catch { toast.error("Failed to fetch training"); }
   };
 

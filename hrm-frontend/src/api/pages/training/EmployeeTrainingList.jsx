@@ -16,7 +16,7 @@ const EmployeeTrainingList = ({ user }) => {
   const fetchRecords = async () => {
     try {
       const res = await EmployeeTrainingService.getAll();
-      setRecords(res.data);
+      setRecords(res.data.data.employee_trainings);
     } catch (error) {
       toast.error("Failed to load records!");
     } finally {

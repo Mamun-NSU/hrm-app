@@ -28,7 +28,7 @@ const EmployeeTrainingEdit = () => {
   const fetchRecord = async () => {
     try {
       const res = await EmployeeTrainingService.get(id);
-      setRecord(res.data);
+      setRecord(res.data.data.employee_training);
     } catch (error) {
       toast.error("Failed to load record!");
       navigate("/employee-trainings");
@@ -40,7 +40,7 @@ const EmployeeTrainingEdit = () => {
   const fetchEmployees = async () => {
     try {
       const res = await EmployeeService.getAll();
-      setEmployees(res.data);
+      setEmployees(res.data.data.employees);
     } catch (error) {
       toast.error("Failed to load employees!");
     }
@@ -49,7 +49,7 @@ const EmployeeTrainingEdit = () => {
   const fetchTrainings = async () => {
     try {
       const res = await TrainingService.getAll();
-      setTrainings(res.data);
+      setTrainings(res.data.data.trainings);
     } catch (error) {
       toast.error("Failed to load trainings!");
     }

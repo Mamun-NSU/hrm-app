@@ -16,7 +16,7 @@ const TrainingList = ({ user }) => {
   const fetchTrainings = async () => {
     try {
       const res = await TrainingService.getAll();
-      setTrainings(res.data);
+      setTrainings(res.data.data.trainings);
     } catch (error) {
       toast.error("Failed to load trainings!");
     } finally {

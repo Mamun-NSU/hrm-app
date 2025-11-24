@@ -10,7 +10,6 @@ const EmployeeTrainingView = () => {
   const [employeeTraining, setEmployeeTraining] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Replace this with actual logged-in user info
   const loggedInUser = JSON.parse(localStorage.getItem("user")) || {};
   const isAdmin = loggedInUser.role_id === 1;
 
@@ -18,7 +17,7 @@ const EmployeeTrainingView = () => {
     const fetchEmployeeTraining = async () => {
       try {
         const res = await EmployeeTrainingService.get(id);
-        setEmployeeTraining(res.data);
+        setEmployeeTraining(res.data.data.employee_training);
       } catch (error) {
         toast.error("Failed to load record!");
         console.error(error);

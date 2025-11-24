@@ -1,13 +1,13 @@
 import api from "../axios";
 
-const BASE_URL = "/employee-trainings";
+const ENDPOINT = "/employee-training";
 
 const EmployeeTrainingService = {
-  getAll: () => api.get(BASE_URL),
-  get: (id) => api.get(`${BASE_URL}/${id}`),
-  create: (data) => api.post(BASE_URL, data),
-  update: (id, data) => api.put(`${BASE_URL}/${id}`, data),
-  remove: (id) => api.delete(`${BASE_URL}/${id}`),
+  getAll: () => api.get(`${ENDPOINT}/list`),
+  get: (id) => api.get(`${ENDPOINT}/${id}/show`),
+  create: (data) => api.post(`${ENDPOINT}/store`, data),
+  update: (id, data) => api.put(`${ENDPOINT}/${id}/update`, data),
+  remove: (id) => api.delete(`${ENDPOINT}/${id}/delete`),
 };
 
 export default EmployeeTrainingService;

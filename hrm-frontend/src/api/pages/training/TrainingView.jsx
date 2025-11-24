@@ -9,7 +9,6 @@ const TrainingView = () => {
   const navigate = useNavigate();
   const [training, setTraining] = useState(null);
 
-  // Get logged-in user from localStorage
   const loggedInUser = JSON.parse(localStorage.getItem("user")) || {};
   const isAdmin = loggedInUser.role_id === 1;
 
@@ -19,8 +18,8 @@ const TrainingView = () => {
 
   const fetchTraining = async () => {
     try {
-      const res = await api.get(`/trainings/${id}`);
-      setTraining(res.data);
+      const res = await api.get(`/training/${id}/show`);
+      setTraining(res.data.data.training);
     } catch (error) {
       toast.error("Failed to load training details.");
       navigate("/trainings");

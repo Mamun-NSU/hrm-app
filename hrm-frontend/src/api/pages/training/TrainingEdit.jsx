@@ -23,7 +23,7 @@ const TrainingEdit = () => {
   const fetchTraining = async () => {
     try {
       const res = await TrainingService.get(id);
-      setTraining(res.data);
+      setTraining(res.data.data.training);
     } catch (error) {
       toast.error("Failed to load training!");
       navigate("/trainings");
