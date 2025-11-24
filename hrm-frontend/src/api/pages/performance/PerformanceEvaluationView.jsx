@@ -13,7 +13,7 @@ const PerformanceEvaluationView = () => {
     const fetchEvaluation = async () => {
       try {
         const response = await PerformanceEvaluationService.get(id);
-        setEvaluation(response.data);
+        setEvaluation(response.data.data.evaluation);
       } catch (error) {
         console.error("Failed to fetch evaluation:", error);
       }

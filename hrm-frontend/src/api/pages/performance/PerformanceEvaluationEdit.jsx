@@ -1,4 +1,3 @@
-// src/pages/performance/PerformanceEvaluationEdit.jsx
 import React, { useEffect, useState } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,9 +31,11 @@ const PerformanceEvaluationEdit = () => {
           PerformanceKPIService.getAll(),
           PerformanceEvaluationService.get(id),
         ]);
-        setEmployees(empRes.data);
-        setKpis(kpiRes.data);
-        const data = evalRes.data;
+        setEmployees(empRes.data.data.employees);
+        setKpis(kpiRes.data.data.kpis);
+        const data = evalRes.data.data.evaluation;
+        console.log("Data in PerformanceEvaluationEdit: ");
+        console.log(data);
         setForm({
           employee_id: data.employee_id,
           kpi_id: data.kpi_id,

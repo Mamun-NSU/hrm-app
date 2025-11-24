@@ -1,4 +1,3 @@
-// src/pages/performance/PerformanceKPIList.jsx
 import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +16,7 @@ const PerformanceKPIList = () => {
   const fetchKPIs = async () => {
     try {
       const response = await PerformanceKPIService.getAll();
-      setKpis(response.data);
+      setKpis(response.data.data.kpis);
     } catch (error) {
       console.error(error);
       toast.error("Failed to load KPIs!");

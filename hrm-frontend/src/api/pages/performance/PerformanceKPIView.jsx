@@ -13,7 +13,7 @@ const PerformanceKPIView = () => {
     const fetchKPI = async () => {
       try {
         const response = await PerformanceKPIService.get(id);
-        setKpi(response.data);
+        setKpi(response.data.data.kpi);
       } catch (error) {
         console.error("Failed to fetch KPI:", error);
       }

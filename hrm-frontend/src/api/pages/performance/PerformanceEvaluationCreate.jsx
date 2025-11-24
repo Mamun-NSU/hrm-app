@@ -28,8 +28,8 @@ const PerformanceEvaluationCreate = () => {
           EmployeeService.getAll(),
           PerformanceKPIService.getAll(),
         ]);
-        setEmployees(empRes.data);
-        setKpis(kpiRes.data);
+        setEmployees(empRes.data.data.employees);
+        setKpis(kpiRes.data.data.kpis);
       } catch (error) {
         toast.error("Failed to load employees or KPIs!");
       } finally {

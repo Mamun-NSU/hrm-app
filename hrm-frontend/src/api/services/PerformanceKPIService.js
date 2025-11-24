@@ -1,15 +1,13 @@
-// src/services/PerformanceKPIService.js
-
 import api from "../axios";
 
-const ENDPOINT = "/performance-kpis";
+const ENDPOINT = "/performance-kpi";
 
 const PerformanceKPIService = {
-  getAll: () => api.get(ENDPOINT),
-  get: (id) => api.get(`${ENDPOINT}/${id}`),
-  create: (data) => api.post(ENDPOINT, data),
-  update: (id, data) => api.put(`${ENDPOINT}/${id}`, data),
-  remove: (id) => api.delete(`${ENDPOINT}/${id}`),
+  getAll: () => api.get(`${ENDPOINT}/list`),
+  get: (id) => api.get(`${ENDPOINT}/${id}/show`),
+  create: (data) => api.post(`${ENDPOINT}/store`, data),
+  update: (id, data) => api.put(`${ENDPOINT}/${id}/update`, data),
+  remove: (id) => api.delete(`${ENDPOINT}/${id}/delete`),
 };
 
 export default PerformanceKPIService;

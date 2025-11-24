@@ -15,7 +15,7 @@ const PerformanceKPIEdit = () => {
     const fetchKPI = async () => {
       try {
         const response = await PerformanceKPIService.get(id);
-        setForm({ name: response.data.name, description: response.data.description });
+        setForm({ name: response.data.data.kpi.name, description: response.data.data.kpi.description });
       } catch (error) {
         toast.error("Failed to load KPI data!");
       } finally {

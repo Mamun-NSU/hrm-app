@@ -1,4 +1,3 @@
-// src/pages/performance/PerformanceEvaluationList.jsx
 import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +16,7 @@ const PerformanceEvaluationList = ({ user }) => {
   const fetchEvaluations = async () => {
     try {
       const response = await PerformanceEvaluationService.getAll();
-      setEvaluations(response.data);
+      setEvaluations(response.data.data.evaluations);
     } catch (error) {
       console.error(error);
       toast.error("Failed to load evaluations!");
@@ -80,7 +79,6 @@ const PerformanceEvaluationList = ({ user }) => {
                     <td>{new Date(evalItem.evaluation_date).toLocaleDateString()}</td>
                     <td>{evalItem.evaluated_by}</td>
                     <td>
-                      {/* Always show View button */}
                       <Button
                         variant="info"
                         size="sm"
@@ -89,8 +87,6 @@ const PerformanceEvaluationList = ({ user }) => {
                       >
                         View
                       </Button>
-
-                      {/* Show Edit + Delete only if Admin */}
                       {user?.role_id === 1 && (
                         <>
                           <Button
@@ -101,7 +97,6 @@ const PerformanceEvaluationList = ({ user }) => {
                           >
                             Edit
                           </Button>
-
                           <Button
                             variant="danger"
                             size="sm"
@@ -112,7 +107,6 @@ const PerformanceEvaluationList = ({ user }) => {
                         </>
                       )}
                     </td>
-
                   </tr>
                 ))
               ) : (
