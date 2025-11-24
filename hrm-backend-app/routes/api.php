@@ -20,24 +20,6 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/leaves', [LeaveRequestController::class, 'index']);
-    Route::post('/leaves', [LeaveRequestController::class, 'store']);
-    Route::middleware('isAdmin')->group(function () {
-        Route::put('/leaves/{id}', [LeaveRequestController::class, 'update']);
-        Route::delete('/leaves/{id}', [LeaveRequestController::class, 'destroy']);
-    });
-});
-
-Route::get('/leave-types', [LeaveTypeController::class, 'index'])->middleware('auth:sanctum');
-
-Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-    Route::post('/leave-types', [LeaveTypeController::class, 'store']);
-    Route::get('/leave-types/{id}', [LeaveTypeController::class, 'show']);
-    Route::put('/leave-types/{id}', [LeaveTypeController::class, 'update']);
-    Route::delete('/leave-types/{id}', [LeaveTypeController::class, 'destroy']);
-});
-
 Route::post('/job-applications/public', [JobApplicationController::class, 'storePublic']);
 Route::get('/job-recruitments', [JobApplicationController::class, 'getOpenJobs']);
 
@@ -70,6 +52,8 @@ require __DIR__ . '/department.php';
 require __DIR__ . '/designation.php';
 require __DIR__ . '/employee.php';
 require __DIR__ . '/employee-training.php';
+require __DIR__ . '/leave-request.php';
+require __DIR__ . '/leave-type.php';
 require __DIR__ . '/payroll.php';
 require __DIR__ . '/performance-evaluation.php';
 require __DIR__ . '/performance-kpi.php';
