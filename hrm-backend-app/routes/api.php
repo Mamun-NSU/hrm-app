@@ -6,12 +6,6 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
-use App\Http\Controllers\PayrollController;
-use App\Http\Controllers\PerformanceEvaluationController;
-use App\Http\Controllers\PerformanceKPIController;
-use App\Http\Controllers\SalaryStructureController;
-use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\EmployeeTrainingController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\JobApplicationController;
 
@@ -25,10 +19,6 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
-
-// Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-//     // Route::apiResource('roles', RoleController::class);
-// });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index']);
@@ -54,16 +44,6 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::get('/leave-types/{id}', [LeaveTypeController::class, 'show']);
     Route::put('/leave-types/{id}', [LeaveTypeController::class, 'update']);
     Route::delete('/leave-types/{id}', [LeaveTypeController::class, 'destroy']);
-});
-
-// Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::apiResource('performance-kpis', PerformanceKPIController::class);
-//     Route::apiResource('performance-evaluations', PerformanceEvaluationController::class);
-// });
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('trainings', TrainingController::class);
-    Route::apiResource('employee-trainings', EmployeeTrainingController::class);
 });
 
 Route::post('/job-applications/public', [JobApplicationController::class, 'storePublic']);
@@ -96,8 +76,10 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
 require __DIR__ . '/department.php';
 require __DIR__ . '/designation.php';
 require __DIR__ . '/employee.php';
+require __DIR__ . '/employee-training.php';
 require __DIR__ . '/payroll.php';
 require __DIR__ . '/performance-evaluation.php';
 require __DIR__ . '/performance-kpi.php';
 require __DIR__ . '/role.php';
 require __DIR__ . '/salary-structure.php';
+require __DIR__ . '/training.php';

@@ -5,7 +5,7 @@ use App\Http\Controllers\PerformanceEvaluation\{
     PerformanceEvaluationListController,
     PerformanceEvaluationShowController,
     PerformanceEvaluationStoreController,
-    PerformanceEvaluationUpdateController
+    PerformanceEvaluationUpdateController,
 };
 use Illuminate\Support\Facades\Route;
 

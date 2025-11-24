@@ -5,7 +5,7 @@ use App\Http\Controllers\PerformanceKPI\{
     PerformanceKPIListController,
     PerformanceKPIShowController,
     PerformanceKPIStoreController,
-    PerformanceKPIUpdateController
+    PerformanceKPIUpdateController,
 };
 use Illuminate\Support\Facades\Route;
 

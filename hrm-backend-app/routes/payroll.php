@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Payroll\{
     PayrollListController,
     PayrollShowController,
@@ -8,6 +7,7 @@ use App\Http\Controllers\Payroll\{
     PayrollUpdateController,
     PayrollDestroyController,
 };
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->prefix('payroll')->group(function () {
     Route::get('list', PayrollListController::class);

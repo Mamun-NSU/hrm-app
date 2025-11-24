@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Role\{
     RoleListController,
     RoleStoreController,
     RoleShowController,
     RoleUpdateController,
-    RoleDestroyController
+    RoleDestroyController,
 };
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::prefix('role')->group(function () {

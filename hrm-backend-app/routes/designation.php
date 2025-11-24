@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Designation\{
     DesignationDestroyController,
     DesignationListController,
@@ -8,6 +7,7 @@ use App\Http\Controllers\Designation\{
     DesignationStoreController,
     DesignationUpdateController,
 };
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('designation')->group(function () {
     Route::get('list', DesignationListController::class);
