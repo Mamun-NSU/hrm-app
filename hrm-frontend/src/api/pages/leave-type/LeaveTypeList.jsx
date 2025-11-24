@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./leave-type.api";
 
 const LeaveTypeList = () => {
   const [leaveTypes, setLeaveTypes] = useState([]);
@@ -15,8 +15,8 @@ const LeaveTypeList = () => {
 
   const fetchLeaveTypes = async () => {
     try {
-      const response = await api.get("/leave-types");
-      setLeaveTypes(response.data);
+      const response = await api.get('leave-type/list');
+      setLeaveTypes(response.data.data.leave_types);
     } catch (error) {
       console.error("Error fetching leave types:", error);
       toast.error("Failed to load leave types!");
@@ -31,7 +31,7 @@ const LeaveTypeList = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this leave type?")) {
       try {
-        await api.delete(`/leave-types/${id}`);
+        await api.delete(`/leave-type/${id}/delete`);
         toast.success("Leave type deleted successfully!");
         fetchLeaveTypes(); // refresh list
       } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from "../../axios";
 import { useNavigate, useParams } from "react-router-dom";
+import api from "./leave.api";
 
 const LeaveEdit = () => {
   const { id } = useParams();
@@ -13,12 +13,12 @@ const LeaveEdit = () => {
   }, []);
 
   const fetchLeave = async () => {
-    const res = await api.get(`/leaves/${id}`);
-    setLeave(res.data);
+    const res = await api.get(`/leave-request/${id}/show`);
+    setLeave(res.data.data.leave_request);
   };
 
   const updateStatus = async (status) => {
-    await api.put(`/leaves/${id}`, { status });
+    await api.put(`/leave-request/${id}/update`, { status });
     navigate("/leaves");
   };
 

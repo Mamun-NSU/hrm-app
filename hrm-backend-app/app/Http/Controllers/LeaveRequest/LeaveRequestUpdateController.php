@@ -10,19 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class LeaveRequestUpdateController extends Controller
 {
-    public function __invoke(LeaveRequestUpdateRequest $request, LeaveRequest $leave_request): JsonResponse
+    public function __invoke(LeaveRequestUpdateRequest $request, LeaveRequest $leaveRequest): JsonResponse
     {
-        $leave_request->update([
+        $status = ucfirst(strtolower($request->status));
+
+        $leaveRequest->update([
             'approved_by' => Auth::id(),
-            'status' => $request->status,
-           
+            'status' => $status,
         ]);
+
+        $leaveRequest = $leaveRequest->fresh(['employee.user', 'leaveType']);
 
         return response()->json([
             'data' => [
-                'leave_request' => $leave_request,
+                'leave_request' => $leaveRequest,
             ],
-            'message' => "Leave {$request->status} successfully.",
+            'message' => "Leave {$status} successfully.",
         ]);
     }
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./leave.api";
 
 const LeaveCreate = () => {
   const navigate = useNavigate();
@@ -18,12 +18,11 @@ const LeaveCreate = () => {
     reason: "",
   });
 
-  // Fetch leave types on mount
   useEffect(() => {
     const fetchLeaveTypes = async () => {
       try {
-        const response = await api.get("/leave-types"); // your backend endpoint
-        setLeaveTypes(response.data);
+        const response = await api.get('leave-type/list');
+        setLeaveTypes(response.data.data.leave_types);
       } catch (error) {
         console.error("Failed to fetch leave types:", error);
         toast.error("Failed to load leave types!");
@@ -41,7 +40,6 @@ const LeaveCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple frontend validation
     if (!form.leave_type_id || !form.from_date || !form.to_date || !form.reason) {
       toast.error("All fields are required!");
       return;
@@ -50,9 +48,9 @@ const LeaveCreate = () => {
     setSubmitting(true);
 
     try {
-      await api.post("/leaves", {
+      await api.post('/leave-request/store', {
         ...form,
-        leave_type_id: parseInt(form.leave_type_id), // convert to integer
+        leave_type_id: parseInt(form.leave_type_id),
       });
       toast.success("Leave request submitted successfully!");
       navigate("/leaves");

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import api from "../../axios";
 import { useParams } from "react-router-dom";
+import api from "./leave.api";
 
 const LeaveView = () => {
   const { id } = useParams();
   const [leave, setLeave] = useState(null);
 
   useEffect(() => {
-    api.get(`/leaves/${id}`).then((res) => setLeave(res.data));
+    api.get(`/leave-request/${id}/show`).then((res) => setLeave(res.data.data.leave_request));
   }, []);
 
   if (!leave) return <p className="text-center mt-4">Loading...</p>;

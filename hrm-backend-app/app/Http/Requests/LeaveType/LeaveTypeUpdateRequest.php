@@ -13,10 +13,12 @@ class LeaveTypeUpdateRequest extends FormRequest
 
     public function rules(): array
     {
+        $leaveType = $this->route('leaveType');
+
         return [
             'days_per_year' => 'required|integer|min:0',
             'description'   => 'nullable|string',
-            'name'          => 'required|string|max:255|unique:leave_types,name,' . $this->leave_type->id,   
+            'name'          => 'required|string|max:255|unique:leave_types,name,' . $leaveType->id,
         ];
     }
 

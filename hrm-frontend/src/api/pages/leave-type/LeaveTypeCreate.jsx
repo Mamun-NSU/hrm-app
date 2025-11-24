@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./leave-type.api";
 
 const LeaveTypeCreate = () => {
   const [form, setForm] = useState({ name: "", days_per_year: 0, description: "" });
@@ -13,7 +13,7 @@ const LeaveTypeCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/leave-types", form);
+      await api.post('/leave-type/store', form);
       toast.success("Leave type created successfully!");
       navigate("/leave-types");
     } catch (err) {

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Container, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../axios";
 import { toast } from "react-toastify";
+import api from "./leave-type.api";
 
 const LeaveTypeView = () => {
   const { id } = useParams();
@@ -14,8 +14,8 @@ const LeaveTypeView = () => {
   useEffect(() => {
     const fetchLeaveType = async () => {
       try {
-        const res = await api.get(`/leave-types/${id}`);
-        setLeaveType(res.data);
+        const res = await api.get(`/leave-type/${id}/show`);
+        setLeaveType(res.data.data.leave_type);
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch leave type");

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./leave-type.api";
 
 const LeaveTypeEdit = () => {
   const { id } = useParams();
@@ -13,8 +13,8 @@ const LeaveTypeEdit = () => {
   useEffect(() => {
     const fetchLeaveType = async () => {
       try {
-        const res = await api.get(`/leave-types/${id}`);
-        setForm(res.data);
+        const res = await api.get(`/leave-type/${id}/show`);
+        setForm(res.data.data.leave_type);
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch leave type");
@@ -30,7 +30,7 @@ const LeaveTypeEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/leave-types/${id}`, form);
+      await api.put(`/leave-type/${id}/update`, form);
       toast.success("Leave type updated successfully!");
       navigate("/leave-types");
     } catch (err) {
