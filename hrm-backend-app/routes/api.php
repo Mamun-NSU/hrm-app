@@ -21,14 +21,6 @@ Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/attendance', [AttendanceController::class, 'index']);
-    Route::post('/attendance', [AttendanceController::class, 'markAttendance']); 
-    Route::get('/attendance/{id}', [AttendanceController::class, 'show']);
-    Route::put('/attendance/{id}', [AttendanceController::class, 'update']);
-    Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
-});
-
-Route::middleware('auth:sanctum')->group(function () {
     Route::get('/leaves', [LeaveRequestController::class, 'index']);
     Route::post('/leaves', [LeaveRequestController::class, 'store']);
     Route::middleware('isAdmin')->group(function () {
@@ -73,6 +65,7 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::delete('/admin/recruitments/{id}', [RecruitmentController::class, 'destroy']);
 });
 
+require __DIR__ . '/attendance.php';
 require __DIR__ . '/department.php';
 require __DIR__ . '/designation.php';
 require __DIR__ . '/employee.php';
