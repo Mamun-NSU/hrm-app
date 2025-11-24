@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import AttendanceService from "../../services/AttendanceService";
 
-
 const AttendanceCreate = ({ employeeId }) => {
   const [loading, setLoading] = useState(false);
 

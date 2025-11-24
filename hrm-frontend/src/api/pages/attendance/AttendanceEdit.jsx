@@ -4,7 +4,6 @@ import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import AttendanceService from "../../services/AttendanceService";
 
-
 const AttendanceEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ const AttendanceEdit = () => {
   const fetchAttendance = async () => {
     try {
       const res = await AttendanceService.getById(id);
-      setAttendance(res.data);
+      setAttendance(res.data.data.attendance);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load attendance record!");

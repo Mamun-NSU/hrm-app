@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import AttendanceService from "../../services/AttendanceService";
 
-
 const AttendanceList = () => {
   const [records, setRecords] = useState([]);
 
@@ -13,7 +12,7 @@ const AttendanceList = () => {
   const fetchRecords = async () => {
     try {
       const res = await AttendanceService.getAll();
-      setRecords(res.data);
+      setRecords(res.data.data.attendances);
     } catch (error) {
       console.error("Error fetching attendance records:", error);
     }
@@ -51,4 +50,3 @@ const AttendanceList = () => {
 };
 
 export default AttendanceList;
-

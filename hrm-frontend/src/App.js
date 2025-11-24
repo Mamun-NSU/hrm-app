@@ -6,98 +6,63 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import api from "./api/axios";
-
-// Auth
 import Login from "./api/pages/auth/Login";
 import Register from "./api/pages/auth/Register";
 import Profile from "./api/pages/auth/Profile";
-
-// Users
 import Users from "./components/Users";
-
-// Employees
 import EmployeeList from "./api/pages/employees/EmployeeList";
 import EmployeeCreate from "./api/pages/employees/EmployeeCreate";
 import EmployeeEdit from "./api/pages/employees/EmployeeEdit";
 import EmployeeDetails from "./api/pages/employees/EmployeeDetails";
-
-// Departments
 import DepartmentList from "./api/pages/department/DepartmentList";
 import DepartmentCreate from "./api/pages/department/DepartmentCreate";
 import DepartmentEdit from "./api/pages/department/DepartmentEdit";
 import DepartmentView from "./api/pages/department/DepartmentView";
-
-// Designations
 import DesignationList from "./api/pages/designation/DesignationList";
 import DesignationCreate from "./api/pages/designation/DesignationCreate";
 import DesignationEdit from "./api/pages/designation/DesignationEdit";
 import DesignationView from "./api/pages/designation/DesignationView";
-
-// Salary Structures (Admin only)
 import SalaryStructureList from "./api/pages/salary-structure/SalaryStructureList";
 import SalaryStructureCreate from "./api/pages/salary-structure/SalaryStructureCreate";
 import SalaryStructureEdit from "./api/pages/salary-structure/SalaryStructureEdit";
 import SalaryStructureView from "./api/pages/salary-structure/SalaryStructureView";
-
-
-// Attendance
 import AttendanceCheck from "./api/pages/attendance/AttendanceCheck";
 import AttendanceEdit from "./api/pages/attendance/AttendanceEdit";
 import AttendanceList from "./api/pages/attendance/AttendanceList";
-
-// Roles
 import RoleList from "./api/pages/role/RoleList";
 import RoleCreate from "./api/pages/role/RoleCreate";
 import RoleEdit from "./api/pages/role/RoleEdit";
 import RoleView from "./api/pages/role/RoleView";
-
-// Payroll
 import PayrollList from "./api/pages/payroll/PayrollList";
 import PayrollCreate from "./api/pages/payroll/PayrollCreate";
 import PayrollEdit from "./api/pages/payroll/PayrollEdit";
 import PayslipViewer from "./api/pages/payroll/PayslipViewer";
-
-// Leave Management
 import LeaveList from "./api/pages/leaves/LeaveList";
 import LeaveCreate from "./api/pages/leaves/LeaveCreate";
-
-// Leave Type
 import LeaveTypeList from "./api/pages/leave-type/LeaveTypeList";
 import LeaveTypeCreate from "./api/pages/leave-type/LeaveTypeCreate";
 import LeaveTypeView from "./api/pages/leave-type/LeaveTypeView";
 import LeaveTypeEdit from "./api/pages/leave-type/LeaveTypeEdit";
-
-// Performance KPI
 import PerformanceKPIList from "./api/pages/performance/PerformanceKPIList";
 import PerformanceKPICreate from "./api/pages/performance/PerformanceKPICreate";
 import PerformanceKPIEdit from "./api/pages/performance/PerformanceKPIEdit";
 import PerformanceKPIView from "./api/pages/performance/PerformanceKPIView";
-
-// Performance Evaluation
 import PerformanceEvaluationList from "./api/pages/performance/PerformanceEvaluationList";
 import PerformanceEvaluationCreate from "./api/pages/performance/PerformanceEvaluationCreate";
 import PerformanceEvaluationEdit from "./api/pages/performance/PerformanceEvaluationEdit";
 import PerformanceEvaluationView from "./api/pages/performance/PerformanceEvaluationView";
-
-// Training
 import TrainingList from "./api/pages/training/TrainingList";
 import TrainingEdit from "./api/pages/training/TrainingEdit";
 import TrainingCreate from "./api/pages/training/TrainingCreate"; 
 import TrainingView from "./api/pages/training/TrainingView";
-
-// EmployeeTraining
 import EmployeeTrainingList from "./api/pages/training/EmployeeTrainingList";
 import EmployeeTrainingEdit from "./api/pages/training/EmployeeTrainingEdit";
 import EmployeeTrainingCreate from "./api/pages/training/EmployeeTrainingCreate";
 import EmployeeTrainingView from "./api/pages/training/EmployeeTrainingView";
-
-// Recruitments
 import RecruitmentList from "./api/pages/recruitments/RecruitmentList";
 import RecruitmentCreate from "./api/pages/recruitments/RecruitmentCreate";
 import RecruitmentEdit from "./api/pages/recruitments/RecruitmentEdit";
 import RecruitmentView from "./api/pages/recruitments/RecruitmentView";
-
-// Job Applications
 import JobApplicationCreate from "./api/pages/job-applications/JobApplicationCreate";
 import JobApplicationList from "./api/pages/job-applications/JobApplicationList";
 import JobApplicationEdit from "./api/pages/job-applications/JobApplicationEdit";
@@ -105,9 +70,6 @@ import JobApplicationView from "./api/pages/job-applications/JobApplicationView"
 import JobApplicationApply from "./api/pages/job-applications/JobApplicationApply";
 import JobApplicationPublic from "./api/pages/job-applications/JobApplicationPublic";
 import PublicRecruitmentList from "./api/pages/recruitments/PublicRecruitmentList";
-
-
-
 
 function AppWrapper() {
 
@@ -118,53 +80,47 @@ function AppWrapper() {
   const toggleDrawer = () => setShowDrawer(!showDrawer);
 
 
-  // Fetch current user and detect admin
-useEffect(() => {
-  const fetchUser = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setUser(null);
-      setIsAdmin(false);
-      return;
-    }
 
-    try {
-      const response = await api.get("/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const loggedUser = response.data;
-      setUser(loggedUser);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setUser(null);
+        setIsAdmin(false);
+        return;
+      }
 
-      // Detect Admin using role_id (Admin = 1)
-      setIsAdmin(loggedUser.role_id === 1);
-    } catch (error) {
-      console.error("Failed to fetch user:", error);
-      setUser(null);
-      setIsAdmin(false);
-    }
-  };
+      try {
+        const response = await api.get("/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const loggedUser = response.data;
+        setUser(loggedUser);
+        setIsAdmin(loggedUser.role_id === 1);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setUser(null);
+        setIsAdmin(false);
+      }
+    };
 
-  fetchUser();
+    fetchUser();
 
-  // Optional: listen to storage changes (works if login occurs in another tab)
-  const handleStorageChange = () => fetchUser();
-  window.addEventListener("storage", handleStorageChange);
+    const handleStorageChange = () => fetchUser();
+    window.addEventListener("storage", handleStorageChange);
 
-  return () => {
-    window.removeEventListener("storage", handleStorageChange);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
-
-  // Logout
 const handleLogout = async () => {
   const token = localStorage.getItem("token");
 
   if (token) {
     try {
-      // Record logout attendance
       await api.post(
-        "/attendance",
+        '/attendance/store',
         { type: "logout" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -174,15 +130,10 @@ const handleLogout = async () => {
     }
   }
 
-  // Clear user session
   localStorage.removeItem("token");
   setUser(null);
   setIsAdmin(false);
-
-  // Navigate to login page
   navigate("/login");
-
-  // Optional: display logout success
   toast.success("You have logged out successfully.");
 };
 
@@ -190,11 +141,9 @@ const handleLogout = async () => {
   return (
     <>
       <ToastContainer />
-
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">HRM App</Navbar.Brand>
-
 
            {isAdmin && (
             <Button variant="outline-light" onClick={toggleDrawer}>
@@ -229,8 +178,6 @@ const handleLogout = async () => {
               </>
             )}
 
-
-            {/* Employee Menu */}
             {!isAdmin && user && (
               <>
               <Nav.Link as={Link} to="/leaves">My Leaves</Nav.Link>
@@ -246,7 +193,6 @@ const handleLogout = async () => {
              {/* Common Menu */}
             <Nav.Link as={Link} to="/employees">Employees</Nav.Link>
 
-            {/* Auth Links */}
             {!user ? (
               <>
                 <Nav.Link as={Link} to="/public-recruitments">Open Job Posts</Nav.Link>
@@ -263,9 +209,6 @@ const handleLogout = async () => {
         </Container>
       </Navbar>
 
-
-      {/* start */}
-            {/* Drawer / Offcanvas for Admin Menu */}
       <Offcanvas show={showDrawer} onHide={toggleDrawer} placement="start">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Admin Menu</Offcanvas.Title>
@@ -290,26 +233,18 @@ const handleLogout = async () => {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
-      {/* end */}
 
       <Routes>
-        {/* Auth Routes */}
         <Route path="/login" element={<Login setUser={setUser} setIsAdmin={setIsAdmin} />}
         />
-
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
-
-        {/* Users (Admin only) */}
         {isAdmin && <Route path="/users" element={<Users />} />}
-
-        {/* Employees */}
         <Route path="/employees" element={<EmployeeList user={user}/>} />
         <Route path="/employees/create" element={<EmployeeCreate />} />
         <Route path="/employees/:id/edit" element={<EmployeeEdit user={user} isAdmin={isAdmin}/>} />
         <Route path="/employees/:id" element={<EmployeeDetails user={user}/>} />
 
-        {/* Departments (Admin only) */}
         {isAdmin && (
           <>
             <Route path="/departments" element={<DepartmentList />} />
@@ -319,7 +254,6 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Designations (Admin only) */}
         {isAdmin && (
           <>
             <Route path="/designations" element={<DesignationList />} />
@@ -329,7 +263,6 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Roles (Admin only) */}
         {isAdmin && (
           <>
             <Route path="/roles" element={<RoleList />} />
@@ -339,7 +272,6 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Salary Structures (Admin only) */}
         {isAdmin && (
           <>
             <Route path="/salary-structures" element={<SalaryStructureList />} />
@@ -349,12 +281,10 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Attendance */}
         <Route path="/attendance" element={<AttendanceCheck />} />
         <Route path="/attendance/:id/edit" element={<AttendanceEdit />} />
         <Route path="/attendance/list" element={<AttendanceList />} />
 
-        {/* Leave Management */}
         {user && (
           <>
             <Route path="/leaves" element={<LeaveList user={user} />} />
@@ -362,7 +292,6 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* LeaveType (Admin only) */}
         {isAdmin && (
           <>
           <Route path="/leave-types" element={<LeaveTypeList />} />
@@ -372,18 +301,16 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Payroll */}
         {user && (
           <>
           <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />
           <Route path="/payrolls/:id/payslip" element={<PayslipViewer />} />
             {isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
             {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
-            {!isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />} {/* Employee sees own payroll */}
+            {!isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
           </>
         )}
 
-        {/* Performance KPIs (Admin only) */}
         {isAdmin && (
           <>
             <Route path="/performance-kpis" element={<PerformanceKPIList user={user} />} />
@@ -393,7 +320,6 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Performance Evaluations */}
         {user && (
           <>
             {isAdmin && (
@@ -410,7 +336,6 @@ const handleLogout = async () => {
           </>
         )}
 
-        {/* Training Routes */}
         {user && (
           <>
             {isAdmin && (
@@ -421,7 +346,7 @@ const handleLogout = async () => {
               </>
             )}
             {!isAdmin && (
-              <Route path="/trainings" element={<TrainingList user={user} />} /> // Employee can view trainings
+              <Route path="/trainings" element={<TrainingList user={user} />} /> 
             )}
             <Route path="/trainings/:id" element={<TrainingView user={user} />} />
           </>
@@ -429,28 +354,25 @@ const handleLogout = async () => {
 
         )}
 
-          {/* EmployeeTraining Routes */}
-          {user && (
-            <>
-              {isAdmin && (
-                <>
-                  <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
-                  <Route path="/employee-trainings/create" element={<EmployeeTrainingCreate user={user} />} />
-                  <Route path="/employee-trainings/:id/edit" element={<EmployeeTrainingEdit user={user} />} />
-                </>
-              )}
-              {!isAdmin && (
-                <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} /> // Employee can view their own trainings
-              )}
-              <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} />} />
-            </>
-          )}
+        {user && (
+          <>
+            {isAdmin && (
+              <>
+                <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
+                <Route path="/employee-trainings/create" element={<EmployeeTrainingCreate user={user} />} />
+                <Route path="/employee-trainings/:id/edit" element={<EmployeeTrainingEdit user={user} />} />
+              </>
+            )}
+            {!isAdmin && (
+              <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
+            )}
+            <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} />} />
+          </>
+        )}
 
-          {/* // Public and Employee/User */}
           <Route path="/public-recruitments" element={<PublicRecruitmentList user={user} isAdmin={isAdmin} />} />
           <Route path="/recruitments/:id" element={<RecruitmentView user={user} />} />
 
-          {/* // Admin Only */}
           {isAdmin && (
             <>
               <Route path="/recruitments" element={<RecruitmentList />} />
@@ -459,25 +381,21 @@ const handleLogout = async () => {
             </>
           )}
 
-        {/* // Public user can apply without login */}
         <Route path="/job-applications/apply/:recruitmentId" element={<JobApplicationCreate />} />
 
-  
-          {user && (
-            <>
-              
-              <Route path="/job-applications" element={<JobApplicationList />} />
-              <Route path="/job-applications/apply" element={<JobApplicationApply />} />
-            </>
-          )}
+        {user && (
+          <>    
+            <Route path="/job-applications" element={<JobApplicationList />} />
+            <Route path="/job-applications/apply" element={<JobApplicationApply />} />
+          </>
+        )}
 
-           {!user && (
-            <>
-              <Route path="/job-applications/public" element={<JobApplicationPublic />} />
-            </>
-          )}
+        {!user && (
+          <>
+            <Route path="/job-applications/public" element={<JobApplicationPublic />} />
+          </>
+        )}
 
-        {/* // Admin: Manage all applications */}
         {isAdmin && (
           <>
             <Route path="/admin/job-applications" element={<JobApplicationList user={user} isAdmin={isAdmin}/>} />
@@ -486,8 +404,6 @@ const handleLogout = async () => {
           </>
         )}
 
-
-        {/* Default Route */}
         <Route path="/" element={<EmployeeList />} />
       </Routes>
     </>

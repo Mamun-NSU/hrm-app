@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import AttendanceService from "../../services/AttendanceService";
 
-
 const AttendanceCheck = ({ employeeId }) => {
   const [todayRecord, setTodayRecord] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,7 +14,7 @@ const AttendanceCheck = ({ employeeId }) => {
     try {
       const res = await AttendanceService.getByEmployee(employeeId);
       const today = new Date().toISOString().slice(0, 10);
-      const record = res.data.find(r => r.date === today);
+      const record = res.data.data.attendance.find(r => r.date === today);
       setTodayRecord(record || null);
     } catch (err) {
       console.error(err);

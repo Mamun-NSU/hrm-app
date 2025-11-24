@@ -1,34 +1,13 @@
-// src/api/services/AttendanceService.js
-
 import api from "../axios";
 
+const ENDPOINT = "/attendance";
 
 const AttendanceService = {
-  // ✅ Get all attendance records
-  getAll: () => {
-    return api.get("/attendance");
-  },
-
-  // ✅ Create (Check-In)
-  create: (data) => {
-    return api.post("/attendance", data);
-  },
-
-  // ✅ Get single record
-  get: (id) => {
-    return api.get(`/attendance/${id}`);
-  },
-
-  // ✅ Update (Check-Out or Edit)
-  update: (id, data) => {
-    return api.put(`/attendance/${id}`, data);
-  },
-
-  // ✅ Delete (optional)
-  remove: (id) => {
-    return api.delete(`/attendance/${id}`);
-  },
+  getAll: () => api.get(`${ENDPOINT}/list`),
+  get: (id) => api.get(`${ENDPOINT}/${id}/show`),
+  create: (data) => api.post(`${ENDPOINT}/store`, data),
+  update: (id, data) => api.put(`${ENDPOINT}/${id}/update`, data),
+  remove: (id) => api.delete(`${ENDPOINT}/${id}/delete`),
 };
 
 export default AttendanceService;
-
