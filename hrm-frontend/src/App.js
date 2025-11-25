@@ -84,6 +84,7 @@ function AppWrapper() {
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
+
       if (!token) {
         setUser(null);
         setIsAdmin(false);
@@ -91,12 +92,26 @@ function AppWrapper() {
       }
 
       try {
-        const response = await api.get("/user", {
+        const response = await api.get("/about/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const loggedUser = response.data;
+
+        // Extract user safely
+        const loggedUser = response?.data?.data?.user ?? null;
+
+        if (!loggedUser) {
+          setUser(null);
+          setIsAdmin(false);
+          return;
+        }
+
         setUser(loggedUser);
         setIsAdmin(loggedUser.role_id === 1);
+
+        console.log("loggedUser", loggedUser);
+        console.log("isAdmin", isAdmin);
+        console.log("user", user);
+
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setUser(null);
@@ -113,6 +128,7 @@ function AppWrapper() {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
+
 
 const handleLogout = async () => {
   const token = localStorage.getItem("token");

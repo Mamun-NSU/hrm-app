@@ -4,6 +4,7 @@ use App\Http\Controllers\Employee\{
     EmployeeDestroyController, 
     EmployeeListController,
     EmployeeSalaryController,
+    EmployeeShowByEmailController,
     EmployeeShowController, 
     EmployeeStoreController, 
     EmployeeUpdateController,
@@ -16,6 +17,7 @@ Route::prefix('employee')->group(function () {
     Route::post('store', EmployeeStoreController::class);
     Route::prefix('{employee}')->group(function () {
         Route::get('show', EmployeeShowController::class);
+        Route::get('email', EmployeeShowByEmailController::class);
         Route::put('update', EmployeeUpdateController::class);
         Route::delete('delete', EmployeeDestroyController::class);
     });

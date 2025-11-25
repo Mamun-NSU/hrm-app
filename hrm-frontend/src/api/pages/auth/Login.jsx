@@ -18,25 +18,16 @@ const Login = ({ setUser, setIsAdmin }) => {
     setLoading(true);
 
     try {
-      const response = await api.post("/login", form);
-      const token = response.data.token;
+      const response = await api.post('/login', form);
+
+      const { token, user } = response.data.data;
+
       localStorage.setItem("token", token);
-      const userResponse = await api.get("/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const loggedUser = userResponse.data;
+      setUser(user);
+      setIsAdmin(user.role_id === 1);
 
-      setUser(loggedUser);
-      setIsAdmin(loggedUser.role_id === 1);
-
-      await api.post(
-        '/attendance/store',
-        { type: "login" },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      toast.success("Login successful and attendance recorded!");
-      navigate("/");
+      toast.success(response.data.message || "Login successful!");
+      navigate("/"); 
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Login failed");

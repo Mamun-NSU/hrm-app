@@ -12,6 +12,13 @@ class EmployeeShowController extends Controller
     {
         $employee = $employee->load(['department', 'designation', 'user.role']);
 
+        if (!$employee) {
+            return response()->json([
+                'data' => null,
+                'message' => 'Employee not found for this user.',
+            ], 404);
+        }
+
         return response()->json([
             'data' => [
                 'employee' => $employee,
