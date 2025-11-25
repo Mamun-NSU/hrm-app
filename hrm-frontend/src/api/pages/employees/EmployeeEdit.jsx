@@ -33,14 +33,14 @@ const EmployeeEdit = ({ user, isAdmin }) => {
         const [deptRes, desigRes, usersRes, empRes] = await Promise.all([
           api.get("/department/list"),
           api.get("/designation/list"),
-          api.get("/users"),
+          api.get('/user/list'),
           api.get(`/employee/${id}/show`)
         ]);
 
         
         setDepartments(deptRes.data.data.departments);
         setDesignations(desigRes.data.data.designations);
-        setUsers(usersRes.data);
+        setUsers(usersRes.data.data.users);
 
         setForm({
           user_id: empRes.data.data.employee.user_id || "",

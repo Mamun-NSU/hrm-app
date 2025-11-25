@@ -40,8 +40,8 @@ const EmployeeCreate = () => {
   };
 
   const fetchUsers = async () => {
-    const res = await api.get("/users");
-    setUsers(res.data);
+    const res = await api.get('/user/list');
+    setUsers(res.data.data.users);
   };
 
   const handleChange = (e) => {

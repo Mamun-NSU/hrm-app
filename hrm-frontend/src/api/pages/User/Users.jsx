@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "../api/axios";
 import { Container, Table, Form, Button, Row, Col, Card } from "react-bootstrap";
+import api from "../../axios";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -9,8 +9,8 @@ export default function Users() {
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get("/users");
-      setUsers(res.data);
+      const res = await api.get('user/list');
+      setUsers(res.data.data.users);
     } catch (err) {
       console.error(err);
     }
@@ -26,10 +26,10 @@ export default function Users() {
     e.preventDefault();
     try {
       if (editingId) {
-        await api.put(`/users/${editingId}`, form);
+        await api.put(`/user/${editingId}/update`, form);
         setEditingId(null);
       } else {
-        await api.post("/users", { ...form, password: "default123" });
+        await api.post('/user/store', { ...form, password: "default123" });
       }
       setForm({ name: "", email: "", role_id: "" });
       fetchUsers();
@@ -45,7 +45,7 @@ export default function Users() {
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure?")) {
-      await api.delete(`/users/${id}`);
+      await api.delete(`/user/${id}/delete`);
       fetchUsers();
     }
   };
