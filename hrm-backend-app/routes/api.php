@@ -37,26 +37,18 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::delete('/job-applications/{id}', [JobApplicationController::class, 'destroy']);
 });
 
-Route::get('/recruitments', [RecruitmentController::class, 'indexPublic']);
-
-Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-    Route::get('/admin/recruitments', [RecruitmentController::class, 'index']);
-    Route::post('/admin/recruitments', [RecruitmentController::class, 'store']);
-    Route::get('/admin/recruitments/{id}', [RecruitmentController::class, 'show']);
-    Route::put('/admin/recruitments/{id}', [RecruitmentController::class, 'update']);
-    Route::delete('/admin/recruitments/{id}', [RecruitmentController::class, 'destroy']);
-});
-
 require __DIR__ . '/attendance.php';
 require __DIR__ . '/department.php';
 require __DIR__ . '/designation.php';
 require __DIR__ . '/employee.php';
 require __DIR__ . '/employee-training.php';
+require __DIR__ . '/job-application.php';
 require __DIR__ . '/leave-request.php';
 require __DIR__ . '/leave-type.php';
 require __DIR__ . '/payroll.php';
 require __DIR__ . '/performance-evaluation.php';
 require __DIR__ . '/performance-kpi.php';
+require __DIR__ . '/recruitment.php';
 require __DIR__ . '/role.php';
 require __DIR__ . '/salary-structure.php';
 require __DIR__ . '/training.php';
