@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./recruitment.api";
 
 const RecruitmentEdit = () => {
   const { id } = useParams();
@@ -19,15 +19,15 @@ const RecruitmentEdit = () => {
     const fetchData = async () => {
       try {
         const [recruitRes, deptRes] = await Promise.all([
-          api.get(`/admin/recruitments/${id}`),
+          api.get(`recruitment/${id}/show`),
           api.get("/department/list"),
         ]);
         setForm({
-          position: recruitRes.data.position,
-          department_id: recruitRes.data.department_id,
-          status: recruitRes.data.status,
+          position: recruitRes.data.data.recruitment.position,
+          department_id: recruitRes.data.data.recruitment.department_id,
+          status: recruitRes.data.data.recruitment.status,
         });
-        setDepartments(deptRes.data);
+        setDepartments(deptRes.data.data.departments);
       } catch (err) {
         console.error(err);
         toast.error("Failed to load data!");
@@ -45,7 +45,7 @@ const RecruitmentEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/admin/recruitments/${id}`, form);
+      await api.put(`recruitment/${id}/update`, form);
       toast.success("Job post updated!");
       navigate("/recruitments");
     } catch (err) {

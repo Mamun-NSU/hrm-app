@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./recruitment.api";
 
 const RecruitmentList = () => {
   const [recruitments, setRecruitments] = useState([]);
@@ -11,8 +11,8 @@ const RecruitmentList = () => {
 
   const fetchRecruitments = async () => {
     try {
-      const res = await api.get("/admin/recruitments");
-      setRecruitments(res.data);
+      const res = await api.get('/recruitment/list');
+      setRecruitments(res.data.data.recruitments);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load job posts!");
@@ -29,7 +29,7 @@ const RecruitmentList = () => {
     if (!window.confirm("Are you sure?")) return;
 
     try {
-      await api.delete(`/admin/recruitments/${id}`);
+      await api.delete(`recruitment/${id}/delete`);
       toast.success("Job post deleted!");
       fetchRecruitments();
     } catch (err) {

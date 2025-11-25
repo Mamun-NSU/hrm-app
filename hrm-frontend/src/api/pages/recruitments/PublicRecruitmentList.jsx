@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "./recruitment.api";
 
 const PublicRecruitmentList = ({ user, isAdmin }) => {
   const [jobs, setJobs] = useState([]);
@@ -11,8 +11,8 @@ const PublicRecruitmentList = ({ user, isAdmin }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await api.get("/recruitments");
-        setJobs(res.data);
+        const res = await api.get('/recruitment/public/list');
+        setJobs(res.data.data.recruitments);
       } catch (err) {
         console.error(err);
       } finally {

@@ -67,7 +67,7 @@ import JobApplicationCreate from "./api/pages/job-applications/JobApplicationCre
 import JobApplicationList from "./api/pages/job-applications/JobApplicationList";
 import JobApplicationEdit from "./api/pages/job-applications/JobApplicationEdit";
 import JobApplicationView from "./api/pages/job-applications/JobApplicationView";
-import JobApplicationApply from "./api/pages/job-applications/JobApplicationApply";
+import JobApplicationEmployee from "./api/pages/job-applications/JobApplicationEmployee";
 import JobApplicationPublic from "./api/pages/job-applications/JobApplicationPublic";
 import PublicRecruitmentList from "./api/pages/recruitments/PublicRecruitmentList";
 
@@ -386,7 +386,7 @@ const handleLogout = async () => {
         {user && (
           <>    
             <Route path="/job-applications" element={<JobApplicationList />} />
-            <Route path="/job-applications/apply" element={<JobApplicationApply />} />
+            <Route path="/job-applications/apply" element={<JobApplicationEmployee />} />
           </>
         )}
 

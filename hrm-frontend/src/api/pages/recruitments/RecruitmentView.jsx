@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Spinner, Table, Button, Container } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "./recruitment.api";
 
 const RecruitmentView = () => {
   const { id } = useParams();
@@ -12,8 +12,8 @@ const RecruitmentView = () => {
   useEffect(() => {
     const fetchRecruitment = async () => {
       try {
-        const res = await api.get(`/admin/recruitments/${id}`);
-        setRecruitment(res.data);
+        const res = await api.get(`recruitment/${id}/show`);
+        setRecruitment(res.data.data.recruitment);
       } catch (err) {
         console.error("Error fetching recruitment:", err);
       } finally {
@@ -59,8 +59,6 @@ const RecruitmentView = () => {
           <strong>Updated At:</strong>{" "}
           {new Date(recruitment.updated_at).toLocaleString()}
         </p>
-
-        {/* NEW: Show Total Applicants */}
         <h5 className="mt-4">
           Applications ({recruitment.job_applications?.length || 0})
         </h5>

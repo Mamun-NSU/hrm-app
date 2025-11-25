@@ -1,37 +1,34 @@
-
 import React, { useState, useEffect } from "react";
 import { Container, Card, Form, Button, Spinner, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "./job-application.api";
 
-const JobApplicationApply = () => {
+const JobApplicationEmployee = () => {
   const [jobs, setJobs] = useState([]);
   const [formData, setFormData] = useState({
     recruitment_id: "",
+    resume: null,
     resume_link: "",
     cover_letter: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [errors, setErrors] = useState({}); // Field-specific errors
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Fetch all available jobs for employee
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/recruitments", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setJobs(response.data);
+        const response = await api.get('/recruitment/list');
+        setJobs(response.data.data.recruitments);
       } catch (err) {
         console.error(err);
         setError("Failed to fetch jobs. Please try again later.");
       }
     };
+
     fetchJobs();
   }, []);
 
@@ -57,7 +54,6 @@ const JobApplicationApply = () => {
       return;
     }
 
-    // Ensure either resume file or resume link is provided
     if (!formData.resume && !formData.resume_link) {
       setError("Please provide a resume file or a resume link.");
       setLoading(false);
@@ -68,35 +64,30 @@ const JobApplicationApply = () => {
       const data = new FormData();
       data.append("recruitment_id", formData.recruitment_id);
       data.append("cover_letter", formData.cover_letter);
+
       if (formData.resume) data.append("resume", formData.resume);
       if (formData.resume_link) data.append("resume_link", formData.resume_link);
 
-      await axios.post(
-        "http://127.0.0.1:8000/api/job-applications/employee",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      await api.post("/job-application/employee/store", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       setSuccess("Job application submitted successfully!");
-      setFormData({ recruitment_id: "", resume: null, resume_link: "", cover_letter: "" });
 
-      // Optional: delay navigation to show success message
-      setTimeout(() => navigate("/job-applications"), 1000);
+      setFormData({
+        recruitment_id: "",
+        resume: null,
+        resume_link: "",
+        cover_letter: "",
+      });
+
+      setTimeout(() => navigate("/job-applications"), 1500);
     } catch (err) {
       console.error(err);
-      if (err.response && err.response.data) {
-        if (err.response.data.errors) {
-          setErrors(err.response.data.errors);
-        }
-        setError(
-          err.response.data.message ||
-            "Something went wrong while submitting the application."
-        );
+
+      if (err.response?.data) {
+        setErrors(err.response.data.errors || {});
+        setError(err.response.data.message || "An error occurred.");
       } else {
         setError("Something went wrong!");
       }
@@ -114,6 +105,7 @@ const JobApplicationApply = () => {
         {success && <Alert variant="success">{success}</Alert>}
 
         <Form onSubmit={handleSubmit}>
+
           <Form.Group className="mb-3">
             <Form.Label>Select Job</Form.Label>
             <Form.Select
@@ -138,7 +130,7 @@ const JobApplicationApply = () => {
               name="resume_link"
               value={formData.resume_link}
               onChange={handleChange}
-              placeholder="Enter resume URL (e.g., Google Drive, Dropbox)"
+              placeholder="Google Drive / Dropbox link"
             />
             {errors.resume_link && (
               <div className="text-danger">{errors.resume_link[0]}</div>
@@ -168,5 +160,4 @@ const JobApplicationApply = () => {
   );
 };
 
-export default JobApplicationApply;
-
+export default JobApplicationEmployee;

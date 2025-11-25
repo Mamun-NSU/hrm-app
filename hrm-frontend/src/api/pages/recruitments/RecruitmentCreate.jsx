@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "./recruitment.api";
 
 const RecruitmentCreate = () => {
   const [form, setForm] = useState({
@@ -18,7 +18,7 @@ const RecruitmentCreate = () => {
     const fetchDepartments = async () => {
       try {
         const res = await api.get("/department/list");
-        setDepartments(res.data);
+        setDepartments(res.data.data.departments);
       } catch (err) {
         console.error(err);
       }
@@ -33,9 +33,8 @@ const RecruitmentCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/admin/recruitments", form);
+      await api.post('recruitment/store', form);
       toast.success("Job post created successfully!");
-      // navigate("/admin/recruitments");
       navigate("/recruitments");
     } catch (err) {
       console.error(err);

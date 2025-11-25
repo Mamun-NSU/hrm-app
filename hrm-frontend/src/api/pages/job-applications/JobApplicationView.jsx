@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./job-application.api";
 
 const JobApplicationView = () => {
   const { id } = useParams();
@@ -12,8 +12,8 @@ const JobApplicationView = () => {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const res = await api.get(`/job-applications/${id}`);
-        setApplication(res.data);
+        const res = await api.get(`/job-application/${id}/show`);
+        setApplication(res.data.data.application);
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch application!");

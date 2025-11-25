@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./job-application.api";
 
 const JobApplicationList = ({ user, isAdmin }) => {
   const [applications, setApplications] = useState([]);
@@ -17,10 +17,10 @@ const JobApplicationList = ({ user, isAdmin }) => {
   const fetchApplications = async () => {
     try {
       const endpoint = isAdmin
-        ? "/job-applications"
-        : "/job-applications/employee";
+        ? "/job-application/list"
+        : "/job-application/employee/list";
       const res = await api.get(endpoint);
-      setApplications(res.data);
+      setApplications(res.data.data.applications);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load applications!");
@@ -34,7 +34,7 @@ const JobApplicationList = ({ user, isAdmin }) => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure to delete this application?")) return;
     try {
-      await api.delete(`/job-applications/${id}`);
+      await api.delete(`/job-application/${id}/delete`);
       toast.success("Application deleted!");
       fetchApplications();
     } catch (err) {

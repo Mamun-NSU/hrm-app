@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./job-application.api";
 
 const JobApplicationEdit = () => {
   const { id } = useParams();
@@ -14,9 +14,9 @@ const JobApplicationEdit = () => {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const res = await api.get(`/job-applications/${id}`);
-        setApplication(res.data);
-        setStatus(res.data.status);
+        const res = await api.get(`/job-application/${id}/show`);
+        setApplication(res.data.data.application);
+        setStatus(res.data.data.application.status);
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch application!");
@@ -30,9 +30,9 @@ const JobApplicationEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/job-applications/${id}`, { status });
+      await api.put(`/job-application/${id}/update`, { status });
       toast.success("Application updated!");
-      navigate("/job-applications");
+      navigate('/admin/job-applications');
     } catch (err) {
       console.error(err);
       toast.error("Failed to update!");

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./job-application.api";
 
 const JobApplicationCreate = () => {
   const [recruitments, setRecruitments] = useState([]);
@@ -17,8 +17,8 @@ const JobApplicationCreate = () => {
   useEffect(() => {
     const fetchRecruitments = async () => {
       try {
-        const res = await api.get("/recruitments"); // public open jobs
-        setRecruitments(res.data);
+        const res = await api.get('/recruitment/public/list'); // public open jobs
+        setRecruitments(res.data.data.recruitments);
       } catch (err) {
         console.error(err);
         toast.error("Failed to load job posts!");
@@ -36,7 +36,7 @@ const JobApplicationCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/job-applications/public", form);
+      await api.post('job-application/public/store', form);
       toast.success("Application submitted successfully!");
       setForm({
         recruitment_id: "",

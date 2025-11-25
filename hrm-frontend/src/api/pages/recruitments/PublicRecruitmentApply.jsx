@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import api from "../../axios";
+import api from "./recruitment.api";
 
 const PublicRecruitmentApply = () => {
-  const { id } = useParams(); // recruitment_id
+  const { id } = useParams();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     applicant_name: "",
@@ -21,7 +21,7 @@ const PublicRecruitmentApply = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/job-applications/public", {
+      await api.post('job-application/public/store', {
         recruitment_id: id,
         ...form,
       });
