@@ -19,13 +19,11 @@ const Login = ({ setUser, setIsAdmin }) => {
 
     try {
       const response = await api.post('/login', form);
-
       const { token, user } = response.data.data;
 
       localStorage.setItem("token", token);
       setUser(user);
       setIsAdmin(user.role_id === 1);
-
       toast.success(response.data.message || "Login successful!");
       navigate("/"); 
     } catch (error) {

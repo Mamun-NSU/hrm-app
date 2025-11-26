@@ -5,7 +5,7 @@ import api from "./employee.api";
 import { toast } from "react-toastify";
 
 const EmployeeDetails = ({ user }) => {
-  const { id } = useParams(); // employee id from URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [employee, setEmployee] = useState(null);
@@ -20,7 +20,7 @@ const EmployeeDetails = ({ user }) => {
       setEmployee(response.data.data.employee);
     } catch (error) {
       toast.error("Failed to load employee details.");
-      navigate("/employees"); // redirect back to list
+      navigate("/employees");
     }
   };
 

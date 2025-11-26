@@ -83,7 +83,6 @@ const EmployeeList = ({ user }) => {
                       Details
                     </Button>
 
-                    {/* Show Edit + Delete only if Admin */}
                     {user?.role_id === 1 && (
                       <>
                         <Button
@@ -119,4 +118,3 @@ const EmployeeList = ({ user }) => {
 };
 
 export default EmployeeList;
-

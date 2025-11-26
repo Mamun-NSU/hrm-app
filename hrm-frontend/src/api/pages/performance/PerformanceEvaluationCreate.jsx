@@ -1,10 +1,9 @@
-// src/pages/performance/PerformanceEvaluationCreate.jsx
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PerformanceEvaluationService from "../../services/PerformanceEvaluationService";
-import EmployeeService from "../../services/EmployeeService"; // assumes you have this
+import EmployeeService from "../../services/EmployeeService";
 import PerformanceKPIService from "../../services/PerformanceKPIService";
 
 const PerformanceEvaluationCreate = () => {
@@ -71,7 +70,6 @@ const PerformanceEvaluationCreate = () => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>KPI</Form.Label>
                 <Form.Select name="kpi_id" value={form.kpi_id} onChange={handleChange} required>
@@ -81,7 +79,6 @@ const PerformanceEvaluationCreate = () => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Score</Form.Label>
                 <Form.Control
@@ -94,7 +91,6 @@ const PerformanceEvaluationCreate = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Remarks</Form.Label>
                 <Form.Control
@@ -105,7 +101,6 @@ const PerformanceEvaluationCreate = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Evaluation Date</Form.Label>
                 <Form.Control
@@ -116,7 +111,6 @@ const PerformanceEvaluationCreate = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Evaluated By</Form.Label>
                 <Form.Control
@@ -127,7 +121,6 @@ const PerformanceEvaluationCreate = () => {
                   required
                 />
               </Form.Group>
-
               <Button type="submit" className="w-100" variant="primary">Create Evaluation</Button>
             </Form>
           </Card>

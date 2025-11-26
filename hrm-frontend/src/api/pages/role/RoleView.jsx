@@ -1,9 +1,7 @@
-// src/pages/role/RoleView.jsx
 import React, { useEffect, useState } from "react";
 import { Card, Button, Container, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import RoleService from "../../services/RoleService";
-
 
 const RoleView = () => {
   const { id } = useParams();

@@ -37,7 +37,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
           api.get(`/employee/${id}/show`)
         ]);
 
-        
         setDepartments(deptRes.data.data.departments);
         setDesignations(desigRes.data.data.designations);
         setUsers(usersRes.data.data.users);
@@ -97,7 +96,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
 
             <Form onSubmit={handleSubmit}>
 
-              {/* USER - ADMIN CAN EDIT */}
               <Form.Group className="mb-3">
                 <Form.Label>User</Form.Label>
                 <Form.Select
@@ -116,7 +114,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 </Form.Select>
               </Form.Group>
 
-              {/* DEPARTMENT */}
               <Form.Group className="mb-3">
                 <Form.Label>Department</Form.Label>
                 <Form.Select
@@ -134,7 +131,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 </Form.Select>
               </Form.Group>
 
-              {/* DESIGNATION */}
               <Form.Group className="mb-3">
                 <Form.Label>Designation</Form.Label>
                 <Form.Select
@@ -152,7 +148,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 </Form.Select>
               </Form.Group>
 
-              {/* EMPLOYEE CODE */}
               <Form.Group className="mb-3">
                 <Form.Label>Employee Code</Form.Label>
                 <Form.Control
@@ -165,7 +160,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 />
               </Form.Group>
 
-              {/* OTHER FIELDS ALWAYS EDITABLE */}
               <Form.Group className="mb-3">
                 <Form.Label>Phone</Form.Label>
                 <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
@@ -205,15 +199,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 <Form.Control type="number" name="salary_base"  disabled={!isAdmin} value={form.salary_base} onChange={handleChange} />
               </Form.Group>
 
-              {/* <div className="d-flex justify-content-between"> 
-                <Button type="submit" variant="primary" disabled={saving}>
-                  {saving ? <Spinner animation="border" size="sm" /> : "Update Employee"}
-                </Button>          
-                <Button variant="secondary" onClick={() => navigate("/employees")}>
-                  Back
-                </Button>
-              </div> */}
-
               <div className="d-flex justify-content-between align-items-center gap-3 mt-4">
 
                 <Button
@@ -243,4 +228,3 @@ const EmployeeEdit = ({ user, isAdmin }) => {
 };
 
 export default EmployeeEdit;
-

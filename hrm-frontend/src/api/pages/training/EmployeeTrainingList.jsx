@@ -79,7 +79,6 @@ const EmployeeTrainingList = ({ user }) => {
                       >
                         View
                       </Button>
-
                       {user?.role_id === 1 && (
                         <>
                           <Button

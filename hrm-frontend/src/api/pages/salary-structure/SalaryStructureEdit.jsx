@@ -26,7 +26,6 @@ const SalaryStructureEdit = () => {
       try {
         const res = await api.get(`/salary-structure/${id}/show`);
         const s = res.data.data.salary_structure;
-
         setForm({
           basic_salary: s.basic_salary ?? "",
           house_rent: s.house_rent ?? "",
@@ -77,8 +76,6 @@ const SalaryStructureEdit = () => {
           <Card className="p-4 shadow">
             <h3 className="text-center mb-4">Edit Salary Structure</h3>
             <Form onSubmit={handleSubmit}>
-
-              {/* Basic Salary */}
               <Form.Group className="mb-3">
                 <Form.Label>Basic Salary</Form.Label>
                 <Form.Control
@@ -89,8 +86,6 @@ const SalaryStructureEdit = () => {
                   required
                 />
               </Form.Group>
-
-              {/* Allowances */}
               <h5 className="mt-4">Allowances</h5>
               <Form.Group className="mb-3">
                 <Form.Label>House Rent</Form.Label>
@@ -101,7 +96,6 @@ const SalaryStructureEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Medical Allowance</Form.Label>
                 <Form.Control
@@ -111,7 +105,6 @@ const SalaryStructureEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Transport Allowance</Form.Label>
                 <Form.Control
@@ -121,7 +114,6 @@ const SalaryStructureEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Other Allowance</Form.Label>
                 <Form.Control
@@ -131,8 +123,6 @@ const SalaryStructureEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
-              {/* Deductions */}
               <h5 className="mt-4">Deductions</h5>
               <Form.Group className="mb-3">
                 <Form.Label>Taxes Deduction</Form.Label>
@@ -143,7 +133,6 @@ const SalaryStructureEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Security Deduction</Form.Label>
                 <Form.Control
@@ -153,8 +142,6 @@ const SalaryStructureEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
-              {/* Buttons */}
               <div className="d-flex gap-2">
                 <Button variant="secondary" className="w-50" onClick={() => navigate("/salary-structures")}>
                   Back
@@ -163,7 +150,6 @@ const SalaryStructureEdit = () => {
                   {saving ? "Saving..." : "Update Salary Structure"}
                 </Button>
               </div>
-
             </Form>
           </Card>
         </Col>

@@ -52,7 +52,6 @@ const SalaryStructureCreate = () => {
       </Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
-          {/* Employee */}
           <Form.Group className="mb-3">
             <Form.Label>Employee</Form.Label>
             <Form.Select
@@ -69,8 +68,6 @@ const SalaryStructureCreate = () => {
               ))}
             </Form.Select>
           </Form.Group>
-
-          {/* Basic Salary */}
           <Form.Group className="mb-3">
             <Form.Label>Basic Salary</Form.Label>
             <Form.Control
@@ -81,10 +78,7 @@ const SalaryStructureCreate = () => {
               required
             />
           </Form.Group>
-
-          {/* Allowances */}
           <h5 className="mt-4">Allowances</h5>
-
           <Form.Group className="mb-3">
             <Form.Label>House Rent</Form.Label>
             <Form.Control
@@ -94,7 +88,6 @@ const SalaryStructureCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Medical Allowance</Form.Label>
             <Form.Control
@@ -104,7 +97,6 @@ const SalaryStructureCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Transport Allowance</Form.Label>
             <Form.Control
@@ -114,7 +106,6 @@ const SalaryStructureCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Other Allowance</Form.Label>
             <Form.Control
@@ -124,10 +115,7 @@ const SalaryStructureCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
-          {/* Deductions */}
           <h5 className="mt-4">Deductions</h5>
-
           <Form.Group className="mb-3">
             <Form.Label>Taxes Deduction</Form.Label>
             <Form.Control
@@ -137,7 +125,6 @@ const SalaryStructureCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Security Deduction</Form.Label>
             <Form.Control
@@ -147,7 +134,6 @@ const SalaryStructureCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Button type="submit" variant="primary">
             Create
           </Button>

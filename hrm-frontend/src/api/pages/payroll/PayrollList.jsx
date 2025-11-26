@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Table, Card, Button, Spinner } from "react-bootstrap";
+import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./payroll.api";
-
 
 const PayrollList = ({ user }) => {
   const [payrolls, setPayrolls] = useState([]);
@@ -20,7 +19,6 @@ const PayrollList = ({ user }) => {
       const response = await api.get("/payroll/list");
       let payrollData = response.data.data.payrolls;
 
-      // If Employee (role_id !== 1), show only their own payrolls
       if (user?.role_id !== 1) {
         payrollData = payrollData.filter(
           (p) => p.employee?.user?.id === user.id
@@ -62,7 +60,6 @@ const PayrollList = ({ user }) => {
           </Button>
         )}
       </Card.Header>
-
       <Card.Body>
         {loading ? (
           <div className="d-flex justify-content-center align-items-center mt-5">

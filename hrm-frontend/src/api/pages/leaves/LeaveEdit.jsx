@@ -5,7 +5,6 @@ import api from "./leave.api";
 const LeaveEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [leave, setLeave] = useState(null);
 
   useEffect(() => {
@@ -27,13 +26,11 @@ const LeaveEdit = () => {
   return (
     <div className="container mt-4">
       <h2 className="fw-bold">Review Leave Request</h2>
-
       <div className="card p-4 shadow-sm mt-3">
         <p><strong>Employee:</strong> {leave.user?.name}</p>
         <p><strong>Date From:</strong> {leave.date_from}</p>
         <p><strong>Date To:</strong> {leave.date_to}</p>
         <p><strong>Reason:</strong> {leave.reason}</p>
-
         <div className="mt-3">
           <button
             className="btn btn-success me-2"
@@ -41,7 +38,6 @@ const LeaveEdit = () => {
           >
             Approve
           </button>
-
           <button
             className="btn btn-danger"
             onClick={() => updateStatus("rejected")}

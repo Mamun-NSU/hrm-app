@@ -1,4 +1,3 @@
-// src/pages/leaveTypes/LeaveTypeView.jsx
 import React, { useState, useEffect } from "react";
 import { Card, Button, Container, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
@@ -41,29 +40,23 @@ const LeaveTypeView = () => {
     >
       <Card className="p-4 shadow" style={{ maxWidth: "500px", width: "100%" }}>
         <h3 className="text-center mb-4">Leave Type Details</h3>
-
         <p>
           <strong>Name:</strong> {leaveType.name}
         </p>
-
         <p>
           <strong>Days per Year:</strong> {leaveType.days_per_year}
         </p>
-
         <p>
           <strong>Description:</strong> {leaveType.description || "—"}
         </p>
-
         <p>
           <strong>Created At:</strong>{" "}
           {new Date(leaveType.created_at).toLocaleString()}
         </p>
-
         <p>
           <strong>Updated At:</strong>{" "}
           {new Date(leaveType.updated_at).toLocaleString()}
         </p>
-
         <Button
           variant="primary"
           className="w-100 mt-3"

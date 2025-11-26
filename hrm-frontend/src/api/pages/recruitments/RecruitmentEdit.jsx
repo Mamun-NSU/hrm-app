@@ -70,7 +70,6 @@ const RecruitmentEdit = () => {
             required
           />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Department</Form.Label>
           <Form.Select
@@ -87,7 +86,6 @@ const RecruitmentEdit = () => {
             ))}
           </Form.Select>
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Status</Form.Label>
           <Form.Select
@@ -100,7 +98,6 @@ const RecruitmentEdit = () => {
             <option value="closed">Closed</option>
           </Form.Select>
         </Form.Group>
-
         <Button type="submit">Update</Button>
       </Form>
     </Card>

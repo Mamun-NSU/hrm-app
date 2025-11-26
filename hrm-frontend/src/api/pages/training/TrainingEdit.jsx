@@ -69,7 +69,6 @@ const TrainingEdit = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
@@ -79,7 +78,6 @@ const TrainingEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Start Date</Form.Label>
                 <Form.Control
@@ -90,7 +88,6 @@ const TrainingEdit = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>End Date</Form.Label>
                 <Form.Control
@@ -101,7 +98,6 @@ const TrainingEdit = () => {
                   required
                 />
               </Form.Group>
-
               <div className="d-flex gap-2">
                 <Button variant="secondary" className="w-50" onClick={() => navigate("/trainings")}>
                   Back

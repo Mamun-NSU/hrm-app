@@ -33,7 +33,7 @@ const LeaveTypeList = () => {
       try {
         await api.delete(`/leave-type/${id}/delete`);
         toast.success("Leave type deleted successfully!");
-        fetchLeaveTypes(); // refresh list
+        fetchLeaveTypes();
       } catch (error) {
         console.error("Delete failed:", error);
         toast.error("Failed to delete leave type!");
@@ -43,7 +43,6 @@ const LeaveTypeList = () => {
 
   return (
     <Card className="mt-4 shadow-sm">
-      {/* Header */}
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Leave Types List</h3>
         <Button variant="primary" onClick={() => navigate("/leave-types/create")}>
@@ -51,7 +50,6 @@ const LeaveTypeList = () => {
         </Button>
       </Card.Header>
 
-      {/* Body */}
       <Card.Body>
         {loading ? (
           <div className="d-flex justify-content-center align-items-center mt-5">
@@ -70,7 +68,6 @@ const LeaveTypeList = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-
             <tbody>
               {leaveTypes.length > 0 ? (
                 leaveTypes.map((lt) => (
@@ -81,7 +78,6 @@ const LeaveTypeList = () => {
                     <td>{lt.description}</td>
                     <td>{new Date(lt.created_at).toLocaleString()}</td>
                     <td>{new Date(lt.updated_at).toLocaleString()}</td>
-
                     <td>
                       <Button
                         variant="info"

@@ -15,7 +15,6 @@ const LeaveView = () => {
   return (
     <div className="container mt-4">
       <h2 className="fw-bold">Leave Request Details</h2>
-
       <div className="card p-4 shadow-sm mt-3">
         <p><strong>Employee:</strong> {leave.user?.name}</p>
         <p><strong>From:</strong> {leave.date_from}</p>

@@ -1,4 +1,3 @@
-// src/pages/role/RoleEdit.jsx
 import React, { useEffect, useState } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -26,7 +25,6 @@ const RoleEdit = () => {
   }, [id]);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -58,7 +56,6 @@ const RoleEdit = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
@@ -69,7 +66,6 @@ const RoleEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Button type="submit" className="w-100" variant="primary">Update Role</Button>
             </Form>
           </Card>

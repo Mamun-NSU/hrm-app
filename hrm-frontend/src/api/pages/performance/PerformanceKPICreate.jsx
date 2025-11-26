@@ -1,4 +1,3 @@
-// src/pages/performance/PerformanceKPICreate.jsx
 import React, { useState } from "react";
 import { Card, Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +40,6 @@ const PerformanceKPICreate = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
@@ -53,7 +51,6 @@ const PerformanceKPICreate = () => {
                   placeholder="Enter KPI description"
                 />
               </Form.Group>
-
               <Button type="submit" className="w-100" variant="primary">Create KPI</Button>
             </Form>
           </Card>

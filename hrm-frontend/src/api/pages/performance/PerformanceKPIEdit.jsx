@@ -1,4 +1,3 @@
-// src/pages/performance/PerformanceKPIEdit.jsx
 import React, { useEffect, useState } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -58,7 +57,6 @@ const PerformanceKPIEdit = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
@@ -69,7 +67,6 @@ const PerformanceKPIEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Button type="submit" className="w-100" variant="primary">Update KPI</Button>
             </Form>
           </Card>

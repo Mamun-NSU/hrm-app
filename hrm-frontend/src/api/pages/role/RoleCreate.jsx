@@ -1,17 +1,13 @@
-// src/pages/role/RoleCreate.jsx
 import React, { useState } from "react";
 import { Card, Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import RoleService from "../../services/RoleService";
 
-
 const RoleCreate = () => {
   const [form, setForm] = useState({ name: "", description: "" });
   const navigate = useNavigate();
-
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -42,7 +38,6 @@ const RoleCreate = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
@@ -54,7 +49,6 @@ const RoleCreate = () => {
                   placeholder="Enter role description"
                 />
               </Form.Group>
-
               <Button type="submit" className="w-100" variant="primary">Create Role</Button>
             </Form>
           </Card>

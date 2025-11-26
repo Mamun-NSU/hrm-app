@@ -27,7 +27,6 @@ const PublicRecruitmentList = ({ user, isAdmin }) => {
       <Card.Header>
         <h3 className="mb-0">Open Job Posts</h3>
       </Card.Header>
-
       <Card.Body>
         {loading ? (
           <div className="d-flex justify-content-center mt-5">
@@ -44,7 +43,6 @@ const PublicRecruitmentList = ({ user, isAdmin }) => {
                 <th>Apply</th>
               </tr>
             </thead>
-
             <tbody>
               {jobs.length > 0 ? (
                 jobs.map((job) => (
@@ -67,11 +65,9 @@ const PublicRecruitmentList = ({ user, isAdmin }) => {
                         size="sm"
                         onClick={() => {
                           if (!user) {
-                            // Public visitor
                             navigate("/job-applications/public");
                           } else if (!isAdmin) {
-                            // Employee (not admin)
-                            navigate("/job-applications/apply");
+                            navigate("/employee/job-applications");
                           } else {
                             alert("Admins cannot apply for job posts.");
                           }

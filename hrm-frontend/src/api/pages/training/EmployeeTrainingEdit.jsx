@@ -54,7 +54,7 @@ const EmployeeTrainingEdit = () => {
       toast.error("Failed to load trainings!");
     }
   };
-
+  
   const handleChange = (e) => {
     setRecord({ ...record, [e.target.name]: e.target.value });
   };
@@ -91,7 +91,6 @@ const EmployeeTrainingEdit = () => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Training</Form.Label>
                 <Form.Select name="training_id" value={record.training_id} onChange={handleChange} required>
@@ -101,7 +100,6 @@ const EmployeeTrainingEdit = () => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Status</Form.Label>
                 <Form.Select name="status" value={record.status} onChange={handleChange} required>
@@ -111,7 +109,6 @@ const EmployeeTrainingEdit = () => {
                   <option value="in_progress">In Progress</option>
                 </Form.Select>
               </Form.Group>
-
               <div className="d-flex gap-2">
                 <Button variant="secondary" className="w-50" onClick={() => navigate("/employee-trainings")}>
                   Back

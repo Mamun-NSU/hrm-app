@@ -38,27 +38,22 @@ const TrainingView = () => {
     <Container className="mt-4 d-flex justify-content-center">
       <Card className="shadow p-4" style={{ maxWidth: "650px", width: "100%" }}>
         <h3 className="text-center mb-4">Training Details</h3>
-
         <Row className="mb-2">
           <Col sm={4}><strong>Title:</strong></Col>
           <Col sm={8}>{training.title}</Col>
         </Row>
-
         <Row className="mb-2">
           <Col sm={4}><strong>Description:</strong></Col>
           <Col sm={8}>{training.description}</Col>
         </Row>
-
         <Row className="mb-2">
           <Col sm={4}><strong>Start Date:</strong></Col>
           <Col sm={8}>{training.start_date}</Col>
         </Row>
-
         <Row className="mb-4">
           <Col sm={4}><strong>End Date:</strong></Col>
           <Col sm={8}>{training.end_date}</Col>
         </Row>
-
         <div className="d-flex gap-2">
           <Button
             variant="secondary"
@@ -67,7 +62,6 @@ const TrainingView = () => {
           >
             Back
           </Button>
-
           {isAdmin && (
             <Button
               variant="warning"

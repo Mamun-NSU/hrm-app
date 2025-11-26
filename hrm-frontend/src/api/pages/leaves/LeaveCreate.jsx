@@ -97,7 +97,6 @@ const LeaveCreate = () => {
               ))}
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>From Date</Form.Label>
             <Form.Control
@@ -107,7 +106,6 @@ const LeaveCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>To Date</Form.Label>
             <Form.Control
@@ -117,7 +115,6 @@ const LeaveCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Reason</Form.Label>
             <Form.Control
@@ -128,7 +125,6 @@ const LeaveCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Button variant="success" type="submit" disabled={submitting}>
             {submitting ? "Submitting..." : "Submit Request"}
           </Button>

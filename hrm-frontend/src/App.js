@@ -63,7 +63,6 @@ import RecruitmentList from "./api/pages/recruitments/RecruitmentList";
 import RecruitmentCreate from "./api/pages/recruitments/RecruitmentCreate";
 import RecruitmentEdit from "./api/pages/recruitments/RecruitmentEdit";
 import RecruitmentView from "./api/pages/recruitments/RecruitmentView";
-import JobApplicationCreate from "./api/pages/job-applications/JobApplicationCreate";
 import JobApplicationList from "./api/pages/job-applications/JobApplicationList";
 import JobApplicationEdit from "./api/pages/job-applications/JobApplicationEdit";
 import JobApplicationView from "./api/pages/job-applications/JobApplicationView";
@@ -78,8 +77,6 @@ function AppWrapper() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
   const toggleDrawer = () => setShowDrawer(!showDrawer);
-
-
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -96,7 +93,6 @@ function AppWrapper() {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // Extract user safely
         const loggedUser = response?.data?.data?.user ?? null;
 
         if (!loggedUser) {
@@ -107,10 +103,6 @@ function AppWrapper() {
 
         setUser(loggedUser);
         setIsAdmin(loggedUser.role_id === 1);
-
-        console.log("loggedUser", loggedUser);
-        console.log("isAdmin", isAdmin);
-        console.log("user", user);
 
       } catch (error) {
         console.error("Failed to fetch user:", error);
@@ -153,7 +145,6 @@ const handleLogout = async () => {
   toast.success("You have logged out successfully.");
 };
 
-
   return (
     <>
       <ToastContainer />
@@ -167,7 +158,6 @@ const handleLogout = async () => {
             </Button>
           )}
           <Nav className="me-auto">
-            {/* Admin Only Menu */}
             {isAdmin && (
               <>
                 {/* <Nav.Link as={Link} to="/users">Users</Nav.Link> */}
@@ -183,7 +173,6 @@ const handleLogout = async () => {
                 <Nav.Link as={Link} to="/employee-trainings">E. Trainings</Nav.Link>
                 <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
                 <Nav.Link as={Link} to="/admin/job-applications">Applications</Nav.Link>
-                
               </>
             )}
 
@@ -202,7 +191,7 @@ const handleLogout = async () => {
               <Nav.Link as={Link} to="/employee-trainings">My Trainings</Nav.Link>
               <Nav.Link as={Link} to="/public-recruitments">Open Job Posts</Nav.Link>
               <Nav.Link as={Link} to="/job-applications">My Applications</Nav.Link> 
-              {/* <Nav.Link as={Link} to="/job-applications/apply">Apply Now</Nav.Link> */}
+              {/* <Nav.Link as={Link} to="/job-applications/public">Apply Now</Nav.Link> */}
               </>
             )}
 
@@ -236,7 +225,6 @@ const handleLogout = async () => {
             <Nav.Link as={Link} to="/payrolls">Payroll Management</Nav.Link>
             <Nav.Link as={Link} to="/recruitments">Job Posts</Nav.Link>
             <Nav.Link as={Link} to="/admin/job-applications">Applications</Nav.Link>
-            {/* Uncomment or add other admin links here */}
             <Nav.Link as={Link} to="/departments">Departments</Nav.Link>
             <Nav.Link as={Link} to="/designations">Designations</Nav.Link>
             <Nav.Link as={Link} to="/roles">Roles</Nav.Link>
@@ -367,7 +355,6 @@ const handleLogout = async () => {
             <Route path="/trainings/:id" element={<TrainingView user={user} />} />
           </>
           
-
         )}
 
         {user && (
@@ -397,12 +384,10 @@ const handleLogout = async () => {
             </>
           )}
 
-        <Route path="/job-applications/apply/:recruitmentId" element={<JobApplicationCreate />} />
-
         {user && (
           <>    
             <Route path="/job-applications" element={<JobApplicationList />} />
-            <Route path="/job-applications/apply" element={<JobApplicationEmployee />} />
+            <Route path="/employee/job-applications" element={<JobApplicationEmployee />} />
           </>
         )}
 

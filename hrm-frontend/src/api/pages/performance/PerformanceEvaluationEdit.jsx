@@ -9,7 +9,6 @@ import PerformanceKPIService from "../../services/PerformanceKPIService";
 const PerformanceEvaluationEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [form, setForm] = useState({
     employee_id: "",
     kpi_id: "",
@@ -89,7 +88,6 @@ const PerformanceEvaluationEdit = () => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>KPI</Form.Label>
                 <Form.Select name="kpi_id" value={form.kpi_id} onChange={handleChange} required>
@@ -99,7 +97,6 @@ const PerformanceEvaluationEdit = () => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Score</Form.Label>
                 <Form.Control
@@ -112,7 +109,6 @@ const PerformanceEvaluationEdit = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Remarks</Form.Label>
                 <Form.Control
@@ -123,7 +119,6 @@ const PerformanceEvaluationEdit = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Evaluation Date</Form.Label>
                 <Form.Control
@@ -134,7 +129,6 @@ const PerformanceEvaluationEdit = () => {
                   required
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Evaluated By</Form.Label>
                 <Form.Control
@@ -145,7 +139,6 @@ const PerformanceEvaluationEdit = () => {
                   required
                 />
               </Form.Group>
-
               <div className="d-flex justify-content-between">
                 <Button type="submit" variant="primary" disabled={saving}>
                   {saving ? <Spinner animation="border" size="sm" /> : "Update Performance"}

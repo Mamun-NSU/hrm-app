@@ -36,25 +36,20 @@ const RecruitmentView = () => {
     >
       <Card className="p-4 shadow" style={{ maxWidth: "700px", width: "100%" }}>
         <h3 className="text-center mb-4">Job Post Details</h3>
-
         <p>
           <strong>Position:</strong> {recruitment.position}
         </p>
-
         <p>
           <strong>Department:</strong>{" "}
           {recruitment.department?.name || "N/A"}
         </p>
-
         <p>
           <strong>Status:</strong> {recruitment.status}
         </p>
-
         <p>
           <strong>Created At:</strong>{" "}
           {new Date(recruitment.created_at).toLocaleString()}
         </p>
-
         <p>
           <strong>Updated At:</strong>{" "}
           {new Date(recruitment.updated_at).toLocaleString()}
@@ -62,7 +57,6 @@ const RecruitmentView = () => {
         <h5 className="mt-4">
           Applications ({recruitment.job_applications?.length || 0})
         </h5>
-
         {recruitment.job_applications?.length > 0 ? (
           <Table striped bordered hover responsive>
             <thead>
@@ -75,7 +69,6 @@ const RecruitmentView = () => {
                 <th>Applied At</th>
               </tr>
             </thead>
-
             <tbody>
               {recruitment.job_applications.map((app, index) => (
                 <tr key={app.id}>

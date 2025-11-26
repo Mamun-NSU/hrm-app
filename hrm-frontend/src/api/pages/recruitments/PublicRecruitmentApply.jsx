@@ -48,7 +48,6 @@ const PublicRecruitmentApply = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -59,7 +58,6 @@ const PublicRecruitmentApply = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Phone</Form.Label>
             <Form.Control
@@ -70,7 +68,6 @@ const PublicRecruitmentApply = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Resume Link</Form.Label>
             <Form.Control
@@ -80,7 +77,6 @@ const PublicRecruitmentApply = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Button type="submit" variant="primary">
             Submit Application
           </Button>

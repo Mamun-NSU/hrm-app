@@ -81,7 +81,6 @@ const SalaryStructureList = () => {
                     Number(s.basic_salary) + Number(s.allowance_amount);
                   const netSalary =
                     grossSalary - Number(s.deduction_amount);
-
                   return (
                     <tr key={s.id}>
                       <td>{s.id}</td>
@@ -100,7 +99,6 @@ const SalaryStructureList = () => {
                         >
                           View
                         </Button>
-
                         <Button
                           variant="warning"
                           size="sm"
@@ -109,7 +107,6 @@ const SalaryStructureList = () => {
                         >
                           Edit
                         </Button>
-
                         <Button
                           variant="danger"
                           size="sm"
