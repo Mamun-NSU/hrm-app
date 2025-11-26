@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class PerformanceEvaluation extends Model
 {
     use HasFactory;
+    
     protected $table = 'performance_evaluations';
-
     protected $fillable = [
+        'evaluated_by',
+        'evaluation_date',
         'employee_id',
         'kpi_id',
-        'score',
         'remarks',
-        'evaluation_date',
-        'evaluated_by'
+        'score',
     ];
 
     public function employee()

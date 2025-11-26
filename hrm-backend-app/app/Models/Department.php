@@ -21,4 +21,3 @@ class Department extends Model
         return $this->hasMany(Recruitment::class);
     }
 }
-

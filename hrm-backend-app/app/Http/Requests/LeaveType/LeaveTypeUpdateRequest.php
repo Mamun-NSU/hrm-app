@@ -17,8 +17,8 @@ class LeaveTypeUpdateRequest extends FormRequest
 
         return [
             'days_per_year' => 'required|integer|min:0',
-            'description'   => 'nullable|string',
-            'name'          => 'required|string|max:255|unique:leave_types,name,' . $leaveType->id,
+            'description' => 'nullable|string',
+            'name' => 'required|string|max:255|unique:leave_types,name,' . $leaveType->id,
         ];
     }
 
@@ -26,8 +26,8 @@ class LeaveTypeUpdateRequest extends FormRequest
     {
         return [
             'days_per_year.required' => 'Leave days per year is required.',
-            'name.required'          => 'Leave type name is required.',
-            'name.unique'            => 'This leave type name already exists.',
+            'name.required' => 'Leave type name is required.',
+            'name.unique' => 'This leave type name already exists.',
         ];
     }
 }

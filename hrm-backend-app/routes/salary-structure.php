@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SalaryStructure\{
+    SalaryStructureDestroyController,
     SalaryStructureListController,
     SalaryStructureStoreController,
     SalaryStructureShowController,
     SalaryStructureUpdateController,
-    SalaryStructureDestroyController,
 };
 
 Route::middleware(['auth:sanctum', 'isAdmin'])->prefix('salary-structure')->group(function () { 

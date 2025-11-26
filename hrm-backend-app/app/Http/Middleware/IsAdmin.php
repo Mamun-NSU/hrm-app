@@ -11,7 +11,6 @@ class IsAdmin
     {
         $user = Auth::user();
 
-        // Role check (role name = 'Admin')
         if (!$user || !$user->role || $user->role->name !== 'Admin') {
             return response()->json(['message' => 'Unauthorized'], 403);
         }

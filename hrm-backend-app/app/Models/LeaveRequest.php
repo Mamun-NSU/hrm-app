@@ -7,19 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class LeaveRequest extends Model
 {
     protected $fillable = [
+        'approved_by',
         'employee_id',
-        'leave_type_id',
         'from_date',
-        'to_date',
+        'leave_type_id',
         'reason',
         'status',
-        'approved_by'
+        'to_date',
+        
     ];
 
     protected $casts = [
         'from_date' => 'date',
         'to_date'   => 'date',
     ];
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function employee()
     {
         return $this->belongsTo(Employee::class);
@@ -29,10 +36,4 @@ class LeaveRequest extends Model
     {
         return $this->belongsTo(LeaveType::class);
     }
-
-    public function approver()
-    {
-        return $this->belongsTo(User::class, 'approved_by');
-    }
-
 }

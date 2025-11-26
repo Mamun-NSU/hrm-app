@@ -95,7 +95,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
             <h2 className="text-center mb-4">Edit Employee</h2>
 
             <Form onSubmit={handleSubmit}>
-
               <Form.Group className="mb-3">
                 <Form.Label>User</Form.Label>
                 <Form.Select
@@ -113,7 +112,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Department</Form.Label>
                 <Form.Select
@@ -130,7 +128,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Designation</Form.Label>
                 <Form.Select
@@ -147,7 +144,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                   ))}
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Employee Code</Form.Label>
                 <Form.Control
@@ -159,12 +155,10 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                   disabled={!isAdmin}
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Phone</Form.Label>
                 <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Gender</Form.Label>
                 <Form.Select name="gender" value={form.gender} onChange={handleChange}>
@@ -174,17 +168,14 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                   <option value="Other">Other</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Date of Birth</Form.Label>
                 <Form.Control type="date" name="date_of_birth" value={form.date_of_birth} onChange={handleChange} />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Join Date</Form.Label>
                 <Form.Control type="date" name="join_date" value={form.join_date} onChange={handleChange} />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Employment Status</Form.Label>
                 <Form.Select name="employment_status" value={form.employment_status} onChange={handleChange}>
@@ -193,14 +184,11 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                   <option value="Resigned">Resigned</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Salary Base</Form.Label>
                 <Form.Control type="number" name="salary_base"  disabled={!isAdmin} value={form.salary_base} onChange={handleChange} />
               </Form.Group>
-
               <div className="d-flex justify-content-between align-items-center gap-3 mt-4">
-
                 <Button
                   type="submit"
                   variant="primary"
@@ -209,7 +197,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 >
                   {saving ? <Spinner animation="border" size="sm" /> : "Update"}
                 </Button>
-
                 <Button
                   variant="secondary"
                   className="flex-grow-1"
@@ -217,7 +204,6 @@ const EmployeeEdit = ({ user, isAdmin }) => {
                 >
                   Back
                 </Button>
-
               </div>
             </Form>
           </Card>

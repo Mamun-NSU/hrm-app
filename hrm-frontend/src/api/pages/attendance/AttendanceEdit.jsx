@@ -77,7 +77,6 @@ const AttendanceEdit = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Date</Form.Label>
             <Form.Control
@@ -88,7 +87,6 @@ const AttendanceEdit = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Check In Time</Form.Label>
             <Form.Control
@@ -98,7 +96,6 @@ const AttendanceEdit = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Check Out Time</Form.Label>
             <Form.Control
@@ -108,7 +105,6 @@ const AttendanceEdit = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Status</Form.Label>
             <Form.Select

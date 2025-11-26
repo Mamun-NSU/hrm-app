@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Role\{
+    RoleDestroyController,
     RoleListController,
     RoleStoreController,
     RoleShowController,
     RoleUpdateController,
-    RoleDestroyController,
 };
 use Illuminate\Support\Facades\Route;
 

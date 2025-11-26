@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeaveType extends Model
 {
-    protected $fillable = ['name', 'description', 'days_per_year'];
+    protected $fillable = ['days_per_year', 'description', 'name'];
 
     public function leaveRequests()
     {

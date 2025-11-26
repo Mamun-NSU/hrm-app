@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Training\{
+    TrainingDestroyController,
     TrainingListController,
     TrainingShowController,
     TrainingStoreController,
     TrainingUpdateController,
-    TrainingDestroyController,
 };
 use Illuminate\Support\Facades\Route;
 

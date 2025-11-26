@@ -14,14 +14,14 @@ class SalaryStructureStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'basic_salary'       => 'required|numeric|min:0',
-            'employee_id'        => 'required|exists:employees,id|unique:salary_structures,employee_id', 
-            'house_rent'         => 'nullable|numeric|min:0',
-            'medical_allowance'  => 'nullable|numeric|min:0',
-            'other_allowance'    => 'nullable|numeric|min:0',
-            'taxes_deduction'    => 'nullable|numeric|min:0',
-            'transport_allowance'=> 'nullable|numeric|min:0',
+            'basic_salary' => 'required|numeric|min:0',
+            'employee_id' => 'required|exists:employees,id|unique:salary_structures,employee_id', 
+            'house_rent' => 'nullable|numeric|min:0',
+            'medical_allowance' => 'nullable|numeric|min:0',
+            'other_allowance' => 'nullable|numeric|min:0',
             'security_deduction' => 'nullable|numeric|min:0',
+            'taxes_deduction' => 'nullable|numeric|min:0',
+            'transport_allowance' => 'nullable|numeric|min:0',
         ];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\LeaveType\{
+    LeaveTypeDestroyController,
     LeaveTypeListController,
     LeaveTypeShowController,
     LeaveTypeStoreController,
     LeaveTypeUpdateController,
-    LeaveTypeDestroyController,
 };
 use Illuminate\Support\Facades\Route;
 

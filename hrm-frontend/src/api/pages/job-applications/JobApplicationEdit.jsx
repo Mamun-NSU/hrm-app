@@ -49,22 +49,18 @@ const JobApplicationEdit = () => {
           <Form.Label>Applicant Name</Form.Label>
           <Form.Control type="text" value={application.applicant_name} disabled />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Email</Form.Label>
           <Form.Control type="text" value={application.applicant_email} disabled />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Phone</Form.Label>
           <Form.Control type="text" value={application.applicant_phone} disabled />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Job Position</Form.Label>
           <Form.Control type="text" value={application.recruitment?.position} disabled />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Status</Form.Label>
           <Form.Select value={status} onChange={(e) => setStatus(e.target.value)} required>

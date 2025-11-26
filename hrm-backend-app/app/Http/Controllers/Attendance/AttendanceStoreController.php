@@ -46,7 +46,7 @@ class AttendanceStoreController extends Controller
 
             return response()->json([
                 'data' => [
-                'attendance' => $attendance,
+                    'attendance' => $attendance,
                 ],
                 'message' => 'Check-in recorded',
                 ]);
@@ -63,11 +63,11 @@ class AttendanceStoreController extends Controller
 
             return response()->json([
                 'data' => [
-                'attendance' => $attendance,
+                    'attendance' => $attendance,
                 ],
                 'message' => 'Check-out recorded',
-                ]);
-            }
+            ]);
+        }
 
         return response()->json([
             'data' => [

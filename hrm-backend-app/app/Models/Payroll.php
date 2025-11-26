@@ -11,22 +11,19 @@ class Payroll extends Model
 
     protected $fillable = [
         'employee_id',
-        'month_year',       // e.g., "2025-11"
+        'generated_at',     
         'gross_salary',
-        'net_salary',
-        'generated_at',     // date payroll was processed
+        'month_year',      
+        'net_salary', 
     ];
 
-    // Relationship: each payroll belongs to an employee
     public function employee()
     {
         return $this->belongsTo(Employee::class);
     }
 
-    // Each payroll can access the employee's salary structure
     public function salaryStructure()
     {
         return $this->hasOne(SalaryStructure::class, 'employee_id', 'employee_id');
     }
 }
-

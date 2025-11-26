@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\User\{
+    UserDestroyController,
     UserListController,
     UserStoreController,
     UserShowController,
     UserUpdateController,
-    UserDestroyController
 };
 use Illuminate\Support\Facades\Route;
 

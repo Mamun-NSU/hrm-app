@@ -35,4 +35,3 @@ Route::middleware(['auth:sanctum'])->prefix('job-application')->group(function (
         });
     });
 });
-

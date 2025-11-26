@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Payroll\{
+    PayrollDestroyController,
     PayrollListController,
     PayrollShowController,
     PayrollStoreController,
     PayrollUpdateController,
-    PayrollDestroyController,
 };
 use Illuminate\Support\Facades\Route;
 

@@ -14,8 +14,8 @@ class AuthenticateRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'    => 'required|email|unique:users,email',
-            'name'     => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'name' => 'required|string|max:255',
             'password' => 'required|string|confirmed|min:6',
         ];
     }

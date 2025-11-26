@@ -97,7 +97,6 @@ const JobApplicationPublic = () => {
             <div className="text-danger">{errors.recruitment_id[0]}</div>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Your Name</Form.Label>
           <Form.Control
@@ -111,7 +110,6 @@ const JobApplicationPublic = () => {
             <div className="text-danger">{errors.applicant_name[0]}</div>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -125,7 +123,6 @@ const JobApplicationPublic = () => {
             <div className="text-danger">{errors.applicant_email[0]}</div>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Cover Letter</Form.Label>
           <Form.Control
@@ -138,8 +135,7 @@ const JobApplicationPublic = () => {
           {errors.cover_letter && (
             <div className="text-danger">{errors.cover_letter[0]}</div>
           )}
-        </Form.Group>
-        
+        </Form.Group>    
         <Form.Group className="mb-3">
           <Form.Label>Resume Link</Form.Label>
           <Form.Control
@@ -154,7 +150,6 @@ const JobApplicationPublic = () => {
             <div className="text-danger">{errors.resume_link[0]}</div>
           )}
         </Form.Group>
-
         <Button type="submit" variant="primary">
           Submit Application
         </Button>

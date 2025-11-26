@@ -15,8 +15,8 @@ class PayrollStoreRequest extends FormRequest
     {
         return [
             'employee_id' => 'required|exists:employees,id',
-            'month_year'  => 'required|string',
-            'generated_at'=> 'required|date',
+            'month_year' => 'required|string',
+            'generated_at' => 'required|date',
         ];
     }
 }

@@ -9,20 +9,17 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    // Explicitly define table name
     protected $table = 'attendance_records';
-
     protected $fillable = [
-        'employee_id',
-        'date',
         'check_in_time',
         'check_out_time',
-        'status'
+        'date',
+        'employee_id',
+        'status',
     ];
 
-    protected $dates = ['date', 'check_in_time', 'check_out_time'];
+    protected $dates = ['check_in_time', 'check_out_time', 'date' ];
 
-    // Relation to Employee
     public function employee()
     {
         return $this->belongsTo(Employee::class);

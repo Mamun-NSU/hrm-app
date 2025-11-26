@@ -15,13 +15,15 @@ const PayrollCreate = () => {
 
   const fetchEmployeesWithSalary = async () => {
     try {
-      const res = await api.get('employee/with-salary'); 
-      setEmployees(res.data);
+      const res = await api.get("employee/with-salary");
+      setEmployees(res.data.data.employees);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to fetch employees or salary structures");
     }
   };
+
+  useEffect(() => {
+  }, [employees]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +92,6 @@ const PayrollCreate = () => {
             })}
           </Form.Select>
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Month (YYYY-MM)</Form.Label>
           <Form.Control

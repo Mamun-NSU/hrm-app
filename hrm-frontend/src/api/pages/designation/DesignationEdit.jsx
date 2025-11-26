@@ -76,7 +76,6 @@ const DesignationEdit = () => {
               required
             />
           </Form.Group>
-
           <Button type="submit" variant="primary" disabled={saving}>
             {saving ? <Spinner animation="border" size="sm" /> : "Update"}
           </Button>

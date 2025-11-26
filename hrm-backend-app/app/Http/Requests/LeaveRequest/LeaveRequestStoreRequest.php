@@ -14,10 +14,10 @@ class LeaveRequestStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from_date'     => 'required|date',
+            'from_date' => 'required|date',
             'leave_type_id' => 'required|exists:leave_types,id',
-            'reason'        => 'nullable|string|max:500',
-            'to_date'       => 'required|date|after_or_equal:from_date', 
+            'reason' => 'nullable|string|max:500',
+            'to_date' => 'required|date|after_or_equal:from_date', 
         ];
     }
 }

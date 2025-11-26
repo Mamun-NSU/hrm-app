@@ -12,15 +12,14 @@ class EmployeeTraining extends Model
 
     protected $fillable = [
         'employee_id',
-        'training_id',
         'status',
+        'training_id',
     ];
 
     protected $casts = [
-        'status' => 'string', // optional: adjust if you want an enum
+        'status' => 'string',
     ];
 
-    // Relationships
     public function employee()
     {
         return $this->belongsTo(Employee::class);
@@ -31,5 +30,3 @@ class EmployeeTraining extends Model
         return $this->belongsTo(Training::class);
     }
 }
-
-

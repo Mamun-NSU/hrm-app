@@ -62,7 +62,6 @@ const LeaveTypeEdit = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Days per Year</Form.Label>
             <Form.Control
@@ -74,7 +73,6 @@ const LeaveTypeEdit = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -84,7 +82,6 @@ const LeaveTypeEdit = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Button type="submit">Update</Button>
         </Form>
       </Card.Body>

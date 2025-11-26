@@ -30,7 +30,6 @@ const DesignationCreate = () => {
           </Button>
         </div>
       </Card.Header>
-
       <Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
@@ -43,7 +42,6 @@ const DesignationCreate = () => {
               required
             />
           </Form.Group>
-
           <Button variant="primary" type="submit">
             Create Designation
           </Button>

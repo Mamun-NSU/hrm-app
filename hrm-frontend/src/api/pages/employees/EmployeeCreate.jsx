@@ -27,15 +27,11 @@ const EmployeeCreate = () => {
 
   const fetchDepartments = async () => {
     const res = await api.get("/department/list");
-    console.log("department Data: ");
-    console.log(res.data.data.departments);
     setDepartments(res.data.data.departments);
   };
 
   const fetchDesignations = async () => {
     const res = await api.get("/designation/list");
-    console.log("designation Data: ");
-    console.log(res.data.data.designations);
     setDesignations(res.data.data.designations);
   };
 

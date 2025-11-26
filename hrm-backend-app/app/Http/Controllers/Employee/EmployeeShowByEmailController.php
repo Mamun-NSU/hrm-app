@@ -11,10 +11,10 @@ class EmployeeShowByEmailController extends Controller
     public function __invoke($email): JsonResponse
     {
         $employee = Employee::with(['department', 'designation', 'user.role'])
-                            ->whereHas('user', function ($query) use ($email) {
-                                $query->where('email', $email);
-                            })
-                            ->first();
+            ->whereHas('user', function ($query) use ($email) {
+                $query->where('email', $email);
+            })
+            ->first();
 
         if (!$employee) {
             return response()->json([
@@ -24,7 +24,9 @@ class EmployeeShowByEmailController extends Controller
         }
 
         return response()->json([
-            'data' => ['employee' => $employee],
+            'data' => [
+                'employee' => $employee,
+            ],
             'message' => 'Employee found successfully.',
         ]);
     }

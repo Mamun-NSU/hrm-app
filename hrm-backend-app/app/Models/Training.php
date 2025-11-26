@@ -10,21 +10,19 @@ class Training extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
         'description',
-        'start_date',
         'end_date',
+        'start_date',
+        'title', 
     ];
 
-    // Many-to-Many with Employee via pivot table
     public function employees()
     {
         return $this->belongsToMany(Employee::class, 'employee_trainings')
-                    ->withPivot('status')
-                    ->withTimestamps();
+            ->withPivot('status')
+            ->withTimestamps();
     }
 
-    // Optional: Direct access to EmployeeTraining records
     public function employeeTrainings()
     {
         return $this->hasMany(EmployeeTraining::class);

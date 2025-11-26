@@ -1,13 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthController;
-
-// Route::post('/register', [AuthController::class, 'register']);
-// Route::post('/login', [AuthController::class, 'login']);
-// Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-// Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'me']);
-
 require __DIR__ . '/attendance.php';
 require __DIR__ . '/authenticate.php';
 require __DIR__ . '/department.php';

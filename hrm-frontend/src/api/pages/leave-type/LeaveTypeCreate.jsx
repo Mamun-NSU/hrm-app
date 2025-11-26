@@ -43,7 +43,6 @@ const LeaveTypeCreate = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Days per Year</Form.Label>
             <Form.Control
@@ -55,7 +54,6 @@ const LeaveTypeCreate = () => {
               required
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -65,7 +63,6 @@ const LeaveTypeCreate = () => {
               onChange={handleChange}
             />
           </Form.Group>
-
           <Button type="submit">Create</Button>
         </Form>
       </Card.Body>

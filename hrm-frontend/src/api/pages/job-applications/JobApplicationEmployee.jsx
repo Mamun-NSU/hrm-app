@@ -105,7 +105,6 @@ const JobApplicationEmployee = () => {
         {success && <Alert variant="success">{success}</Alert>}
 
         <Form onSubmit={handleSubmit}>
-
           <Form.Group className="mb-3">
             <Form.Label>Select Job</Form.Label>
             <Form.Select
@@ -122,7 +121,6 @@ const JobApplicationEmployee = () => {
               ))}
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Resume Link</Form.Label>
             <Form.Control
@@ -136,7 +134,6 @@ const JobApplicationEmployee = () => {
               <div className="text-danger">{errors.resume_link[0]}</div>
             )}
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Cover Letter</Form.Label>
             <Form.Control
@@ -150,7 +147,6 @@ const JobApplicationEmployee = () => {
               <div className="text-danger">{errors.cover_letter[0]}</div>
             )}
           </Form.Group>
-
           <Button type="submit" className="w-100" disabled={loading}>
             {loading ? <Spinner animation="border" size="sm" /> : "Submit Application"}
           </Button>

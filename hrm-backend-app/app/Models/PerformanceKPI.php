@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PerformanceKPI extends Model
 {
     use HasFactory;
-    protected $table = 'performance_kpis';
+    
     protected $fillable = ['name', 'description'];
-
+    protected $table = 'performance_kpis';
+    
     public function evaluations()
     {
         return $this->hasMany(PerformanceEvaluation::class, 'kpi_id');

@@ -33,8 +33,7 @@ const PerformanceEvaluationEdit = () => {
         setEmployees(empRes.data.data.employees);
         setKpis(kpiRes.data.data.kpis);
         const data = evalRes.data.data.evaluation;
-        console.log("Data in PerformanceEvaluationEdit: ");
-        console.log(data);
+        
         setForm({
           employee_id: data.employee_id,
           kpi_id: data.kpi_id,
