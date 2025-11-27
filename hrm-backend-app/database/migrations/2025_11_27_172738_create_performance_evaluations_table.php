@@ -6,27 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('performance_evaluations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
-            $table->foreignId('kpi_id')->constrained('performance_kpis')->onDelete('cascade');
+            $table->char('id', 26)->primary();
+            $table->char('employee_id', 26);
+            $table->char('kpi_id', 26);
             $table->integer('score');
             $table->text('remarks')->nullable();
             $table->date('evaluation_date');
             $table->string('evaluated_by');
             $table->timestamps();
-        });
 
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('kpi_id')->references('id')->on('performance_kpis')->onDelete('cascade');
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('performance_evaluations');

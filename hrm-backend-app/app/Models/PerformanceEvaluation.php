@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class PerformanceEvaluation extends Model
 {
-    use HasFactory;
-    
-    protected $table = 'performance_evaluations';
+    use HasFactory, HasUlids;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'evaluated_by',
         'evaluation_date',
@@ -21,7 +24,7 @@ class PerformanceEvaluation extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
     public function kpi()

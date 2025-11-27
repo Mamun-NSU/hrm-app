@@ -2,25 +2,42 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
-        'date_of_birth',
+        'id',              
+        'user_id',
         'department_id',
         'designation_id',
         'employee_code',
-        'employment_status',
-        'gender',
-        'join_date',
         'phone',
+        'gender',
+        'date_of_birth',
+        'join_date',
+        'employment_status',
         'salary_base',
-        'user_id',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = Str::ulid()->toBase32();
+            }
+        });
+    }
 
     public function department()
     {
@@ -32,35 +49,14 @@ class Employee extends Model
         return $this->belongsTo(Designation::class);
     }
 
-    public function employeeTrainings()
+    public function user()
     {
-        return $this->hasMany(EmployeeTraining::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function jobApplications()
+    public function attendanceRecords()
     {
-        return $this->hasMany(JobApplication::class);
-    }
-
-
-    public function leaveRequests()
-    {
-        return $this->hasMany(LeaveRequest::class);
-    }
-
-    public function payrolls()
-    {
-        return $this->hasMany(Payroll::class);
-    }
-
-    public function performanceEvaluations()
-    {
-        return $this->hasMany(PerformanceEvaluation::class, 'employee_id');
-    }
-
-    public function salaryStructure()
-    {
-        return $this->hasOne(SalaryStructure::class);
+        return $this->hasMany(Attendance::class, 'employee_id');
     }
 
     public function trainings()
@@ -70,8 +66,33 @@ class Employee extends Model
                     ->withTimestamps();
     }
 
-    public function user()
+    public function employeeTrainings()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(EmployeeTraining::class, 'employee_id');
+    }
+
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class, 'employee_id');
+    }
+
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class, 'employee_id');
+    }
+
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class, 'employee_id');
+    }
+
+    public function salaryStructure()
+    {
+        return $this->hasOne(SalaryStructure::class, 'employee_id');
+    }
+
+    public function performanceEvaluations()
+    {
+        return $this->hasMany(PerformanceEvaluation::class, 'employee_id');
     }
 }
