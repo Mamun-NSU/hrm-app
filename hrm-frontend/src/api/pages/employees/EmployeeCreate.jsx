@@ -72,7 +72,6 @@ const EmployeeCreate = () => {
               ))}
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Department</Form.Label>
             <Form.Select name="department_id" onChange={handleChange}>
@@ -82,7 +81,6 @@ const EmployeeCreate = () => {
               ))}
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Designation</Form.Label>
             <Form.Select name="designation_id" onChange={handleChange}>
@@ -92,12 +90,10 @@ const EmployeeCreate = () => {
               ))}
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Employee Code</Form.Label>
             <Form.Control type="text" name="employee_code" onChange={handleChange} required />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Phone</Form.Label>
             <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
@@ -112,17 +108,14 @@ const EmployeeCreate = () => {
               <option value="Other">Other</option>
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control type="date" name="date_of_birth" onChange={handleChange} />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Join Date</Form.Label>
             <Form.Control type="date" name="join_date" onChange={handleChange} />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Employment Status</Form.Label>
             <Form.Select name="employment_status" onChange={handleChange}>
@@ -131,12 +124,10 @@ const EmployeeCreate = () => {
               <option value="Resigned">Resigned</option>
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Salary Base</Form.Label>
             <Form.Control type="number" name="salary_base" onChange={handleChange} />
           </Form.Group>
-
           <Button type="submit" variant="primary">Create Employee</Button>
         </Form>
       </Card.Body>

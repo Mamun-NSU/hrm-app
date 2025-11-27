@@ -70,7 +70,6 @@ const Profile = () => {
           <Button variant="secondary" className="w-50" onClick={goBack}>
             Back
           </Button>
-
           <Button
             variant="info"
             className="w-50"

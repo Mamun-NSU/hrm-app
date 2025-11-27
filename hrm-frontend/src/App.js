@@ -309,9 +309,8 @@ const handleLogout = async () => {
           <>
           <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />
           <Route path="/payrolls/:id/payslip" element={<PayslipViewer />} />
-            {isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
-            {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
-            {!isAdmin && <Route path="/payrolls" element={<PayrollList user={user}/>} />}
+          <Route path="/payrolls" element={<PayrollList user={user}/>} />
+          {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
           </>
         )}
 

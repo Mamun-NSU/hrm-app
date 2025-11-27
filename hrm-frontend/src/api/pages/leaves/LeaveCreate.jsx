@@ -50,7 +50,7 @@ const LeaveCreate = () => {
     try {
       await api.post('/leave-request/store', {
         ...form,
-        leave_type_id: parseInt(form.leave_type_id),
+        leave_type_id: form.leave_type_id,
       });
       toast.success("Leave request submitted successfully!");
       navigate("/leaves");

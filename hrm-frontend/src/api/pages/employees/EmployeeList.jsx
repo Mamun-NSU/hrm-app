@@ -82,7 +82,6 @@ const EmployeeList = ({ user }) => {
                     >
                       Details
                     </Button>
-
                     {user?.role_id === 1 && (
                       <>
                         <Button
