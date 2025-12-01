@@ -8,8 +8,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // e.g., Admin, HR Manager, Employee
+            $table->string('id', 26)->primary(); 
+            $table->string('name');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

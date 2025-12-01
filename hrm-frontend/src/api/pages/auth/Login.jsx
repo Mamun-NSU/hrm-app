@@ -23,7 +23,7 @@ const Login = ({ setUser, setIsAdmin }) => {
 
       localStorage.setItem("token", token);
       setUser(user);
-      setIsAdmin(user.role_id === 1);
+      setIsAdmin(user.role?.name === "Admin");
       toast.success(response.data.message || "Login successful!");
       navigate("/"); 
     } catch (error) {

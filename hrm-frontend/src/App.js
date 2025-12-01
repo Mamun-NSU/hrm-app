@@ -102,7 +102,10 @@ function AppWrapper() {
         }
 
         setUser(loggedUser);
-        setIsAdmin(loggedUser.role_id === 1);
+        console.log("loggedUser data:", loggedUser);
+        setIsAdmin(loggedUser.role?.name === "Admin");
+
+        console.log("isAdmin value", isAdmin);
 
       } catch (error) {
         console.error("Failed to fetch user:", error);
