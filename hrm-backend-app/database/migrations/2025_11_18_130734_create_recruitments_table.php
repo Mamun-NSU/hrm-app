@@ -6,21 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-   public function up(): void
+    public function up(): void
     {
         Schema::create('recruitments', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary(); 
             $table->string('position');
-            $table->foreignId('department_id')->constrained()->onDelete('cascade');
+            $table->string('department_id');
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();
+
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+
+            $table->index('department_id');
         });
     }
-
 
     public function down()
     {
         Schema::dropIfExists('recruitments');
     }
 };
-

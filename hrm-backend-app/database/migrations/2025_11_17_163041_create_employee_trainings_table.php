@@ -6,24 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up() {
+    public function up(): void
+    {
         Schema::create('employee_trainings', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
-            $table->foreignId('training_id')->constrained()->onDelete('cascade');
-            $table->enum('status', ['pending', 'completed', 'in_progress'])->default('pending');
+            $table->ulid('id')->primary();
+            $table->string('employee_id');
+            $table->string('training_id');
+            $table->string('status')->default('pending');
             $table->timestamps();
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('training_id')->references('id')->on('trainings')->onDelete('cascade');
+
+            $table->index('employee_id');
+            $table->index('training_id');
         });
     }
 
-
-    /**
-     * Reverse the migrations.
-     */
-     public function down() {
+    public function down(): void
+    {
         Schema::dropIfExists('employee_trainings');
     }
 };

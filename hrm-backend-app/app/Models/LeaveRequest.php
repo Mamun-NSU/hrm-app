@@ -24,8 +24,9 @@ class LeaveRequest extends Model
 
     protected $casts = [
         'from_date' => 'date',
-        'to_date'   => 'date',
-        'leave_type_id'  => 'string',
+        'to_date' => 'date',
+        'leave_type_id' => 'string',
+        'employee_id' => 'string',
     ];
 
     public function approver()
@@ -35,11 +36,11 @@ class LeaveRequest extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id', 'id'); 
     }
 
     public function leaveType()
     {
-        return $this->belongsTo(LeaveType::class);
+        return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
     }
 }
