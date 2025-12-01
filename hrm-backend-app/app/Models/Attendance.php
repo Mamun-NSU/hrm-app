@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $table = 'attendance_records';
+    
     protected $fillable = [
         'check_in_time',
         'check_out_time',
@@ -19,10 +22,10 @@ class Attendance extends Model
         'status',
     ];
 
-    protected $dates = ['check_in_time', 'check_out_time', 'date' ];
+    protected $dates = ['check_in_time', 'check_out_time', 'date'];
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 }

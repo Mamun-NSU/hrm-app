@@ -10,14 +10,19 @@ class PerformanceKPI extends Model
 {
     use HasFactory, HasUlids;
 
-    public $incrementing = false;
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $table = 'performance_kpis';
-    protected $fillable = ['name', 'description'];
+
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 
     public function evaluations()
     {
-        return $this->hasMany(PerformanceEvaluation::class, 'kpi_id');
+        return $this->hasMany(
+            PerformanceEvaluation::class, 'kpi_id', 'id');
     }
 }

@@ -14,7 +14,6 @@ class SalaryStructure extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id',
         'employee_id',
         'basic_salary',
         'house_rent',
@@ -46,6 +45,10 @@ class SalaryStructure extends Model
 
     public function payrolls()
     {
-        return $this->hasMany(Payroll::class, 'employee_id', 'employee_id');
+        return $this->hasMany(
+            Payroll::class,
+            'employee_id',
+            'employee_id'
+        );
     }
 }

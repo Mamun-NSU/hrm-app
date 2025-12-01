@@ -10,25 +10,25 @@ class PerformanceEvaluation extends Model
 {
     use HasFactory, HasUlids;
 
-    public $incrementing = false;
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
-        'evaluated_by',
-        'evaluation_date',
         'employee_id',
         'kpi_id',
-        'remarks',
         'score',
+        'remarks',
+        'evaluation_date',
+        'evaluated_by',
     ];
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
     public function kpi()
     {
-        return $this->belongsTo(PerformanceKPI::class, 'kpi_id');
+        return $this->belongsTo(PerformanceKPI::class, 'kpi_id', 'id');
     }
 }

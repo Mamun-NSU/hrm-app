@@ -14,22 +14,30 @@ class Training extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'description',
-        'end_date',
-        'start_date',
         'title',
+        'description',
+        'start_date',
+        'end_date',
     ];
 
     public function employees()
     {
-        return $this->belongsToMany(Employee::class, 'employee_trainings')
-            ->withPivot('status')
-            ->withTimestamps();
+        return $this->belongsToMany(
+            Employee::class,
+            'employee_trainings',
+            'training_id',
+            'employee_id'
+        )
+        ->withPivot('status')
+        ->withTimestamps();
     }
 
     public function employeeTrainings()
     {
-        return $this->hasMany(EmployeeTraining::class);
+        return $this->hasMany(
+            EmployeeTraining::class,
+            'training_id',
+            'id'
+        );
     }
 }
-

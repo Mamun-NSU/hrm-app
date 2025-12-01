@@ -10,11 +10,10 @@ class Payroll extends Model
 {
     use HasFactory, HasUlids;
 
-    public $incrementing = false;
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'employee_id',
         'month_year',
         'gross_salary',
@@ -29,6 +28,10 @@ class Payroll extends Model
 
     public function salaryStructure()
     {
-        return $this->hasOne(SalaryStructure::class, 'employee_id', 'employee_id');
+        return $this->hasOne(
+            SalaryStructure::class,
+            'employee_id',
+            'employee_id'
+        );
     }
 }

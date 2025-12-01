@@ -10,8 +10,8 @@ class EmployeeTraining extends Model
 {
     use HasFactory, HasUlids;
 
-    public $incrementing = false;
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'employee_id',
@@ -25,11 +25,11 @@ class EmployeeTraining extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
     public function training()
     {
-        return $this->belongsTo(Training::class);
+        return $this->belongsTo(Training::class, 'training_id', 'id');
     }
 }
