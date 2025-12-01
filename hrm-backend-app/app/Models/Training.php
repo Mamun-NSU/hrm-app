@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class Training extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'description',
         'end_date',
         'start_date',
-        'title', 
+        'title',
     ];
 
     public function employees()
@@ -28,3 +32,4 @@ class Training extends Model
         return $this->hasMany(EmployeeTraining::class);
     }
 }
+
