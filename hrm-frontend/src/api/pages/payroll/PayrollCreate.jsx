@@ -33,7 +33,8 @@ const PayrollCreate = () => {
       return;
     }
 
-    const employee = employees.find((e) => e.id === parseInt(form.employee_id));
+    // const employee = employees.find((e) => e.id === parseInt(form.employee_id));
+    const employee = employees.find((e) => e.id ===form.employee_id);
     if (!employee || !employee.salary_structure) {
       toast.error("Salary structure not found for this employee");
       return;

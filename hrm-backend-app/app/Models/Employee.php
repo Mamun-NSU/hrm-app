@@ -81,14 +81,14 @@ class Employee extends Model
         return $this->hasMany(LeaveRequest::class, 'employee_id');
     }
 
-    public function payrolls()
-    {
-        return $this->hasMany(Payroll::class, 'employee_id');
-    }
-
     public function salaryStructure()
     {
-        return $this->hasOne(SalaryStructure::class, 'employee_id');
+        return $this->hasOne(SalaryStructure::class, 'employee_id', 'id');
+    }
+
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class, 'employee_id', 'id');
     }
 
     public function performanceEvaluations()

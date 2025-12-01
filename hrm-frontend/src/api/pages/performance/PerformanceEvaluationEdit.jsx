@@ -138,14 +138,33 @@ const PerformanceEvaluationEdit = () => {
                   required
                 />
               </Form.Group>
-              <div className="d-flex justify-content-between">
-                <Button type="submit" variant="primary" disabled={saving}>
+              {/* <div className="d-flex justify-content-between align-items-center gap-3 mt-4">
+                <Button type="submit" variant="primary" className="flex-grow-1" disabled={saving}>
                   {saving ? <Spinner animation="border" size="sm" /> : "Update Performance"}
                 </Button>
-                <Button variant="secondary" onClick={() => navigate("/performance-evaluations")}>
+                <Button variant="secondary" className="flex-grow-1" onClick={() => navigate("/performance-evaluations")}>
                   Back
                 </Button>
-              </div>
+              </div> */}
+              <div className="d-flex gap-3 mt-4">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="flex-grow-1 d-flex justify-content-center align-items-center"
+                  disabled={saving}
+                >
+                  {saving ? <Spinner animation="border" size="sm" /> : "Update"}
+                </Button>
+
+                <Button
+                  variant="secondary"
+                  className="flex-grow-1 d-flex justify-content-center align-items-center"
+                  onClick={() => navigate("/performance-evaluations")}
+                >
+                  Back
+                </Button>
+            </div>
+
             </Form>
           </Card>
         </Col>

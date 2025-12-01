@@ -36,7 +36,7 @@ const AttendanceList = () => {
           {records.map((record) => (
             <tr key={record.id}>
               <td>{record.id}</td>
-              <td>{record.employee_id}</td>
+              <td>{record.employee.employee_code || "—"}</td>
               <td>{record.date}</td>
               <td>{record.check_in_time}</td>
               <td>{record.check_out_time || "—"}</td>

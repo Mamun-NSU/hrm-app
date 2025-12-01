@@ -65,7 +65,7 @@ const EmployeeList = ({ user }) => {
             {employees.length > 0 ? (
               employees.map((emp) => (
                 <tr key={emp.id}>
-                  <td>{emp.id}</td>
+                  <td>{emp.employee_code}</td>
                   <td>{emp.user?.name || "N/A"}</td>
                   <td>{emp.user?.email || "N/A"}</td>
                   <td>{emp.user?.role?.name || "N/A"}</td>
