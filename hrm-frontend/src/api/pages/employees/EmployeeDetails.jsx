@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "./employee.api";
 import { toast } from "react-toastify";
 
-const EmployeeDetails = ({ user }) => {
+const EmployeeDetails = ({ user, isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -91,12 +91,12 @@ const EmployeeDetails = ({ user }) => {
 
         <div
           className={
-            user?.role_id === 1
+            isAdmin
               ? "d-flex gap-2"
               : "d-flex justify-content-center"
           }
         >
-          {user?.role_id === 1 && (
+          {isAdmin && (
             <Button
               variant="warning"
               className="w-50"
@@ -107,7 +107,7 @@ const EmployeeDetails = ({ user }) => {
           )}
           <Button
             variant="secondary"
-            className={user?.role_id === 1 ? "w-50" : "w-75"}
+            className={isAdmin ? "w-50" : "w-75"}
             onClick={() => navigate("/employees")}
           >
             Back

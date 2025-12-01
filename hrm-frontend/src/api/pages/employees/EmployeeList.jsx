@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./employee.api";
 
-const EmployeeList = ({ user }) => {
+const EmployeeList = ({ user, isAdmin }) => {
   const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const EmployeeList = ({ user }) => {
       try {
         await api.delete(`/employee/${id}/delete`);
         toast.success("Employee deleted successfully!");
-        fetchEmployees(); // Refresh the list
+        fetchEmployees();
       } catch (error) {
         console.error("Error deleting employee:", error);
         toast.error("Failed to delete employee!");
@@ -39,7 +39,7 @@ const EmployeeList = ({ user }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Employees List</h3>
-        {user?.role_id === 1 && ( <>
+        {isAdmin && ( <>
              <Button variant="primary" onClick={() => navigate("/employees/create")}>
               + Add Employee
             </Button>
@@ -82,7 +82,7 @@ const EmployeeList = ({ user }) => {
                     >
                       Details
                     </Button>
-                    {user?.role_id === 1 && (
+                    {isAdmin && (
                       <>
                         <Button
                           variant="warning"

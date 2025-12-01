@@ -4,13 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./salary-structure.api";
 
-const SalaryStructureView = ({ user }) => {
+const SalaryStructureView = ({ user, isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [structure, setStructure] = useState(null);
   const [loading, setLoading] = useState(true);
-  const isAdmin = user?.role_id === 1;
 
   useEffect(() => {
     const fetchStructure = async () => {

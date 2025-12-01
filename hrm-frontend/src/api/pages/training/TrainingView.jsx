@@ -4,13 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axios";
 import { toast } from "react-toastify";
 
-const TrainingView = () => {
+const TrainingView = ({ user, isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [training, setTraining] = useState(null);
 
   const loggedInUser = JSON.parse(localStorage.getItem("user")) || {};
-  const isAdmin = loggedInUser.role_id === 1;
 
   useEffect(() => {
     fetchTraining();

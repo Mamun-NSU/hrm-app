@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TrainingService from "../../services/TrainingService";
 
-const TrainingList = ({ user }) => {
+const TrainingList = ({ user, isAdmin }) => {
   const [trainings, setTrainings] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const TrainingList = ({ user }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Trainings</h3>
-        {user?.role_id === 1 && (
+        {isAdmin && (
           <Button variant="primary" onClick={() => navigate("/trainings/create")}>
             + Add Training
           </Button>
@@ -81,7 +81,7 @@ const TrainingList = ({ user }) => {
                       >
                         View
                       </Button>
-                      {user?.role_id === 1 && (
+                      {isAdmin && (
                         <>
                           <Button
                             variant="warning"

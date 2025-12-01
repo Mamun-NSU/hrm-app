@@ -2,15 +2,26 @@ import { useEffect, useState } from "react";
 import { Container, Table, Form, Button, Row, Col, Card } from "react-bootstrap";
 import api from "../../axios";
 
+
 export default function Users() {
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [form, setForm] = useState({ name: "", email: "", role_id: "" });
   const [editingId, setEditingId] = useState(null);
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get('user/list');
+      const res = await api.get("user/list");
       setUsers(res.data.data.users);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchRoles = async () => {
+    try {
+      const res = await api.get("role/list"); 
+      setRoles(res.data.data.roles);
     } catch (err) {
       console.error(err);
     }
@@ -18,6 +29,7 @@ export default function Users() {
 
   useEffect(() => {
     fetchUsers();
+    fetchRoles();
   }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,7 +41,7 @@ export default function Users() {
         await api.put(`/user/${editingId}/update`, form);
         setEditingId(null);
       } else {
-        await api.post('/user/store', { ...form, password: "default123" });
+        await api.post("/user/store", { ...form, password: "default123" });
       }
       setForm({ name: "", email: "", role_id: "" });
       fetchUsers();
@@ -39,7 +51,11 @@ export default function Users() {
   };
 
   const handleEdit = (user) => {
-    setForm({ name: user.name, email: user.email, role_id: user.role_id || "" });
+    setForm({
+      name: user.name,
+      email: user.email,
+      role_id: user.role_id || "",
+    });
     setEditingId(user.id);
   };
 
@@ -76,12 +92,19 @@ export default function Users() {
               />
             </Col>
             <Col md={3}>
-              <Form.Control
+              <Form.Select
                 name="role_id"
-                placeholder="Role ID"
                 value={form.role_id}
                 onChange={handleChange}
-              />
+                required
+              >
+                <option value="">Select Role</option>
+                {roles.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.name}
+                  </option>
+                ))}
+              </Form.Select>
             </Col>
             <Col md={3}>
               <Button type="submit" variant={editingId ? "warning" : "primary"} className="w-100">
@@ -97,7 +120,7 @@ export default function Users() {
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Role ID</th>
+              <th>Role</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -107,7 +130,7 @@ export default function Users() {
                 <td>{u.id}</td>
                 <td>{u.name}</td>
                 <td>{u.email}</td>
-                <td>{u.role_id || "-"}</td>
+                <td>{u.role?.name || "-"}</td>
                 <td>
                   <Button
                     variant="info"

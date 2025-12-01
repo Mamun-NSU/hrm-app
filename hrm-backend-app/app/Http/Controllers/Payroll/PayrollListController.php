@@ -13,11 +13,15 @@ class PayrollListController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role_id === 1) {
+        if ($user->role?->name === 'Admin') {
             $payrolls = Payroll::with('employee.user')->get();
         } else {
+            $employeeId = $user->employee?->id;
+
             $payrolls = Payroll::with('employee.user')
-                ->where('employee_id', $user->employee->id)
+                ->when($employeeId, function ($query, $employeeId) {
+                    return $query->where('employee_id', $employeeId);
+                })
                 ->get();
         }
 

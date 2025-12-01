@@ -14,20 +14,16 @@ class AuthenticateLoginController extends Controller
 {
     public function __invoke(AuthenticateLoginRequest $request): JsonResponse
     {
-        // Attempt login
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message' => 'Invalid credentials',
             ], 401);
         }
 
-        // Get logged-in user and load role relationship
         $user = Auth::user()->load('role');
 
-        // Create Sanctum token
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Check employee record and record attendance
         $employee = Employee::where('user_id', $user->id)->first();
         if ($employee) {
             Attendance::firstOrCreate(
@@ -36,7 +32,6 @@ class AuthenticateLoginController extends Controller
             );
         }
 
-        // Return response with user including role
         return response()->json([
             'data' => [
                 'token' => $token,

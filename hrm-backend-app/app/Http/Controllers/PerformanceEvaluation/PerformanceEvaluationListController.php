@@ -13,15 +13,21 @@ class PerformanceEvaluationListController extends Controller
     {
         $user = Auth::user();
 
-        $evaluations = $user->role_id === 1
-            ? PerformanceEvaluation::with('employee.user', 'kpi')->get()
-            : PerformanceEvaluation::with('employee.user', 'kpi')
-                ->where('employee_id', $user->employee->id)
+        if ($user->role?->name === 'Admin') {
+            $evaluations = PerformanceEvaluation::with('employee.user', 'kpi')->get();
+        } else {
+            $employeeId = $user->employee?->id;
+
+            $evaluations = PerformanceEvaluation::with('employee.user', 'kpi')
+                ->when($employeeId, function ($query, $employeeId) {
+                    return $query->where('employee_id', $employeeId);
+                })
                 ->get();
+        }
 
         return response()->json([
             'data' => ['evaluations' => $evaluations],
-            'message' => 'Performance Evaluations List Find successfully',
+            'message' => 'Performance Evaluations List Found Successfully.',
         ]);
     }
 }

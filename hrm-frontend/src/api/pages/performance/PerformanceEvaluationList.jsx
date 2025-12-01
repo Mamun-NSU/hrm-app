@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PerformanceEvaluationService from "../../services/PerformanceEvaluationService";
 
-const PerformanceEvaluationList = ({ user }) => {
+const PerformanceEvaluationList = ({ user, isAdmin }) => {
   const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ const PerformanceEvaluationList = ({ user }) => {
                       >
                         View
                       </Button>
-                      {user?.role_id === 1 && (
+                      {isAdmin && (
                         <>
                           <Button
                             variant="warning"

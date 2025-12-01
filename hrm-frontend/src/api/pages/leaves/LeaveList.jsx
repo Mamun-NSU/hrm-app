@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./leave.api";
 
-const LeaveList = ({ user }) => {
+const LeaveList = ({ user, isAdmin }) => {
   const navigate = useNavigate();
   const [leaves, setLeaves] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -100,7 +100,7 @@ const LeaveList = ({ user }) => {
                 <th>To</th>
                 <th>Reason</th>
                 <th>Status</th>
-                {user?.role_id === 1 && <th>Actions</th>}
+                {isAdmin && <th>Actions</th>}
               </tr>
             </thead>
             <tbody>
@@ -114,7 +114,7 @@ const LeaveList = ({ user }) => {
                     <td>{new Date(leave.to_date).toLocaleDateString()}</td>
                     <td>{leave.reason}</td>
                     <td>{leave.status}</td>
-                    {user?.role_id === 1 && (
+                    {isAdmin && (
                       <td>
                         <Button
                           variant="success"
@@ -137,7 +137,7 @@ const LeaveList = ({ user }) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={user?.role_id === 1 ? 8 : 7} className="text-center">
+                  <td colSpan={isAdmin ? 8 : 7} className="text-center">
                     No leave requests found.
                   </td>
                 </tr>

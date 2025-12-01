@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./payroll.api";
 
-const PayrollList = ({ user }) => {
+const PayrollList = ({ user, isAdmin }) => {
   const [payrolls, setPayrolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const PayrollList = ({ user }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Payrolls</h3>
-        {user?.role_id === 1 && (
+        {isAdmin && (
           <Button variant="primary" onClick={() => navigate("/payrolls/create")}>
             + Generate Payroll
           </Button>
@@ -97,7 +97,7 @@ const PayrollList = ({ user }) => {
                       >
                         Payslip
                       </Button>
-                      {user?.role_id === 1 && (
+                      {isAdmin && (
                         <>
                           <Button
                             variant="danger"

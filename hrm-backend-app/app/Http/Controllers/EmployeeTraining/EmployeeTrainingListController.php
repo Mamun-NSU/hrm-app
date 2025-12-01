@@ -13,11 +13,15 @@ class EmployeeTrainingListController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role_id === 1) {
+        if ($user->role?->name === 'Admin') {
             $training = EmployeeTraining::with('employee.user', 'training')->get();
         } else {
+            $employeeId = $user->employee?->id;
+
             $training = EmployeeTraining::with('employee.user', 'training')
-                ->where('employee_id', $user->employee->id)
+                ->when($employeeId, function ($query, $employeeId) {
+                    return $query->where('employee_id', $employeeId);
+                })
                 ->get();
         }
 

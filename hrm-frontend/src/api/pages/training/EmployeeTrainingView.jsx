@@ -4,13 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmployeeTrainingService from "../../services/EmployeeTrainingService";
 
-const EmployeeTrainingView = () => {
+const EmployeeTrainingView = ({ user, isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [employeeTraining, setEmployeeTraining] = useState(null);
   const [loading, setLoading] = useState(true);
   const loggedInUser = JSON.parse(localStorage.getItem("user")) || {};
-  const isAdmin = loggedInUser.role_id === 1;
 
   useEffect(() => {
     const fetchEmployeeTraining = async () => {

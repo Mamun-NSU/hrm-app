@@ -247,10 +247,10 @@ const handleLogout = async () => {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         {isAdmin && <Route path="/users" element={<Users />} />}
-        <Route path="/employees" element={<EmployeeList user={user}/>} />
+        <Route path="/employees" element={<EmployeeList user={user} isAdmin={isAdmin}/>} />
         <Route path="/employees/create" element={<EmployeeCreate />} />
         <Route path="/employees/:id/edit" element={<EmployeeEdit user={user} isAdmin={isAdmin}/>} />
-        <Route path="/employees/:id" element={<EmployeeDetails user={user}/>} />
+        <Route path="/employees/:id" element={<EmployeeDetails user={user} isAdmin={isAdmin}/>} />
 
         {isAdmin && (
           <>
@@ -284,7 +284,7 @@ const handleLogout = async () => {
             <Route path="/salary-structures" element={<SalaryStructureList />} />
             <Route path="/salary-structures/create" element={<SalaryStructureCreate />} />
             <Route path="/salary-structures/:id/edit" element={<SalaryStructureEdit />} />
-            <Route path="/salary-structures/:id" element={<SalaryStructureView />} />
+            <Route path="/salary-structures/:id" element={<SalaryStructureView user={user} isAdmin={isAdmin} />} />
           </>
         )}
 
@@ -294,8 +294,8 @@ const handleLogout = async () => {
 
         {user && (
           <>
-            <Route path="/leaves" element={<LeaveList user={user} />} />
-            {user?.role_id === 3 && <Route path="/leaves/create" element={<LeaveCreate />} />}
+            <Route path="/leaves" element={<LeaveList user={user} isAdmin={isAdmin} />} />
+            {user?.role?.name === "Employee" && <Route path="/leaves/create" element={<LeaveCreate />} />}
           </>
         )}
 
@@ -312,7 +312,7 @@ const handleLogout = async () => {
           <>
           <Route path="/payrolls/:id/edit" element={<PayrollEdit />} />
           <Route path="/payrolls/:id/payslip" element={<PayslipViewer />} />
-          <Route path="/payrolls" element={<PayrollList user={user}/>} />
+          <Route path="/payrolls" element={<PayrollList user={user} isAdmin={isAdmin} />} />
           {isAdmin && <Route path="/payrolls/create" element={<PayrollCreate />} />}
           </>
         )}
@@ -330,7 +330,7 @@ const handleLogout = async () => {
           <>
             {isAdmin && (
               <>
-                <Route path="/performance-evaluations" element={<PerformanceEvaluationList user={user} />} />
+                <Route path="/performance-evaluations" element={<PerformanceEvaluationList user={user} isAdmin={isAdmin} />} />
                 <Route path="/performance-evaluations/create" element={<PerformanceEvaluationCreate />} />
                 <Route path="/performance-evaluations/:id/edit" element={<PerformanceEvaluationEdit />} />
               </>
@@ -346,7 +346,7 @@ const handleLogout = async () => {
           <>
             {isAdmin && (
               <>
-                <Route path="/trainings" element={<TrainingList user={user} />} />
+                <Route path="/trainings" element={<TrainingList user={user} isAdmin={isAdmin} />} />
                 <Route path="/trainings/create" element={<TrainingCreate user={user} />} />
                 <Route path="/trainings/:id/edit" element={<TrainingEdit user={user} />} />
               </>
@@ -354,7 +354,7 @@ const handleLogout = async () => {
             {!isAdmin && (
               <Route path="/trainings" element={<TrainingList user={user} />} /> 
             )}
-            <Route path="/trainings/:id" element={<TrainingView user={user} />} />
+            <Route path="/trainings/:id" element={<TrainingView user={user} isAdmin={isAdmin} />} />
           </>
           
         )}
@@ -363,7 +363,7 @@ const handleLogout = async () => {
           <>
             {isAdmin && (
               <>
-                <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
+                <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} isAdmin={isAdmin} />} />
                 <Route path="/employee-trainings/create" element={<EmployeeTrainingCreate user={user} />} />
                 <Route path="/employee-trainings/:id/edit" element={<EmployeeTrainingEdit user={user} />} />
               </>
@@ -371,7 +371,7 @@ const handleLogout = async () => {
             {!isAdmin && (
               <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
             )}
-            <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} />} />
+            <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} isAdmin={isAdmin} />} />
           </>
         )}
 

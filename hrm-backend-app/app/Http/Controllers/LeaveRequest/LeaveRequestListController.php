@@ -13,11 +13,17 @@ class LeaveRequestListController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role_id === 1) {
-            $leaves = LeaveRequest::with(['employee.user', 'leaveType'])->latest()->get();
-        } else {
+        if ($user->role?->name === 'Admin') {
             $leaves = LeaveRequest::with(['employee.user', 'leaveType'])
-                ->where('employee_id', $user->employee->id)
+                ->latest()
+                ->get();
+        } else {
+            $employeeId = $user->employee?->id;
+
+            $leaves = LeaveRequest::with(['employee.user', 'leaveType'])
+                ->when($employeeId, function ($query, $employeeId) {
+                    return $query->where('employee_id', $employeeId);
+                })
                 ->latest()
                 ->get();
         }
