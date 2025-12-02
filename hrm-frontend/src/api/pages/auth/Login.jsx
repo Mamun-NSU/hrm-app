@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Card, Spinner } from "react-bootstrap";
 
-const Login = ({ setUser, setIsAdmin }) => {
+const Login = ({ setUser }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ const Login = ({ setUser, setIsAdmin }) => {
 
       localStorage.setItem("token", token);
       setUser(user);
-      setIsAdmin(user.role?.name === "Admin");
       toast.success(response.data.message || "Login successful!");
       navigate("/"); 
     } catch (error) {

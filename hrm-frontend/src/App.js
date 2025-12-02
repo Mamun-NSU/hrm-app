@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Navbar, Container, Nav, Button, Offcanvas } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Offcanvas, Spinner } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -74,9 +74,11 @@ function AppWrapper() {
 
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
   const toggleDrawer = () => setShowDrawer(!showDrawer);
+
+  const isAdmin = user?.role?.name === "Admin";
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -84,7 +86,7 @@ function AppWrapper() {
 
       if (!token) {
         setUser(null);
-        setIsAdmin(false);
+        setLoadingUser(false);
         return;
       }
 
@@ -92,25 +94,13 @@ function AppWrapper() {
         const response = await api.get("/about/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
-
         const loggedUser = response?.data?.data?.user ?? null;
-
-        if (!loggedUser) {
-          setUser(null);
-          setIsAdmin(false);
-          return;
-        }
-
         setUser(loggedUser);
-        console.log("loggedUser data:", loggedUser);
-        setIsAdmin(loggedUser.role?.name === "Admin");
-
-        console.log("isAdmin value", isAdmin);
-
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setUser(null);
-        setIsAdmin(false);
+      } finally {
+        setLoadingUser(false);
       }
     };
 
@@ -119,34 +109,36 @@ function AppWrapper() {
     const handleStorageChange = () => fetchUser();
     window.addEventListener("storage", handleStorageChange);
 
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-
-const handleLogout = async () => {
+  const handleLogout = async () => {
   const token = localStorage.getItem("token");
-
-  if (token) {
-    try {
-      await api.post(
-        '/attendance/store',
-        { type: "logout" },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch (error) {
-      console.error("Failed to record check-out:", error);
-      toast.warning("Logout attendance could not be recorded.");
+    if (token) {
+      try {
+        await api.post(
+          "/attendance/store",
+          { type: "logout" },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.error("Failed to record check-out:", error);
+        toast.warning("Logout attendance could not be recorded.");
+      }
     }
-  }
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+    toast.success("You have logged out successfully.");
+  };
 
-  localStorage.removeItem("token");
-  setUser(null);
-  setIsAdmin(false);
-  navigate("/login");
-  toast.success("You have logged out successfully.");
-};
+    if (loadingUser) {
+      return (
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+          <Spinner animation="border" />
+        </div>
+      );
+    }
 
   return (
     <>
@@ -242,7 +234,7 @@ const handleLogout = async () => {
       </Offcanvas>
 
       <Routes>
-        <Route path="/login" element={<Login setUser={setUser} setIsAdmin={setIsAdmin} />}
+        <Route path="/login" element={<Login setUser={setUser} />}
         />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
@@ -295,7 +287,9 @@ const handleLogout = async () => {
         {user && (
           <>
             <Route path="/leaves" element={<LeaveList user={user} isAdmin={isAdmin} />} />
-            {user?.role?.name === "Employee" && <Route path="/leaves/create" element={<LeaveCreate />} />}
+            {["Employee", "Manager"].includes(user?.role?.name) && (
+              <Route path="/leaves/create" element={<LeaveCreate />} />
+            )}
           </>
         )}
 

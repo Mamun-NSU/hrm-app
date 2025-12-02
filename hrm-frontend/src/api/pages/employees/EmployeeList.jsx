@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card, Button } from "react-bootstrap";
+import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./employee.api";
 
 const EmployeeList = ({ user, isAdmin }) => {
   const [employees, setEmployees] = useState([]);
+  const [payrolls, setPayrolls] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchEmployees();
+    fetchPayrolls();
   }, []);
 
   const fetchEmployees = async () => {
@@ -19,6 +22,22 @@ const EmployeeList = ({ user, isAdmin }) => {
     } catch (error) {
       console.error("Error fetching employees:", error);
       toast.error("Failed to load employees!");
+    }
+  };
+
+  const fetchPayrolls = async () => {
+    try {
+      const token = localStorage.getItem("token"); 
+      const response = await api.get("/payroll/list", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const allPayrolls = response.data.data.payrolls || [];
+      setPayrolls(allPayrolls);
+    } catch (error) {
+      console.error("Failed to fetch payrolls:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,15 +54,25 @@ const EmployeeList = ({ user, isAdmin }) => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="border" /> Loading employees...
+      </div>
+    );
+  }
+
   return (
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Employees List</h3>
-        {isAdmin && ( <>
-             <Button variant="primary" onClick={() => navigate("/employees/create")}>
-              + Add Employee
-            </Button>
-          </>
+        {isAdmin && (
+          <Button
+            variant="primary"
+            onClick={() => navigate("/employees/create")}
+          >
+            + Add Employee
+          </Button>
         )}
       </Card.Header>
       <Card.Body>
@@ -63,45 +92,58 @@ const EmployeeList = ({ user, isAdmin }) => {
           </thead>
           <tbody>
             {employees.length > 0 ? (
-              employees.map((emp) => (
-                <tr key={emp.id}>
-                  <td>{emp.employee_code}</td>
-                  <td>{emp.user?.name || "N/A"}</td>
-                  <td>{emp.user?.email || "N/A"}</td>
-                  <td>{emp.user?.role?.name || "N/A"}</td>
-                  <td>{emp.department?.name || "N/A"}</td>
-                  <td>{emp.designation?.title || "N/A"}</td>
-                  <td>{emp.salary_base}</td>
-                  <td>{emp.employment_status}</td>
-                  <td>
-                    <Button
-                      variant="info"
-                      size="sm"
-                      className="me-2"
-                      onClick={() => navigate(`/employees/${emp.id}`)}
-                    >
-                      Details
-                    </Button>
-                    {isAdmin && (
-                      <>
-                        <Button
-                          variant="warning"
-                          size="sm"
-                          className="me-2"
-                          onClick={() => navigate(`/employees/${emp.id}/edit`)}>
-                          Edit
-                        </Button>
-                        <Button
-                          variant="danger"
-                          size="sm"
-                          onClick={() => handleDelete(emp.id)}>
-                          Delete
-                        </Button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))
+              employees.map((emp) => {
+                const latestPayroll = payrolls
+                  .filter((p) => p.employee?.id === emp.id)
+                  .sort(
+                    (a, b) =>
+                      new Date(b.generated_at) - new Date(a.generated_at)
+                  )[0];
+
+                return (
+                  <tr key={emp.id}>
+                    <td>{emp.employee_code}</td>
+                    <td>{emp.user?.name || "N/A"}</td>
+                    <td>{emp.user?.email || "N/A"}</td>
+                    <td>{emp.user?.role?.name || "N/A"}</td>
+                    <td>{emp.department?.name || "N/A"}</td>
+                    <td>{emp.designation?.title || "N/A"}</td>
+                    <td>{latestPayroll ? latestPayroll.gross_salary : emp.salary_base}</td>
+                    <td>{emp.employment_status}</td>
+                    <td>
+                      <Button
+                        variant="info"
+                        size="sm"
+                        className="me-2"
+                        onClick={() => navigate(`/employees/${emp.id}`)}
+                      >
+                        Details
+                      </Button>
+                      {isAdmin && (
+                        <>
+                          <Button
+                            variant="warning"
+                            size="sm"
+                            className="me-2"
+                            onClick={() =>
+                              navigate(`/employees/${emp.id}/edit`)
+                            }
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => handleDelete(emp.id)}
+                          >
+                            Delete
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
             ) : (
               <tr>
                 <td colSpan="9" className="text-center">

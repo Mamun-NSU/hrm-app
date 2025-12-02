@@ -19,11 +19,11 @@ const PayrollList = ({ user, isAdmin }) => {
       const response = await api.get("/payroll/list");
       let payrollData = response.data.data.payrolls;
 
-      if (user?.role_id !== 1) {
-        payrollData = payrollData.filter(
-          (p) => p.employee?.user?.id === user.id
-        );
-      }
+    if (!["Admin", "Manager"].includes(user?.role?.name)) {
+      payrollData = payrollData.filter(
+        (p) => p.employee?.user?.id === user.id
+      );
+    }
 
       setPayrolls(payrollData);
     } catch (error) {

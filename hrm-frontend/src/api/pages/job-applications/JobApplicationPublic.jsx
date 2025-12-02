@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import api from "./job-application.api";
 
 const JobApplicationPublic = () => {
-  const navigate = useNavigate(); // <--- ADD THIS
+  const navigate = useNavigate();
 
   const [jobs, setJobs] = useState([]);
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const JobApplicationPublic = () => {
     email: "",
     cover_letter: "",
     resume_link: "",
+    applicant_phone: "",
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -20,7 +21,7 @@ const JobApplicationPublic = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await api.get('job-application/public/list');
+        const response = await api.get("job-application/public/list");
         setJobs(response.data.data.jobs);
       } catch (error) {
         console.error("Error fetching jobs:", error);
@@ -28,7 +29,6 @@ const JobApplicationPublic = () => {
     };
     fetchJobs();
   }, []);
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,14 +40,14 @@ const JobApplicationPublic = () => {
     setSuccessMessage("");
 
     try {
-    await api.post('/job-application/public/store', {
-      recruitment_id: formData.recruitment_id,
-      applicant_name: formData.name,
-      applicant_email: formData.email,
-      resume_link: formData.resume_link,
-      cover_letter: formData.cover_letter,
-      applicant_phone: "0000000000",
-    });
+      await api.post("/job-application/public/store", {
+        recruitment_id: formData.recruitment_id,
+        applicant_name: formData.name,
+        applicant_email: formData.email,
+        resume_link: formData.resume_link,
+        cover_letter: formData.cover_letter,
+        applicant_phone: formData.applicant_phone,
+      });
 
       setSuccessMessage("Application submitted successfully!");
 
@@ -57,12 +57,12 @@ const JobApplicationPublic = () => {
         email: "",
         cover_letter: "",
         resume_link: "",
+        applicant_phone: "",
       });
 
       setTimeout(() => {
         navigate("/register");
       }, 1000);
-
     } catch (error) {
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors);
@@ -97,6 +97,7 @@ const JobApplicationPublic = () => {
             <div className="text-danger">{errors.recruitment_id[0]}</div>
           )}
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Your Name</Form.Label>
           <Form.Control
@@ -104,10 +105,25 @@ const JobApplicationPublic = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            placeholder="Enter your your name"
             required
           />
           {errors.applicant_name && (
             <div className="text-danger">{errors.applicant_name[0]}</div>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type="text"
+            name="applicant_phone"
+            value={formData.applicant_phone}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+            required
+          />
+          {errors.applicant_phone && (
+            <div className="text-danger">{errors.applicant_phone[0]}</div>
           )}
         </Form.Group>
         <Form.Group className="mb-3">
@@ -117,6 +133,7 @@ const JobApplicationPublic = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            placeholder="Enter your email"
             required
           />
           {errors.applicant_email && (
@@ -124,7 +141,7 @@ const JobApplicationPublic = () => {
           )}
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Cover Letter</Form.Label>
+        <Form.Label>Cover Letter</Form.Label>
           <Form.Control
             as="textarea"
             rows={4}
@@ -135,7 +152,7 @@ const JobApplicationPublic = () => {
           {errors.cover_letter && (
             <div className="text-danger">{errors.cover_letter[0]}</div>
           )}
-        </Form.Group>    
+        </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Resume Link</Form.Label>
           <Form.Control

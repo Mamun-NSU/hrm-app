@@ -41,7 +41,17 @@ const SalaryStructureCreate = () => {
       navigate("/salary-structures");
     } catch (err) {
       console.error(err);
-      toast.error("Failed to create salary structure!");
+
+      if (err.response?.data?.errors) {
+        const messages = Object.values(err.response.data.errors)
+          .flat()
+          .join(" ");
+        toast.error(messages); 
+      } else if (err.response?.data?.message) {
+        toast.error(err.response.data.message); 
+      } else {
+        toast.error("Failed to create salary structure!");
+      }
     }
   };
 

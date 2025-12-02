@@ -19,11 +19,11 @@ const LeaveList = ({ user, isAdmin }) => {
       const response = await api.get('leave-request/list');
       let leaveData = response.data.data.leave_requests || [];
 
-      if (user?.role_id !== 1) {
-        leaveData = leaveData.filter(
-          (leave) => leave.employee?.user_id === user.id
-        );
-      }
+    if (user?.role?.name !== "Admin") {
+      leaveData = leaveData.filter(
+        (leave) => leave.employee?.user_id === user.id
+      );
+    }
 
       setLeaves(leaveData);
     } catch (error) {
@@ -77,7 +77,7 @@ const LeaveList = ({ user, isAdmin }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Leave Requests</h3>
-        {[2, 3, 4].includes(user?.role_id) && (
+        {["Employee", "Manager"].includes(user?.role?.name) && (
           <Link className="btn btn-primary" to="/leaves/create">
             + Apply for Leave
           </Link>

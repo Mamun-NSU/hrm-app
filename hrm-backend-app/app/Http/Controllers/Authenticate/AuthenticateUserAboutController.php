@@ -10,9 +10,11 @@ class AuthenticateUserAboutController extends Controller
 {
     public function __invoke(): JsonResponse
     {
+        $user = Auth::user()->load('role');
+
         return response()->json([
             'data' => [
-                'user' => Auth::user(),
+                'user' => $user,
             ],
             'message' => 'Authenticated User Found Successfully.',
         ]);
