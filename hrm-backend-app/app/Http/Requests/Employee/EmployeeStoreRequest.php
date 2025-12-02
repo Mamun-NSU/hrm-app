@@ -21,7 +21,7 @@ class EmployeeStoreRequest extends FormRequest
             'employment_status' => 'in:Active,Probation,Resigned',
             'gender' => 'nullable|in:Male,Female,Other',
             'join_date' => 'nullable|date',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:20|unique:employees,phone',
             'salary_base' => 'numeric|min:0',
             'user_id' => 'required|exists:users,id',
         ];

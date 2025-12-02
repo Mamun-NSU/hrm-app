@@ -24,7 +24,13 @@ class EmployeeUpdateRequest extends FormRequest
                 Rule::unique('employees', 'employee_code')
                 ->ignore($this->employee->id),
             ],
-            'phone' => 'nullable|string|max:20',
+            'phone' => [
+            'nullable',
+            'string',
+            'max:20',
+            Rule::unique('employees', 'phone')
+                ->ignore($this->employee->id),
+            ],
             'gender' => 'nullable|in:Male,Female,Other',
             'date_of_birth' => 'nullable|date',
             'join_date' => 'nullable|date',

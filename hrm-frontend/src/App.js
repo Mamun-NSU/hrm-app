@@ -248,7 +248,7 @@ const handleLogout = async () => {
         <Route path="/profile" element={<Profile />} />
         {isAdmin && <Route path="/users" element={<Users />} />}
         <Route path="/employees" element={<EmployeeList user={user} isAdmin={isAdmin}/>} />
-        <Route path="/employees/create" element={<EmployeeCreate />} />
+        <Route path="/employees/create" element={<EmployeeCreate isAdmin={isAdmin}/>} />
         <Route path="/employees/:id/edit" element={<EmployeeEdit user={user} isAdmin={isAdmin}/>} />
         <Route path="/employees/:id" element={<EmployeeDetails user={user} isAdmin={isAdmin}/>} />
 

@@ -73,10 +73,13 @@ const EmployeeEdit = ({ user, isAdmin }) => {
       await api.put(`/employee/${id}/update`, form);
       toast.success("Employee updated successfully!");
       navigate("/employees");
-    } catch (err) {
-      console.error(err);
-      toast.error("Error updating employee.");
-    } finally {
+    } catch (error) {
+          console.error(error);
+          console.log("error data: ", error);
+          const message =
+            error?.response?.data?.message || "Error Updating employee.";
+          toast.error(message);
+        } finally {
       setSaving(false);
     }
   };
