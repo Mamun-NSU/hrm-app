@@ -27,9 +27,22 @@ const SalaryStructureCreate = () => {
   }, []);
 
   const handleChange = (e) => {
+  const { name, value } = e.target;
+
+    if (name === "employee_id") {
+      const selectedEmployee = employees.find((emp) => emp.id === value);
+
+      setForm({
+        ...form,
+        employee_id: value,
+        basic_salary: selectedEmployee?.salary_base || "",
+      });
+
+      return;
+    }
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
