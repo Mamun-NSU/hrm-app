@@ -15,10 +15,10 @@ class Payroll extends Model
 
     protected $fillable = [
         'employee_id',
-        'month_year',
-        'gross_salary',
-        'net_salary',
         'generated_at',
+        'gross_salary',
+        'month_year',
+        'net_salary',
     ];
 
     public function employee()

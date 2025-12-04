@@ -14,9 +14,9 @@ class LeaveType extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'name',
-        'description',
         'days_per_year',
+        'description',
+        'name',
     ];
 
     public function leaveRequests()

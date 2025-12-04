@@ -15,8 +15,8 @@ class EmployeeTraining extends Model
 
     protected $fillable = [
         'employee_id',
-        'training_id',
         'status',
+        'training_id',
     ];
 
     protected $casts = [

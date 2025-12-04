@@ -14,28 +14,28 @@ class SalaryStructure extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'employee_id',
+        'allowance_amount',
         'basic_salary',
+        'deduction_amount',
+        'employee_id',
         'house_rent',
         'medical_allowance',
-        'transport_allowance',
         'other_allowance',
-        'taxes_deduction',
         'security_deduction',
-        'allowance_amount',
-        'deduction_amount',
+        'taxes_deduction',
+        'transport_allowance',  
     ];
 
     protected $casts = [
+        'allowance_amount'    => 'decimal:2',
         'basic_salary'        => 'decimal:2',
+        'deduction_amount'    => 'decimal:2',
         'house_rent'          => 'decimal:2',
         'medical_allowance'   => 'decimal:2',
-        'transport_allowance' => 'decimal:2',
         'other_allowance'     => 'decimal:2',
-        'taxes_deduction'     => 'decimal:2',
         'security_deduction'  => 'decimal:2',
-        'allowance_amount'    => 'decimal:2',
-        'deduction_amount'    => 'decimal:2',
+        'taxes_deduction'     => 'decimal:2',
+        'transport_allowance' => 'decimal:2',  
     ];
 
     public function employee()

@@ -14,19 +14,19 @@ class Training extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'title',
         'description',
-        'start_date',
         'end_date',
+        'start_date',
+        'title',  
     ];
 
     public function employees()
     {
         return $this->belongsToMany(
             Employee::class,
+            'employee_id',
             'employee_trainings',
             'training_id',
-            'employee_id'
         )
         ->withPivot('status')
         ->withTimestamps();

@@ -16,8 +16,8 @@ class PerformanceKPI extends Model
     protected $table = 'performance_kpis';
 
     protected $fillable = [
-        'name',
         'description',
+        'name',
     ];
 
     public function evaluations()

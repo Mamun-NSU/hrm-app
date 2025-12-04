@@ -15,11 +15,11 @@ class PerformanceEvaluation extends Model
 
     protected $fillable = [
         'employee_id',
-        'kpi_id',
-        'score',
-        'remarks',
-        'evaluation_date',
         'evaluated_by',
+        'evaluation_date',
+        'kpi_id',
+        'remarks',   
+        'score',
     ];
 
     public function employee()

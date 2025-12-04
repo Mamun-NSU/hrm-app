@@ -14,17 +14,22 @@ class Employee extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'user_id',
+        'date_of_birth',
         'department_id',
         'designation_id',
         'employee_code',
-        'phone',
-        'gender',
-        'date_of_birth',
-        'join_date',
         'employment_status',
+        'gender',
+        'join_date',
+        'phone',
         'salary_base',
+        'user_id',
     ];
+
+    public function attendanceRecords()
+    {
+        return $this->hasMany(Attendance::class, 'employee_id', 'id');
+    }
 
     public function department()
     {
@@ -34,23 +39,6 @@ class Employee extends Model
     public function designation()
     {
         return $this->belongsTo(Designation::class, 'designation_id', 'id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function attendanceRecords()
-    {
-        return $this->hasMany(Attendance::class, 'employee_id', 'id');
-    }
-
-    public function trainings()
-    {
-        return $this->belongsToMany(Training::class, 'employee_trainings', 'employee_id', 'training_id')
-                    ->withPivot('status')
-                    ->withTimestamps();
     }
 
     public function employeeTrainings()
@@ -68,11 +56,6 @@ class Employee extends Model
         return $this->hasMany(LeaveRequest::class, 'employee_id', 'id');
     }
 
-    public function salaryStructure()
-    {
-        return $this->hasOne(SalaryStructure::class, 'employee_id', 'id');
-    }
-
     public function payrolls()
     {
         return $this->hasMany(Payroll::class, 'employee_id', 'id');
@@ -81,5 +64,22 @@ class Employee extends Model
     public function performanceEvaluations()
     {
         return $this->hasMany(PerformanceEvaluation::class, 'employee_id', 'id');
+    }
+
+    public function salaryStructure()
+    {
+        return $this->hasOne(SalaryStructure::class, 'employee_id', 'id');
+    }
+
+    public function trainings()
+    {
+        return $this->belongsToMany(Training::class, 'employee_trainings', 'employee_id', 'training_id')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

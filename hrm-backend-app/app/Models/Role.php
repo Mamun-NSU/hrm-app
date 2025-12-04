@@ -15,8 +15,8 @@ class Role extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'name',
         'description',
+        'name',
     ];
 
     protected static function boot()

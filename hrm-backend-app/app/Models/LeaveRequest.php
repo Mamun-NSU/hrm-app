@@ -16,11 +16,11 @@ class LeaveRequest extends Model
     protected $fillable = [
         'approved_by',
         'employee_id',
-        'leave_type_id',
         'from_date',
-        'to_date',
+        'leave_type_id',
         'reason',
         'status',
+        'to_date',
     ];
 
     protected $casts = [
