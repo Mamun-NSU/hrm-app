@@ -32,7 +32,7 @@ const DesignationList = () => {
       try {
         await api.delete(`/designation/${id}/delete`);
         toast.success("Designation deleted successfully!");
-        fetchDesignations(); // refresh list
+        fetchDesignations();
       } catch (error) {
         console.error("Delete failed:", error);
         toast.error("Failed to delete designation!");

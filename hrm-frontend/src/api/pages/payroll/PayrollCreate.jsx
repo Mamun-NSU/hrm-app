@@ -32,9 +32,7 @@ const PayrollCreate = () => {
       toast.warning("Please select employee and month");
       return;
     }
-
-    // const employee = employees.find((e) => e.id === parseInt(form.employee_id));
-    const employee = employees.find((e) => e.id ===form.employee_id);
+    const employee = employees.find((e) => e.id === form.employee_id);
     if (!employee || !employee.salary_structure) {
       toast.error("Salary structure not found for this employee");
       return;
@@ -68,7 +66,6 @@ const PayrollCreate = () => {
         toast.error("Failed to generate payroll!");
       }
     }
-
   };
 
   return (
@@ -103,19 +100,19 @@ const PayrollCreate = () => {
           />
         </Form.Group>
 
-        {form.employee_id && employees.find(e => e.id === parseInt(form.employee_id))?.salary_structure && (
+        {form.employee_id && employees.find(e => e.id === form.employee_id)?.salary_structure && (
           <div className="mb-3">
             <p>
-              <strong>Basic Salary:</strong> {employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.basic_salary} <br />
-              <strong>Allowance:</strong> {employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.allowance_amount} <br />
-              <strong>Deduction:</strong> {employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.deduction_amount} <br />
+              <strong>Basic Salary:</strong> {employees.find(e => e.id === form.employee_id).salary_structure.basic_salary} <br />
+              <strong>Allowance:</strong> {employees.find(e => e.id === form.employee_id).salary_structure.allowance_amount} <br />
+              <strong>Deduction:</strong> {employees.find(e => e.id === form.employee_id).salary_structure.deduction_amount} <br />
               <strong>Gross Salary:</strong>{" "}
-              {parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.basic_salary) +
-                parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.allowance_amount)} <br />
+              {parseFloat(employees.find(e => e.id === form.employee_id).salary_structure.basic_salary) +
+                parseFloat(employees.find(e => e.id === form.employee_id).salary_structure.allowance_amount)} <br />
               <strong>Net Salary:</strong>{" "}
-              {parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.basic_salary) +
-                parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.allowance_amount) -
-                parseFloat(employees.find(e => e.id === parseInt(form.employee_id)).salary_structure.deduction_amount)}
+              {parseFloat(employees.find(e => e.id === form.employee_id).salary_structure.basic_salary) +
+                parseFloat(employees.find(e => e.id === form.employee_id).salary_structure.allowance_amount) -
+                parseFloat(employees.find(e => e.id === form.employee_id).salary_structure.deduction_amount)}
             </p>
           </div>
         )}
