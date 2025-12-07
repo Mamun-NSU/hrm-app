@@ -14,7 +14,6 @@ return new class extends Migration
             $table->string('training_id');
             $table->string('status')->default('pending');
             $table->timestamps();
-
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('training_id')->references('id')->on('trainings')->onDelete('cascade');
 

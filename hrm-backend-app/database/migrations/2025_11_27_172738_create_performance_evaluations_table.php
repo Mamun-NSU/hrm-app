@@ -17,10 +17,8 @@ return new class extends Migration
             $table->date('evaluation_date');
             $table->string('evaluated_by');     
             $table->timestamps();
-
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('kpi_id')->references('id')->on('performance_kpis')->onDelete('cascade');
-
             $table->index('employee_id');
             $table->index('kpi_id');
         });

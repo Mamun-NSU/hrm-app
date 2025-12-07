@@ -14,9 +14,7 @@ return new class extends Migration
             $table->string('department_id');
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();
-
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-
             $table->index('department_id');
         });
     }

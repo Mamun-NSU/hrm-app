@@ -21,7 +21,6 @@ return new class extends Migration
             $table->decimal('allowance_amount', 15, 2)->default(0);
             $table->decimal('deduction_amount', 15, 2)->default(0);
             $table->timestamps();
-
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->index('employee_id');
         });
@@ -32,4 +31,3 @@ return new class extends Migration
         Schema::dropIfExists('salary_structures');
     }
 };
-

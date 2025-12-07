@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('attendance_records', function (Blueprint $table) {
@@ -19,7 +16,6 @@ return new class extends Migration
             $table->time('check_out_time')->nullable();
             $table->enum('status', ['Present', 'Absent', 'Late', 'Leave'])->default('Present');
             $table->timestamps();
-
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }

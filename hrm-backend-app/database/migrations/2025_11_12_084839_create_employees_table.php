@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->enum('employment_status', ['Active', 'Probation', 'Resigned'])->default('Active');
             $table->decimal('salary_base', 10, 2)->default(0);
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
             $table->foreign('designation_id')->references('id')->on('designations')->onDelete('set null');

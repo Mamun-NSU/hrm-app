@@ -16,7 +16,6 @@ return new class extends Migration
             $table->decimal('net_salary', 15, 2)->default(0)->unsigned();
             $table->date('generated_at');
             $table->timestamps();
-
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->index('employee_id');
             $table->index('month_year'); 
