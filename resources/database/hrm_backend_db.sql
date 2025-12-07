@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 02, 2025 at 11:52 AM
+-- Generation Time: Dec 07, 2025 at 01:22 PM
 -- Server version: 8.0.44-0ubuntu0.24.04.1
 -- PHP Version: 8.3.6
 
@@ -49,7 +49,24 @@ INSERT INTO `attendance_records` (`id`, `employee_id`, `date`, `check_in_time`, 
 ('01kbemq3h1byfzewjhravp6zxv', '01kbehjrc43ehpafcmnf4ybq56', '2025-12-02', '10:21:47', '12:19:09', 'Present', '2025-12-02 04:21:47', '2025-12-02 06:19:09'),
 ('01kbemqg8z2sxzb4jk322pq0wd', '01kbekbaq4jsctgrjxh5gs72ry', '2025-12-02', '10:22:00', '17:11:57', 'Present', '2025-12-02 04:22:00', '2025-12-02 11:11:57'),
 ('01kbemqxbsk63xdd8eqk00mdbk', '01kbejjmwcgxhmzpc4eaj9q310', '2025-12-02', '10:22:14', '14:40:39', 'Present', '2025-12-02 04:22:14', '2025-12-02 08:40:39'),
-('01kbeqhw4t19fmngzp587j8byn', '01kbcxspe5eyz9p47m42mcz547', '2025-12-02', '11:11:22', '17:47:31', 'Present', '2025-12-02 05:11:22', '2025-12-02 11:47:31');
+('01kbeqhw4t19fmngzp587j8byn', '01kbcxspe5eyz9p47m42mcz547', '2025-12-02', '11:11:22', '17:47:31', 'Present', '2025-12-02 05:11:22', '2025-12-02 11:47:31'),
+('01kbh5k6782z4nhw2zr8prh0qx', '01kbcxspe5eyz9p47m42mcz547', '2025-12-03', '09:55:14', '09:56:13', 'Present', '2025-12-03 03:55:14', '2025-12-03 03:56:13'),
+('01kbh5n9bm084yqxvn16sc8t5m', '01KBCQ4408JBW14MR68EXW1YVF', '2025-12-03', '09:56:22', '17:22:48', 'Present', '2025-12-03 03:56:22', '2025-12-03 11:22:48'),
+('01kbhz71k5cjc42c9taxmm0z2y', '01kbehjrc43ehpafcmnf4ybq56', '2025-12-03', '17:22:59', NULL, 'Leave', '2025-12-03 11:22:59', '2025-12-07 12:39:53'),
+('01kbkp5vca5e7s16xxzj1qnkhx', '01KBCQ4408JBW14MR68EXW1YVF', '2025-12-04', '09:23:31', '09:30:35', 'Present', '2025-12-04 03:23:31', '2025-12-04 03:30:35'),
+('01kbkpk3tfq2daeet4phj2eqd1', '01kbehjrc43ehpafcmnf4ybq56', '2025-12-04', '09:30:46', '09:34:17', 'Present', '2025-12-04 03:30:46', '2025-12-04 03:34:17'),
+('01kbs7gw0kkcmm4apq159r2v12', '01kbcxspe5eyz9p47m42mcz547', '2025-12-06', '13:02:50', '13:06:57', 'Present', '2025-12-06 07:02:50', '2025-12-06 07:06:57'),
+('01kbs7hge38xb7ht644g79y0pf', '01kbehbvngec4vrn1jcw1hy23j', '2025-12-06', '13:03:11', '15:35:46', 'Present', '2025-12-06 07:03:11', '2025-12-06 09:35:46'),
+('01kbs7jrjb5p5sz88je1kzssjk', '01kbehjrc43ehpafcmnf4ybq56', '2025-12-06', '13:03:52', '13:03:59', 'Present', '2025-12-06 07:03:52', '2025-12-07 12:37:22'),
+('01kbs7k899tpjmg1a0sjfvq3e2', '01kbejjmwcgxhmzpc4eaj9q310', '2025-12-06', '13:04:08', '18:10:18', 'Present', '2025-12-06 07:04:08', '2025-12-06 12:10:18'),
+('01kbs7kqbn79zbesp5267w4k75', '01kbekbaq4jsctgrjxh5gs72ry', '2025-12-06', '13:04:24', '13:05:49', 'Present', '2025-12-06 07:04:24', '2025-12-06 07:05:49'),
+('01kbs7rmq7f1x5axaw7s6v19fe', '01KBCQ4408JBW14MR68EXW1YVF', '2025-12-06', '13:07:05', '18:12:13', 'Present', '2025-12-06 07:07:05', '2025-12-06 12:12:13'),
+('01kbvpnq6xhywvsrmbp8ken9mv', '01kbcxspe5eyz9p47m42mcz547', '2025-12-07', '12:06:07', '18:44:25', 'Present', '2025-12-07 06:06:07', '2025-12-07 12:44:25'),
+('01kbvpp1mvkv2tcmvp2ynn9cve', '01KBCQ4408JBW14MR68EXW1YVF', '2025-12-07', '12:06:17', '18:46:46', 'Present', '2025-12-07 06:06:17', '2025-12-07 12:46:46'),
+('01kbvps1mc36vw2y6jf2jjqsx3', '01kbejjmwcgxhmzpc4eaj9q310', '2025-12-07', '12:07:56', '18:45:24', 'Late', '2025-12-07 06:07:56', '2025-12-07 12:46:35'),
+('01kbwdf87ew7hm7bmm1px7x08r', '01kbehbvngec4vrn1jcw1hy23j', '2025-12-07', '18:44:32', '18:44:37', 'Present', '2025-12-07 12:44:32', '2025-12-07 12:44:37'),
+('01kbwdfq7eqh0wkgwt0za1c243', '01kbehjrc43ehpafcmnf4ybq56', '2025-12-07', '18:44:47', '18:45:07', 'Late', '2025-12-07 12:44:47', '2025-12-07 12:46:17'),
+('01kbwdh36qaqaf0kqw0q53f0r0', '01kbekbaq4jsctgrjxh5gs72ry', '2025-12-07', '18:45:32', '18:47:44', 'Leave', '2025-12-07 12:45:32', '2025-12-07 12:47:44');
 
 -- --------------------------------------------------------
 
@@ -157,8 +174,8 @@ CREATE TABLE `employees` (
 INSERT INTO `employees` (`id`, `user_id`, `department_id`, `designation_id`, `employee_code`, `phone`, `gender`, `date_of_birth`, `join_date`, `employment_status`, `salary_base`, `created_at`, `updated_at`) VALUES
 ('01KBCQ4408JBW14MR68EXW1YVF', '01KBCQ43THRVWP3M2B9TQKYM4N', '01kbcxvtrfpd2tz91hn7h03dbx', '01kbcy1dss71w6z2c3c5zr2h55', 'SUPER ADMIN', '01710000000', 'Male', '1990-05-05', '2020-05-05', 'Active', 30000.00, '2025-12-01 10:25:22', '2025-12-02 03:18:50'),
 ('01kbcxspe5eyz9p47m42mcz547', '01kbcx8068zgtymjn5prj304xm', '01kbcxvyds6y4tj9ca065asrw1', '01kbcxyyhcf8jkjyv0dcg6yysn', 'EMP001', '01710000001', 'Male', '1991-11-01', '2025-01-01', 'Active', 25000.00, '2025-12-01 12:22:00', '2025-12-02 03:19:02'),
-('01kbehbvngec4vrn1jcw1hy23j', '01kbeh5qc4x972rbpmw7f4nd7z', '01kbcxwzrh293tazt87dj9y9f2', '01kbcy23694fcpwrvj8cahh97m', 'EMP002', '01710000002', 'Female', '1981-04-05', '2021-05-01', 'Active', 30000.00, '2025-12-02 03:23:13', '2025-12-02 03:23:13'),
-('01kbehjrc43ehpafcmnf4ybq56', '01kbeh6kgh03rs78bwe81sky2c', '01kbcxwzrh293tazt87dj9y9f2', '01kbcy23694fcpwrvj8cahh97m', 'EMP003', '01710000003', 'Male', '1991-10-10', '2020-01-01', 'Active', 32000.00, '2025-12-02 03:26:59', '2025-12-02 03:26:59'),
+('01kbehbvngec4vrn1jcw1hy23j', '01kbeh5qc4x972rbpmw7f4nd7z', '01kbcxwzrh293tazt87dj9y9f2', '01kbcy2c9wj2z3tk86htbrczw4', 'EMP002', '01710000002', 'Female', '1981-04-05', '2021-05-01', 'Active', 30000.00, '2025-12-02 03:23:13', '2025-12-04 03:42:14'),
+('01kbehjrc43ehpafcmnf4ybq56', '01kbeh6kgh03rs78bwe81sky2c', '01kbcxwzrh293tazt87dj9y9f2', '01kbcy1dss71w6z2c3c5zr2h55', 'EMP003', '01710000003', 'Male', '1991-10-10', '2020-01-01', 'Active', 32000.00, '2025-12-02 03:26:59', '2025-12-04 03:42:46'),
 ('01kbejjmwcgxhmzpc4eaj9q310', '01kbeh773kd69tkt6e2kjr4req', '01kbcxvyds6y4tj9ca065asrw1', '01kbcxyk8t84me8kwn1k5a2t5d', 'EMP004', '01710000004', 'Male', '2001-12-01', '2023-01-01', 'Active', 26000.00, '2025-12-02 03:44:24', '2025-12-02 03:44:24'),
 ('01kbekbaq4jsctgrjxh5gs72ry', '01kbeh99f12hh40saaqr78eb6s', '01kbcxvyds6y4tj9ca065asrw1', '01kbcxyk8t84me8kwn1k5a2t5d', 'EMP005', '01710000005', 'Male', '2004-05-02', '2025-10-05', 'Probation', 25000.00, '2025-12-02 03:57:53', '2025-12-02 03:58:55');
 
@@ -186,7 +203,9 @@ INSERT INTO `employee_trainings` (`id`, `employee_id`, `training_id`, `status`, 
 ('01kbet0pvrpna1gttbm0apwf8y', '01kbehbvngec4vrn1jcw1hy23j', '01kbesq0acwhas9wbezqc9g27c', 'in_progress', '2025-12-02 05:54:25', '2025-12-02 05:54:25'),
 ('01kbfcx1y2eg4qb860ngz9x1t0', '01kbcxspe5eyz9p47m42mcz547', '01kbesze1mtsedvxaazsrvm644', 'in_progress', '2025-12-02 11:24:28', '2025-12-02 11:24:28'),
 ('01kbfcxmzbtbe95hsxahb9hr3y', '01kbcxspe5eyz9p47m42mcz547', '01kbesrtva1pc493pbn3vjaae9', 'pending', '2025-12-02 11:24:47', '2025-12-02 11:24:47'),
-('01kbfcy9wt5g6grkftp8fjeatf', '01kbehjrc43ehpafcmnf4ybq56', '01kbesv7bv2y52n4mawmq2gw6t', 'in_progress', '2025-12-02 11:25:09', '2025-12-02 11:25:09');
+('01kbfcy9wt5g6grkftp8fjeatf', '01kbehjrc43ehpafcmnf4ybq56', '01kbesv7bv2y52n4mawmq2gw6t', 'in_progress', '2025-12-02 11:25:09', '2025-12-02 11:25:09'),
+('01kbss4kmjty9qas4kefx274vr', '01kbejjmwcgxhmzpc4eaj9q310', '01kbesy39h2zq24hf6767jw9kd', 'in_progress', '2025-12-06 12:10:43', '2025-12-06 12:10:43'),
+('01kbss58c282vq77b94c1xf62w', '01kbejjmwcgxhmzpc4eaj9q310', '01kbesze1mtsedvxaazsrvm644', 'completed', '2025-12-06 12:11:04', '2025-12-06 12:11:04');
 
 -- --------------------------------------------------------
 
@@ -246,12 +265,13 @@ CREATE TABLE `job_applications` (
 --
 
 INSERT INTO `job_applications` (`id`, `recruitment_id`, `user_id`, `employee_id`, `applicant_name`, `applicant_email`, `applicant_phone`, `resume_link`, `status`, `applied_at`, `created_at`, `updated_at`) VALUES
-('01kbewww7he2q2d8tb64befz8z', '01kbewtx822sf0vds8stg2h3kh', NULL, NULL, 'Test User 1', 'test1@example.com', '0000000000', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'pending', '2025-12-02 06:44:45', '2025-12-02 06:44:45', '2025-12-02 06:44:45'),
+('01kbewww7he2q2d8tb64befz8z', '01kbewtx822sf0vds8stg2h3kh', NULL, NULL, 'Test User 1', 'test1@example.com', '0000000000', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'reviewed', '2025-12-02 06:44:45', '2025-12-02 06:44:45', '2025-12-03 05:00:42'),
 ('01kbewy22s6w54zfk539mzjgsa', '01kbewsectj3xpj2jje9qs6jgj', NULL, NULL, 'Test User 2', 'test2@example.com', '0000000000', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'shortlisted', '2025-12-02 06:45:24', '2025-12-02 06:45:24', '2025-12-02 06:46:53'),
 ('01kbewzb6keq6gfff5673h0knz', '01kbewsectj3xpj2jje9qs6jgj', '01kbeh99f12hh40saaqr78eb6s', '01kbekbaq4jsctgrjxh5gs72ry', 'Mamun 5', 'mamun5@example.com', '01710000005', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'reviewed', '2025-12-02 06:46:06', '2025-12-02 06:46:06', '2025-12-02 06:46:45'),
 ('01kbey1y4w9gv6s7bg4dkeb82j', '01kbews0ft7k2vpd228tdj3m2p', NULL, NULL, 'Test User 3', 'test3@example.com', '01700000003', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'pending', '2025-12-02 07:04:59', '2025-12-02 07:04:59', '2025-12-02 07:04:59'),
-('01kbfccdn73nknefwr77jvdsk8', '01kbfc8ewmg4rfekc2nzsds1r8', NULL, NULL, 'Test User 3', 'test3@example.com', '01700000003', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'pending', '2025-12-02 11:15:23', '2025-12-02 11:15:23', '2025-12-02 11:15:23'),
-('01kbfce6p5bmtk4443n2km8km4', '01kbfc8ewmg4rfekc2nzsds1r8', '01kbcx8068zgtymjn5prj304xm', '01kbcxspe5eyz9p47m42mcz547', 'Mamun', 'mamun@example.com', '01710000001', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'pending', '2025-12-02 11:16:21', '2025-12-02 11:16:21', '2025-12-02 11:16:21');
+('01kbfccdn73nknefwr77jvdsk8', '01kbfc8ewmg4rfekc2nzsds1r8', NULL, NULL, 'Test User 3', 'test3@example.com', '01700000003', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'rejected', '2025-12-02 11:15:23', '2025-12-02 11:15:23', '2025-12-07 06:12:03'),
+('01kbfce6p5bmtk4443n2km8km4', '01kbfc8ewmg4rfekc2nzsds1r8', '01kbcx8068zgtymjn5prj304xm', '01kbcxspe5eyz9p47m42mcz547', 'Mamun', 'mamun@example.com', '01710000001', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'pending', '2025-12-02 11:16:21', '2025-12-02 11:16:21', '2025-12-02 11:16:21'),
+('01kbss2av6gg63v8h18jjr13ad', '01kbewsectj3xpj2jje9qs6jgj', '01kbeh773kd69tkt6e2kjr4req', '01kbejjmwcgxhmzpc4eaj9q310', 'Mamun 4', 'mamun4@example.com', '01710000004', 'https://drive.google.com/file/d/1aBcD12345EfGhIJK/view?usp=sharing', 'reviewed', '2025-12-06 12:09:28', '2025-12-06 12:09:28', '2025-12-07 06:12:30');
 
 -- --------------------------------------------------------
 
@@ -297,9 +317,10 @@ CREATE TABLE `leave_requests` (
 
 INSERT INTO `leave_requests` (`id`, `employee_id`, `leave_type_id`, `from_date`, `to_date`, `reason`, `status`, `approved_by`, `created_at`, `updated_at`) VALUES
 ('01kbetncfk3yhxrzk9wayx544n', '01kbekbaq4jsctgrjxh5gs72ry', '01kbet3yqfsaytpf05cp201q9j', '2025-12-10', '2025-12-13', 'Sick Leave', 'Approved', '01KBCQ43THRVWP3M2B9TQKYM4N', '2025-12-02 06:05:42', '2025-12-02 06:15:02'),
-('01kbetpvshcbsm45sxckphbns6', '01kbehbvngec4vrn1jcw1hy23j', '01kbet39bk7dkkr195xjhsz1nq', '2025-12-15', '2025-12-20', 'Annual Leave', 'Pending', NULL, '2025-12-02 06:06:31', '2025-12-02 06:06:31'),
+('01kbetpvshcbsm45sxckphbns6', '01kbehbvngec4vrn1jcw1hy23j', '01kbet39bk7dkkr195xjhsz1nq', '2025-12-15', '2025-12-20', 'Annual Leave', 'Rejected', '01KBCQ43THRVWP3M2B9TQKYM4N', '2025-12-02 06:06:31', '2025-12-04 05:55:04'),
 ('01kbevdvr2pg79fmx8sgqmnmnv', '01kbehjrc43ehpafcmnf4ybq56', '01kbet590g1kr44kx25zg10ysv', '2025-12-21', '2025-12-22', 'Causal Leave', 'Pending', NULL, '2025-12-02 06:19:04', '2025-12-02 06:19:04'),
-('01kbfcgnw9h9ag2r7f59nnpgee', '01kbcxspe5eyz9p47m42mcz547', '01kbet8ewfj4x0gmnj9myr8dhw', '2025-12-15', '2025-12-31', 'Unpaid Leave', 'Approved', '01KBCQ43THRVWP3M2B9TQKYM4N', '2025-12-02 11:17:42', '2025-12-02 11:24:06');
+('01kbfcgnw9h9ag2r7f59nnpgee', '01kbcxspe5eyz9p47m42mcz547', '01kbet8ewfj4x0gmnj9myr8dhw', '2025-12-15', '2025-12-31', 'Unpaid Leave', 'Approved', '01KBCQ43THRVWP3M2B9TQKYM4N', '2025-12-02 11:17:42', '2025-12-02 11:24:06'),
+('01kbss3h1h9p28vrcgmcd4wmtv', '01kbejjmwcgxhmzpc4eaj9q310', '01kbet590g1kr44kx25zg10ysv', '2025-12-15', '2025-12-17', 'Casual Leave', 'Approved', '01KBCQ43THRVWP3M2B9TQKYM4N', '2025-12-06 12:10:07', '2025-12-06 12:11:30');
 
 -- --------------------------------------------------------
 
@@ -404,7 +425,10 @@ INSERT INTO `payrolls` (`id`, `employee_id`, `month_year`, `gross_salary`, `net_
 ('01kbevzxpezbv44gb4jnrnx9bn', '01kbehbvngec4vrn1jcw1hy23j', '2025-11', 29000.00, 28800.00, '2025-12-02', '2025-12-02 06:28:56', '2025-12-02 06:28:56'),
 ('01kbfcqtk2avtt3q0kkkgytpb5', '01kbcxspe5eyz9p47m42mcz547', '2025-11', 28500.00, 28250.00, '2025-12-02', '2025-12-02 11:21:37', '2025-12-02 11:21:37'),
 ('01kbfcr2ctmexzzcbc3kgt8p0t', '01kbehjrc43ehpafcmnf4ybq56', '2025-11', 36000.00, 35500.00, '2025-12-02', '2025-12-02 11:21:45', '2025-12-02 11:21:45'),
-('01kbfe83akwwzz86p1b366bty9', '01kbcxspe5eyz9p47m42mcz547', '2025-10', 28500.00, 28250.00, '2025-12-02', '2025-12-02 11:47:58', '2025-12-02 11:47:58');
+('01kbfe83akwwzz86p1b366bty9', '01kbcxspe5eyz9p47m42mcz547', '2025-10', 28500.00, 28250.00, '2025-12-02', '2025-12-02 11:47:58', '2025-12-02 11:47:58'),
+('01kbhz6h7rbp4y12w24nhqyvqn', '01kbehjrc43ehpafcmnf4ybq56', '2025-12', 35000.00, 34500.00, '2025-12-03', '2025-12-03 11:22:42', '2025-12-03 11:22:42'),
+('01kbsrzt7650eapenkvhwx18vq', '01kbejjmwcgxhmzpc4eaj9q310', '2025-10', 28000.00, 27700.00, '2025-12-06', '2025-12-06 12:08:06', '2025-12-06 12:08:06'),
+('01kbw4kq12s7zbfw1eg66m364s', '01kbehjrc43ehpafcmnf4ybq56', '2025-10', 35000.00, 34500.00, '2025-12-07', '2025-12-07 10:09:41', '2025-12-07 10:09:41');
 
 -- --------------------------------------------------------
 
@@ -436,7 +460,8 @@ INSERT INTO `performance_evaluations` (`id`, `employee_id`, `kpi_id`, `score`, `
 ('01kbfcsqat21yk3kk4w57mr54x', '01kbcxspe5eyz9p47m42mcz547', '01kpik1x1a2b3c4d5e6f7g8h', 9, 'Good', '2025-12-02', 'Admin', '2025-12-02 11:22:39', '2025-12-02 11:22:39'),
 ('01kbfct9h9zkvr68s65wqrgj9z', '01kbcxspe5eyz9p47m42mcz547', '01kpik4x1a2b3c4d5e6f7g8h', 7, 'Nice', '2025-12-02', 'Admin', '2025-12-02 11:22:57', '2025-12-02 11:22:57'),
 ('01kbfctzxfex9n4cb2e8ygqgeb', '01kbehjrc43ehpafcmnf4ybq56', '01kpik4x1a2b3c4d5e6f7g8h', 9, 'Awesome', '2025-12-02', 'Admin', '2025-12-02 11:23:20', '2025-12-02 11:23:20'),
-('01kbfcvzd0pkt85x1tmft76wg8', '01kbcxspe5eyz9p47m42mcz547', '01kpik7x1a2b3c4d5e6f7g8h', 10, 'Awesome work!', '2025-12-02', 'Admin', '2025-12-02 11:23:53', '2025-12-02 11:23:53');
+('01kbfcvzd0pkt85x1tmft76wg8', '01kbcxspe5eyz9p47m42mcz547', '01kpik7x1a2b3c4d5e6f7g8h', 10, 'Awesome work!', '2025-12-02', 'Admin', '2025-12-02 11:23:53', '2025-12-02 11:23:53'),
+('01kbss757gb7wds0jp8wk1k2dz', '01kbejjmwcgxhmzpc4eaj9q310', '01kpik2x1a2b3c4d5e6f7g8h', 9, 'Nice Work', '2025-12-06', 'Admin', '2025-12-06 12:12:06', '2025-12-06 12:12:06');
 
 -- --------------------------------------------------------
 
@@ -551,7 +576,41 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (60, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', 'ebc565c31c5fcd451275771aaf09d7f6f51cd6eec44ea615d718e2260efce04e', '[\"*\"]', '2025-12-02 11:17:56', NULL, '2025-12-02 11:15:44', '2025-12-02 11:17:56'),
 (61, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '6e307b332f46aba17f70a2d5fc086ffed941596592cfb7a6244ea4fbf26bf2d4', '[\"*\"]', '2025-12-02 11:25:40', NULL, '2025-12-02 11:18:03', '2025-12-02 11:25:40'),
 (62, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', 'a2065c8ffb0a0381ef8cdd62e402258728d777b6438f90f760ba52330253b1b3', '[\"*\"]', '2025-12-02 11:47:31', NULL, '2025-12-02 11:25:48', '2025-12-02 11:47:31'),
-(63, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', 'eb4f75453713f7fc996938cba99abb559d26a62c28219a20237c2cd9dc643003', '[\"*\"]', '2025-12-02 11:49:33', NULL, '2025-12-02 11:47:38', '2025-12-02 11:49:33');
+(63, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', 'eb4f75453713f7fc996938cba99abb559d26a62c28219a20237c2cd9dc643003', '[\"*\"]', '2025-12-03 03:54:50', NULL, '2025-12-02 11:47:38', '2025-12-03 03:54:50'),
+(64, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', 'dd1448a713145f8fdc9f78a9272d0556530523bae6aebbcfd5d0ef200452f450', '[\"*\"]', '2025-12-03 03:55:07', NULL, '2025-12-03 03:54:59', '2025-12-03 03:55:07'),
+(65, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', '951f7ffc317fb84301714fe5684f433c694e8abc0372ee380a519b31117a4385', '[\"*\"]', '2025-12-03 03:56:13', NULL, '2025-12-03 03:55:14', '2025-12-03 03:56:13'),
+(66, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '4fc9ecca205d47772b39c160deac767104e3bd6b88441bb9525bcae8e0670dfa', '[\"*\"]', '2025-12-03 11:22:48', NULL, '2025-12-03 03:56:22', '2025-12-03 11:22:48'),
+(67, 'App\\Models\\User', '01kbeh6kgh03rs78bwe81sky2c', 'auth_token', 'f1cb6f1c6df083bb6e57086364c3836a61e938405f5e4474a9efab5b4cb0ecfb', '[\"*\"]', '2025-12-04 03:22:48', NULL, '2025-12-03 11:22:59', '2025-12-04 03:22:48'),
+(68, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '9352e2e6ffb03d952a5a5602776b6799481adcc692266dd3da165a8b54996404', '[\"*\"]', '2025-12-04 03:30:35', NULL, '2025-12-04 03:23:31', '2025-12-04 03:30:35'),
+(69, 'App\\Models\\User', '01kbeh6kgh03rs78bwe81sky2c', 'auth_token', '71b0644cf3fc83261bd2fe28cbde23723fecc85bb1b97f9d666ee97e6ee58ae7', '[\"*\"]', '2025-12-04 03:34:17', NULL, '2025-12-04 03:30:46', '2025-12-04 03:34:17'),
+(70, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '5a0c1afeddf5e741d181bb8d7ad9f94b75af2f6f12d3f45b1e7b448a874e9433', '[\"*\"]', '2025-12-06 07:02:44', NULL, '2025-12-04 03:34:30', '2025-12-06 07:02:44'),
+(71, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', 'bd2d92756ba40e356129a466d895b1924c689cdcdca6a7febe66405b98f4fc21', '[\"*\"]', '2025-12-06 07:03:00', NULL, '2025-12-06 07:02:50', '2025-12-06 07:03:00'),
+(72, 'App\\Models\\User', '01kbeh5qc4x972rbpmw7f4nd7z', 'auth_token', 'ddb3d192c9b30a4d682102c62070b67acef676314e6df3f91b6241cdadf957ac', '[\"*\"]', '2025-12-06 07:03:43', NULL, '2025-12-06 07:03:11', '2025-12-06 07:03:43'),
+(73, 'App\\Models\\User', '01kbeh6kgh03rs78bwe81sky2c', 'auth_token', 'e41309d32f42fb667d16a0a1fd80ee177a86f6a3a6fe40d14be28e9a37860fa4', '[\"*\"]', '2025-12-06 07:03:59', NULL, '2025-12-06 07:03:52', '2025-12-06 07:03:59'),
+(74, 'App\\Models\\User', '01kbeh773kd69tkt6e2kjr4req', 'auth_token', '6bfa4278ab11cca636a836da115d8bbc1d468df87dee91a95bf3865affd6b425', '[\"*\"]', '2025-12-06 07:04:17', NULL, '2025-12-06 07:04:08', '2025-12-06 07:04:17'),
+(75, 'App\\Models\\User', '01kbeh99f12hh40saaqr78eb6s', 'auth_token', '597d3ba3a51274aae5fdd6f52cde6cfcab5e5fa000fb86f351d4718bb8186739', '[\"*\"]', '2025-12-06 07:05:49', NULL, '2025-12-06 07:04:24', '2025-12-06 07:05:49'),
+(76, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', 'e603fa721c238927a529321b1c0edeb1357f7092ece35900f507d152f4ed4970', '[\"*\"]', '2025-12-06 07:06:04', NULL, '2025-12-06 07:05:57', '2025-12-06 07:06:04'),
+(77, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', '14bd246cb3b7f1c32c567754cdc2d1b0eb9bd2e388dbde2f5b32eb9e92a5d24f', '[\"*\"]', '2025-12-06 07:06:57', NULL, '2025-12-06 07:06:11', '2025-12-06 07:06:57'),
+(78, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', 'f1de5aee00a61de9a015a2bd4edeb3e98c7c36349a6cb697196a667fc2e8d12f', '[\"*\"]', '2025-12-06 09:35:36', NULL, '2025-12-06 07:07:05', '2025-12-06 09:35:36'),
+(79, 'App\\Models\\User', '01kbeh5qc4x972rbpmw7f4nd7z', 'auth_token', '690a77e16365ace391b189d1e65d7a16c7a62f3f20f351d3c76ffdf259b939ef', '[\"*\"]', '2025-12-06 09:35:46', NULL, '2025-12-06 09:35:42', '2025-12-06 09:35:46'),
+(80, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '1f428264d1122a8b70e7c9a673a52e8afdcb6a1146cf0c86efc1d2e6296fed64', '[\"*\"]', '2025-12-06 12:08:14', NULL, '2025-12-06 09:35:53', '2025-12-06 12:08:14'),
+(81, 'App\\Models\\User', '01kbeh773kd69tkt6e2kjr4req', 'auth_token', '7164f4be4cbd20d9f5d05806bdb314b776e2c4e8124bad8adf3bb106f12df470', '[\"*\"]', '2025-12-06 12:10:18', NULL, '2025-12-06 12:08:24', '2025-12-06 12:10:18'),
+(82, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '0cfdffd41dd63fde085627123fa68df463cb8354d20d6cd28f1e52d16783ef97', '[\"*\"]', '2025-12-06 12:12:13', NULL, '2025-12-06 12:10:25', '2025-12-06 12:12:13'),
+(83, 'App\\Models\\User', '01kbeh773kd69tkt6e2kjr4req', 'auth_token', 'f768e5bc72329001d85db3b4b5f035fb281f6d73ec3dd4031c2261d7b447da1b', '[\"*\"]', '2025-12-07 06:06:00', NULL, '2025-12-06 12:12:22', '2025-12-07 06:06:00'),
+(84, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', 'd5484a10cdc4cd3153ff98d4ef9acbf07fd9434305d39995323199d576b2773c', '[\"*\"]', '2025-12-07 06:06:10', NULL, '2025-12-07 06:06:07', '2025-12-07 06:06:10'),
+(85, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '53e9be3ecb440b72da7332ea2a5677daec66a7b51ba1f997d37c708d2b723699', '[\"*\"]', '2025-12-07 06:07:45', NULL, '2025-12-07 06:06:17', '2025-12-07 06:07:45'),
+(86, 'App\\Models\\User', '01kbeh773kd69tkt6e2kjr4req', 'auth_token', '7b875d3c6a0222d0fbb8072bf61b40148cc004bf4032106b757fb156c3c6ffd9', '[\"*\"]', '2025-12-07 06:11:21', NULL, '2025-12-07 06:07:56', '2025-12-07 06:11:21'),
+(87, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '643bdf69579f76e9a80a14b438f6b7432b4adf21531acbc8417a083d797043c3', '[\"*\"]', '2025-12-07 12:36:34', NULL, '2025-12-07 06:11:28', '2025-12-07 12:36:34'),
+(88, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', '0710333ef1242d49fd3234e3758aff2045a8df6c43e3f50d42d074995405478d', '[\"*\"]', '2025-12-07 12:36:54', NULL, '2025-12-07 12:36:40', '2025-12-07 12:36:54'),
+(89, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '53b4701d530348d401dc4f7e7b490eaa201769fbfde475e415a9604008db05e1', '[\"*\"]', '2025-12-07 12:44:07', NULL, '2025-12-07 12:37:00', '2025-12-07 12:44:07'),
+(90, 'App\\Models\\User', '01kbcx8068zgtymjn5prj304xm', 'auth_token', '59507e9b8b51f03dd5b9c81a443d88aadf5f9db7a59c579b51ec5910c7027700', '[\"*\"]', '2025-12-07 12:44:25', NULL, '2025-12-07 12:44:14', '2025-12-07 12:44:25'),
+(91, 'App\\Models\\User', '01kbeh5qc4x972rbpmw7f4nd7z', 'auth_token', '44c7aeb449c340f5d1437392c796ae03576758d386098d46c863b28bfb6cdb89', '[\"*\"]', '2025-12-07 12:44:37', NULL, '2025-12-07 12:44:32', '2025-12-07 12:44:37'),
+(92, 'App\\Models\\User', '01kbeh6kgh03rs78bwe81sky2c', 'auth_token', 'f711ae45391cd5be9f1139e6519ed32809354f6536a1c25e61148c90fdc94e6f', '[\"*\"]', '2025-12-07 12:45:07', NULL, '2025-12-07 12:44:47', '2025-12-07 12:45:07'),
+(93, 'App\\Models\\User', '01kbeh773kd69tkt6e2kjr4req', 'auth_token', '288b438b460cb1bf295474dbdd8868b244f797707528fbb03cc9ad58ce7e094e', '[\"*\"]', '2025-12-07 12:45:24', NULL, '2025-12-07 12:45:18', '2025-12-07 12:45:24'),
+(94, 'App\\Models\\User', '01kbeh99f12hh40saaqr78eb6s', 'auth_token', '6d9eefbd35aab4cdf44528da50f115911e5fecd7750b3e7581704c95e665f1b4', '[\"*\"]', '2025-12-07 12:45:39', NULL, '2025-12-07 12:45:32', '2025-12-07 12:45:39'),
+(95, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', '4237588aa33dfb5835ffd744540a3b60e9994df13b21897283187b94c7dd4ffb', '[\"*\"]', '2025-12-07 12:46:46', NULL, '2025-12-07 12:45:47', '2025-12-07 12:46:46'),
+(96, 'App\\Models\\User', '01kbeh99f12hh40saaqr78eb6s', 'auth_token', 'fd842a37e3a7d51e56c039510e76dc4751f1e1d8b3ae5445f3a9d13f2250ccca', '[\"*\"]', '2025-12-07 12:47:44', NULL, '2025-12-07 12:47:01', '2025-12-07 12:47:44'),
+(97, 'App\\Models\\User', '01KBCQ43THRVWP3M2B9TQKYM4N', 'auth_token', 'fbea1aad9992c7114af744465c2fa48f20d6a124e75deb52f425d9d47bdbdf0f', '[\"*\"]', '2025-12-07 12:47:57', NULL, '2025-12-07 12:47:54', '2025-12-07 12:47:57');
 
 -- --------------------------------------------------------
 
@@ -633,7 +692,7 @@ INSERT INTO `salary_structures` (`id`, `employee_id`, `basic_salary`, `house_ren
 ('01kbevwy0d8g52hzn0xjt8p0cm', '01kbejjmwcgxhmzpc4eaj9q310', 25000.00, 1000.00, 1000.00, 500.00, 500.00, 0.00, 300.00, 3000.00, 300.00, '2025-12-02 06:27:18', '2025-12-02 06:27:18'),
 ('01kbevy1qxh78ac5b9c0kn3kww', '01kbehbvngec4vrn1jcw1hy23j', 26000.00, 1000.00, 1000.00, 500.00, 500.00, 0.00, 200.00, 3000.00, 200.00, '2025-12-02 06:27:55', '2025-12-02 06:27:55'),
 ('01kbfcma70ncry7z2trynk9x4g', '01kbcxspe5eyz9p47m42mcz547', 25000.00, 1000.00, 500.00, 500.00, 1500.00, 0.00, 250.00, 3500.00, 250.00, '2025-12-02 11:19:42', '2025-12-02 11:19:42'),
-('01kbfcnzs7qbrkr4w7kek1frfk', '01kbehjrc43ehpafcmnf4ybq56', 32000.00, 1000.00, 1000.00, 500.00, 1500.00, 0.00, 500.00, 4000.00, 500.00, '2025-12-02 11:20:36', '2025-12-02 11:21:09');
+('01kbhz4jdp5j504qpap5cm2j6c', '01kbehjrc43ehpafcmnf4ybq56', 32000.00, 1000.00, 500.00, 500.00, 1000.00, 0.00, 500.00, 3000.00, 500.00, '2025-12-03 11:21:37', '2025-12-03 11:21:37');
 
 -- --------------------------------------------------------
 
@@ -917,7 +976,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- Constraints for dumped tables
