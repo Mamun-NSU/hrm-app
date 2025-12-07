@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -69,21 +69,21 @@ const PerformanceEvaluationList = ({ user, isAdmin }) => {
             </thead>
             <tbody>
               {evaluations.length > 0 ? (
-                evaluations.map((evalItem) => (
-                  <tr key={evalItem.id}>
-                    <td>{evalItem.id}</td>
-                    <td>{evalItem.employee?.user?.name || "—"}</td>
-                    <td>{evalItem.kpi?.name || "—"}</td>
-                    <td>{evalItem.score}</td>
-                    <td>{evalItem.remarks || "—"}</td>
-                    <td>{new Date(evalItem.evaluation_date).toLocaleDateString()}</td>
-                    <td>{evalItem.evaluated_by}</td>
+                evaluations.map((evaluation) => (
+                  <tr key={evaluation.id}>
+                    <td>{evaluation.id}</td>
+                    <td>{evaluation.employee?.user?.name || "—"}</td>
+                    <td>{evaluation.kpi?.name || "—"}</td>
+                    <td>{evaluation.score}</td>
+                    <td>{evaluation.remarks || "—"}</td>
+                    <td>{new Date(evaluation.evaluation_date).toLocaleDateString()}</td>
+                    <td>{evaluation.evaluated_by}</td>
                     <td>
                       <Button
                         variant="info"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleView(evalItem.id)}
+                        onClick={() => handleView(evaluation.id)}
                       >
                         View
                       </Button>
@@ -93,14 +93,14 @@ const PerformanceEvaluationList = ({ user, isAdmin }) => {
                             variant="warning"
                             size="sm"
                             className="me-2"
-                            onClick={() => handleEdit(evalItem.id)}
+                            onClick={() => handleEdit(evaluation.id)}
                           >
                             Edit
                           </Button>
                           <Button
                             variant="danger"
                             size="sm"
-                            onClick={() => handleDelete(evalItem.id)}
+                            onClick={() => handleDelete(evaluation.id)}
                           >
                             Delete
                           </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -66,25 +66,25 @@ const DepartmentList = () => {
             </thead>
             <tbody>
               {departments.length > 0 ? (
-                departments.map((dept) => (
-                  <tr key={dept.id}>
-                    <td>{dept.id}</td>
-                    <td>{dept.name}</td>
-                    <td>{new Date(dept.created_at).toLocaleString()}</td>
-                    <td>{new Date(dept.updated_at).toLocaleString()}</td>
+                departments.map((department) => (
+                  <tr key={department.id}>
+                    <td>{department.id}</td>
+                    <td>{department.name}</td>
+                    <td>{new Date(department.created_at).toLocaleString()}</td>
+                    <td>{new Date(department.updated_at).toLocaleString()}</td>
                     <td>
                       <Button
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleEdit(dept.id)}
+                        onClick={() => handleEdit(department.id)}
                       >
                         Edit
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleDelete(dept.id)}
+                        onClick={() => handleDelete(department.id)}
                       >
                         Delete
                       </Button>

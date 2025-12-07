@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../axios";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Button, Spinner } from "react-bootstrap";

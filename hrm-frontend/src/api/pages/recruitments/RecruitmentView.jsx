@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Spinner, Table, Button, Container } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "./recruitment.api";
@@ -70,16 +70,16 @@ const RecruitmentView = () => {
               </tr>
             </thead>
             <tbody>
-              {recruitment.job_applications.map((app, index) => (
-                <tr key={app.id}>
+              {recruitment.job_applications.map((application, index) => (
+                <tr key={application.id}>
                   <td>{index + 1}</td>
-                  <td>{app.applicant_name}</td>
-                  <td>{app.applicant_email}</td>
-                  <td>{app.applicant_phone}</td>
-                  <td>{app.status}</td>
+                  <td>{application.applicant_name}</td>
+                  <td>{application.applicant_email}</td>
+                  <td>{application.applicant_phone}</td>
+                  <td>{application.status}</td>
                   <td>
-                    {app.applied_at
-                      ? new Date(app.applied_at).toLocaleString()
+                    {application.applied_at
+                      ? new Date(application.applied_at).toLocaleString()
                       : "N/A"}
                   </td>
                 </tr>

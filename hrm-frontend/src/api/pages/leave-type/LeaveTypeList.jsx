@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -70,20 +70,20 @@ const LeaveTypeList = () => {
             </thead>
             <tbody>
               {leaveTypes.length > 0 ? (
-                leaveTypes.map((lt) => (
-                  <tr key={lt.id}>
-                    <td>{lt.id}</td>
-                    <td>{lt.name}</td>
-                    <td>{lt.days_per_year}</td>
-                    <td>{lt.description}</td>
-                    <td>{new Date(lt.created_at).toLocaleString()}</td>
-                    <td>{new Date(lt.updated_at).toLocaleString()}</td>
+                leaveTypes.map((leaveType) => (
+                  <tr key={leaveType.id}>
+                    <td>{leaveType.id}</td>
+                    <td>{leaveType.name}</td>
+                    <td>{leaveType.days_per_year}</td>
+                    <td>{leaveType.description}</td>
+                    <td>{new Date(leaveType.created_at).toLocaleString()}</td>
+                    <td>{new Date(leaveType.updated_at).toLocaleString()}</td>
                     <td>
                       <Button
                         variant="info"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleView(lt.id)}
+                        onClick={() => handleView(leaveType.id)}
                       >
                         View
                       </Button>
@@ -91,14 +91,14 @@ const LeaveTypeList = () => {
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleEdit(lt.id)}
+                        onClick={() => handleEdit(leaveType.id)}
                       >
                         Edit
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleDelete(lt.id)}
+                        onClick={() => handleDelete(leaveType.id)}
                       >
                         Delete
                       </Button>

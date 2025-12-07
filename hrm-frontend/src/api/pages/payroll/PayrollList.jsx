@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,7 +21,7 @@ const PayrollList = ({ user, isAdmin }) => {
 
     if (!["Admin", "Manager"].includes(user?.role?.name)) {
       payrollData = payrollData.filter(
-        (p) => p.employee?.user?.id === user.id
+        (payroll) => payroll.employee?.user?.id === user.id
       );
     }
 
@@ -80,20 +80,20 @@ const PayrollList = ({ user, isAdmin }) => {
             </thead>
             <tbody>
               {payrolls.length > 0 ? (
-                payrolls.map((p) => (
-                  <tr key={p.id}>
-                    <td>{p.id}</td>
-                    <td>{p.employee?.user?.name || "N/A"}</td>
-                    <td>{p.month_year}</td>
-                    <td>{p.gross_salary}</td>
-                    <td>{p.net_salary}</td>
-                    <td>{new Date(p.generated_at).toLocaleDateString()}</td>
+                payrolls.map((payroll) => (
+                  <tr key={payroll.id}>
+                    <td>{payroll.id}</td>
+                    <td>{payroll.employee?.user?.name || "N/A"}</td>
+                    <td>{payroll.month_year}</td>
+                    <td>{payroll.gross_salary}</td>
+                    <td>{payroll.net_salary}</td>
+                    <td>{new Date(payroll.generated_at).toLocaleDateString()}</td>
                     <td>
                       <Button
                         variant="info"
                         size="sm"
                         className="me-2"
-                        onClick={() => handlePayslip(p.id)}
+                        onClick={() => handlePayslip(payroll.id)}
                       >
                         Payslip
                       </Button>
@@ -102,7 +102,7 @@ const PayrollList = ({ user, isAdmin }) => {
                           <Button
                             variant="danger"
                             size="sm"
-                            onClick={() => handleDelete(p.id)}
+                            onClick={() => handleDelete(payroll.id)}
                           >
                             Delete
                           </Button>

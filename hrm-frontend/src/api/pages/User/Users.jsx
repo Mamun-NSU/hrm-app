@@ -125,25 +125,25 @@ export default function Users() {
             </tr>
           </thead>
           <tbody>
-            {users.map((u) => (
-              <tr key={u.id}>
-                <td>{u.id}</td>
-                <td>{u.name}</td>
-                <td>{u.email}</td>
-                <td>{u.role?.name || "-"}</td>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role?.name || "-"}</td>
                 <td>
                   <Button
                     variant="info"
                     size="sm"
                     className="me-2"
-                    onClick={() => handleEdit(u)}
+                    onClick={() => handleEdit(user)}
                   >
                     Edit
                   </Button>
                   <Button
                     variant="danger"
                     size="sm"
-                    onClick={() => handleDelete(u.id)}
+                    onClick={() => handleDelete(user.id)}
                   >
                     Delete
                   </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Button, Form, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -95,8 +95,8 @@ const EmployeeTrainingEdit = () => {
                 <Form.Label>Training</Form.Label>
                 <Form.Select name="training_id" value={record.training_id} onChange={handleChange} required>
                   <option value="">Select Training</option>
-                  {trainings.map(t => (
-                    <option key={t.id} value={t.id}>{t.title}</option>
+                  {trainings.map(training => (
+                    <option key={training.id} value={training.id}>{training.title}</option>
                   ))}
                 </Form.Select>
               </Form.Group>

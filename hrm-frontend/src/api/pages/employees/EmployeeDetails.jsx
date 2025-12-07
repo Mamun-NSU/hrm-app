@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Button, Spinner, Container, Row, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "./employee.api";
@@ -31,7 +31,7 @@ const EmployeeDetails = ({ user, isAdmin }) => {
       const response = await api.get(`/payroll/list`);
       const allPayrolls = response.data.data.payrolls || [];
       const employeePayrolls = allPayrolls.filter(
-        (p) => p.employee?.id === id
+        (Payroll) => Payroll.employee?.id === id
       );
       setPayrolls(employeePayrolls);
     } catch (error) {

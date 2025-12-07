@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -64,18 +64,18 @@ const EmployeeTrainingList = ({ user, isAdmin }) => {
             </thead>
             <tbody>
               {records.length > 0 ? (
-                records.map((r) => (
-                  <tr key={r.id}>
-                    <td>{r.id}</td>
-                    <td>{r.employee?.user?.name || "—"}</td>
-                    <td>{r.training?.title || "—"}</td>
-                    <td>{r.status}</td>
+                records.map((employeeTraining) => (
+                  <tr key={employeeTraining.id}>
+                    <td>{employeeTraining.id}</td>
+                    <td>{employeeTraining.employee?.user?.name || "—"}</td>
+                    <td>{employeeTraining.training?.title || "—"}</td>
+                    <td>{employeeTraining.status}</td>
                     <td>
                       <Button
                         variant="info"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleView(r.id)}
+                        onClick={() => handleView(employeeTraining.id)}
                       >
                         View
                       </Button>
@@ -85,14 +85,14 @@ const EmployeeTrainingList = ({ user, isAdmin }) => {
                             variant="warning"
                             size="sm"
                             className="me-2"
-                            onClick={() => handleEdit(r.id)}
+                            onClick={() => handleEdit(employeeTraining.id)}
                           >
                             Edit
                           </Button>
                           <Button
                             variant="danger"
                             size="sm"
-                            onClick={() => handleDelete(r.id)}
+                            onClick={() => handleDelete(employeeTraining.id)}
                           >
                             Delete
                           </Button>

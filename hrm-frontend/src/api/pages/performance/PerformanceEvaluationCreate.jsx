@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -65,8 +65,8 @@ const PerformanceEvaluationCreate = () => {
                 <Form.Label>Employee</Form.Label>
                 <Form.Select name="employee_id" value={form.employee_id} onChange={handleChange} required>
                   <option value="">Select Employee</option>
-                  {employees.map(emp => (
-                    <option key={emp.id} value={emp.id}>{emp.user?.name}</option>
+                  {employees.map(employee => (
+                    <option key={employee.id} value={employee.id}>{employee.user?.name}</option>
                   ))}
                 </Form.Select>
               </Form.Group>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -66,25 +66,25 @@ const DesignationList = () => {
             </thead>
             <tbody>
               {designations.length > 0 ? (
-                designations.map((des) => (
-                  <tr key={des.id}>
-                    <td>{des.id}</td>
-                    <td>{des.title}</td>
-                    <td>{new Date(des.created_at).toLocaleString()}</td>
-                    <td>{new Date(des.updated_at).toLocaleString()}</td>
+                designations.map((designation) => (
+                  <tr key={designation.id}>
+                    <td>{designation.id}</td>
+                    <td>{designation.title}</td>
+                    <td>{new Date(designation.created_at).toLocaleString()}</td>
+                    <td>{new Date(designation.updated_at).toLocaleString()}</td>
                     <td>
                       <Button
                         variant="warning"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleEdit(des.id)}
+                        onClick={() => handleEdit(designation.id)}
                       >
                         Edit
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
-                        onClick={() => handleDelete(des.id)}
+                        onClick={() => handleDelete(designation.id)}
                       >
                         Delete
                       </Button>

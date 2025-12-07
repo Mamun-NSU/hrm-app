@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -60,25 +60,25 @@ const RecruitmentList = () => {
             </tr>
           </thead>
           <tbody>
-            {recruitments.map((r) => (
-              <tr key={r.id}>
-                <td>{r.id}</td>
-                <td>{r.position}</td>
-                <td>{r.department?.name || "N/A"}</td>
-                <td>{r.status}</td>
+            {recruitments.map((recruitment) => (
+              <tr key={recruitment.id}>
+                <td>{recruitment.id}</td>
+                <td>{recruitment.position}</td>
+                <td>{recruitment.department?.name || "N/A"}</td>
+                <td>{recruitment.status}</td>
                 <td>
                   <Button
                     variant="warning"
                     size="sm"
                     className="me-2"
-                    onClick={() => navigate(`/recruitments/${r.id}/edit`)}
+                    onClick={() => navigate(`/recruitments/${recruitment.id}/edit`)}
                   >
                     Edit
                   </Button>
                   <Button
                     variant="danger"
                     size="sm"
-                    onClick={() => handleDelete(r.id)}
+                    onClick={() => handleDelete(recruitment.id)}
                   >
                     Delete
                   </Button>
@@ -86,7 +86,7 @@ const RecruitmentList = () => {
                     variant="info"
                     size="sm"
                     className="ms-2"
-                    onClick={() => navigate(`/recruitments/${r.id}`)}
+                    onClick={() => navigate(`/recruitments/${recruitment.id}`)}
                   >
                     View
                   </Button>

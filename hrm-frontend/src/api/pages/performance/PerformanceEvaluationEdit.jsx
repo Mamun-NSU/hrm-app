@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -82,8 +82,8 @@ const PerformanceEvaluationEdit = () => {
                 <Form.Label>Employee</Form.Label>
                 <Form.Select name="employee_id" value={form.employee_id} onChange={handleChange} required>
                   <option value="">Select Employee</option>
-                  {employees.map(emp => (
-                    <option key={emp.id} value={emp.id}>{emp.user?.name}</option>
+                  {employees.map(employee => (
+                    <option key={employee.id} value={employee.id}>{employee.user?.name}</option>
                   ))}
                 </Form.Select>
               </Form.Group>
@@ -138,14 +138,7 @@ const PerformanceEvaluationEdit = () => {
                   required
                 />
               </Form.Group>
-              {/* <div className="d-flex justify-content-between align-items-center gap-3 mt-4">
-                <Button type="submit" variant="primary" className="flex-grow-1" disabled={saving}>
-                  {saving ? <Spinner animation="border" size="sm" /> : "Update Performance"}
-                </Button>
-                <Button variant="secondary" className="flex-grow-1" onClick={() => navigate("/performance-evaluations")}>
-                  Back
-                </Button>
-              </div> */}
+
               <div className="d-flex gap-3 mt-4">
                 <Button
                   type="submit"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -63,22 +63,22 @@ const JobApplicationList = ({ user, isAdmin }) => {
         </thead>
         <tbody>
           {applications.length ? (
-            applications.map((app, idx) => (
-              <tr key={app.id}>
+            applications.map((application, idx) => (
+              <tr key={application.id}>
                 <td>{idx + 1}</td>
-                <td>{app.recruitment?.position}</td>
-                <td>{app.applicant_name}</td>
-                <td>{app.applicant_email}</td>
-                <td>{app.applicant_phone}</td>
-                <td>{app.status}</td>
-                <td>{new Date(app.applied_at).toLocaleDateString()}</td>
+                <td>{application.recruitment?.position}</td>
+                <td>{application.applicant_name}</td>
+                <td>{application.applicant_email}</td>
+                <td>{application.applicant_phone}</td>
+                <td>{application.status}</td>
+                <td>{new Date(application.applied_at).toLocaleDateString()}</td>
                 {isAdmin && (
                   <td>
                     <Button
                       variant="info"
                       size="sm"
                       className="me-2"
-                      onClick={() => handleView(app.id)}
+                      onClick={() => handleView(application.id)}
                     >
                       View
                     </Button>
@@ -86,14 +86,14 @@ const JobApplicationList = ({ user, isAdmin }) => {
                       variant="warning"
                       size="sm"
                       className="me-2"
-                      onClick={() => handleEdit(app.id)}
+                      onClick={() => handleEdit(application.id)}
                     >
                       Edit
                     </Button>
                     <Button
                       variant="danger"
                       size="sm"
-                      onClick={() => handleDelete(app.id)}
+                      onClick={() => handleDelete(application.id)}
                     >
                       Delete
                     </Button>

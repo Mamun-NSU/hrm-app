@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Button, Spinner, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import api from "./recruitment.api";

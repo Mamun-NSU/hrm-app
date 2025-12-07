@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./salary-structure.api";
 
-const SalaryStructureView = ({ user, isAdmin }) => {
+const SalaryStructureView = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -40,32 +40,41 @@ const SalaryStructureView = ({ user, isAdmin }) => {
           <Col sm={4}><strong>Basic Salary:</strong></Col>
           <Col sm={8}>{structure.basic_salary}</Col>
         </Row>
+        
         <h5 className="mt-4">Allowances</h5>
+        
         <Row className="mb-2">
           <Col sm={4}><strong>House Rent:</strong></Col>
           <Col sm={8}>{structure.house_rent}</Col>
         </Row>
+
         <Row className="mb-2">
           <Col sm={4}><strong>Medical Allowance:</strong></Col>
           <Col sm={8}>{structure.medical_allowance}</Col>
         </Row>
+
         <Row className="mb-2">
           <Col sm={4}><strong>Transport Allowance:</strong></Col>
           <Col sm={8}>{structure.transport_allowance}</Col>
         </Row>
+
         <Row className="mb-2">
           <Col sm={4}><strong>Other Allowance:</strong></Col>
           <Col sm={8}>{structure.other_allowance}</Col>
         </Row>
+
         <h5 className="mt-4">Deductions</h5>
+
         <Row className="mb-2">
           <Col sm={4}><strong>Taxes Deduction:</strong></Col>
           <Col sm={8}>{structure.taxes_deduction}</Col>
         </Row>
+
         <Row className="mb-4">
           <Col sm={4}><strong>Security Deduction:</strong></Col>
           <Col sm={8}>{structure.security_deduction}</Col>
         </Row>
+
         <div className="d-flex gap-2 justify-content-center">
           <Button
             variant="secondary"

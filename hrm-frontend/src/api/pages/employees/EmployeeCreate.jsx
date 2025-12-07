@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -80,8 +80,8 @@ const EmployeeCreate = ({ isAdmin }) => {
             <Form.Label>User</Form.Label>
             <Form.Select name="user_id" onChange={handleChange} required>
               <option value="">Select User</option>
-              {users.map(u => (
-                <option key={u.id} value={u.id}>{u.name}</option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>{user.name}</option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -90,8 +90,8 @@ const EmployeeCreate = ({ isAdmin }) => {
             <Form.Label>Department</Form.Label>
             <Form.Select name="department_id" onChange={handleChange}>
               <option value="">Select Department</option>
-              {departments.map(d => (
-                <option key={d.id} value={d.id}>{d.name}</option>
+              {departments.map(department => (
+                <option key={department.id} value={department.id}>{department.name}</option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -100,8 +100,8 @@ const EmployeeCreate = ({ isAdmin }) => {
             <Form.Label>Designation</Form.Label>
             <Form.Select name="designation_id" onChange={handleChange}>
               <option value="">Select Designation</option>
-              {designations.map(d => (
-                <option key={d.id} value={d.id}>{d.title}</option>
+              {designations.map(designation => (
+                <option key={designation.id} value={designation.id}>{designation.title}</option>
               ))}
             </Form.Select>
           </Form.Group>

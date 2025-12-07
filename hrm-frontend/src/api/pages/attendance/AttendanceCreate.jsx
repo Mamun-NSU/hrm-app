@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import AttendanceService from "../../services/AttendanceService";
 

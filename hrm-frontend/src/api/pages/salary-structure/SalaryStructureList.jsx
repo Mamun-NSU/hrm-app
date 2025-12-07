@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -76,18 +76,18 @@ const SalaryStructureList = () => {
             </thead>
             <tbody>
               {structures.length > 0 ? (
-                structures.map((s) => {
+                structures.map((structure) => {
                   const grossSalary =
-                    Number(s.basic_salary) + Number(s.allowance_amount);
+                    Number(structure.basic_salary) + Number(structure.allowance_amount);
                   const netSalary =
-                    grossSalary - Number(s.deduction_amount);
+                    grossSalary - Number(structure.deduction_amount);
                   return (
-                    <tr key={s.id}>
-                      <td>{s.id}</td>
-                      <td>{s.employee?.user?.name || "N/A"}</td>
-                      <td>{s.basic_salary}</td>
-                      <td>{s.allowance_amount}</td>
-                      <td>{s.deduction_amount}</td>
+                    <tr key={structure.id}>
+                      <td>{structure.id}</td>
+                      <td>{structure.employee?.user?.name || "N/A"}</td>
+                      <td>{structure.basic_salary}</td>
+                      <td>{structure.allowance_amount}</td>
+                      <td>{structure.deduction_amount}</td>
                       <td>{grossSalary}</td>
                       <td>{netSalary}</td>
                       <td>
@@ -95,7 +95,7 @@ const SalaryStructureList = () => {
                           variant="info"
                           size="sm"
                           className="me-2"
-                          onClick={() => handleView(s.id)}
+                          onClick={() => handleView(structure.id)}
                         >
                           View
                         </Button>
@@ -103,14 +103,14 @@ const SalaryStructureList = () => {
                           variant="warning"
                           size="sm"
                           className="me-2"
-                          onClick={() => handleEdit(s.id)}
+                          onClick={() => handleEdit(structure.id)}
                         >
                           Edit
                         </Button>
                         <Button
                           variant="danger"
                           size="sm"
-                          onClick={() => handleDelete(s.id)}
+                          onClick={() => handleDelete(structure.id)}
                         >
                           Delete
                         </Button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -90,9 +90,9 @@ const LeaveCreate = () => {
               onChange={handleChange}
             >
               <option value="">Select Leave Type</option>
-              {leaveTypes.map((lt) => (
-                <option key={lt.id} value={lt.id}>
-                  {lt.name}
+              {leaveTypes.map((leaveType) => (
+                <option key={leaveType.id} value={leaveType.id}>
+                  {leaveType.name}
                 </option>
               ))}
             </Form.Select>

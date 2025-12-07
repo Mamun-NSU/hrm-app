@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -92,30 +92,30 @@ const EmployeeList = ({ user, isAdmin }) => {
           </thead>
           <tbody>
             {employees.length > 0 ? (
-              employees.map((emp) => {
+              employees.map((employee) => {
                 const latestPayroll = payrolls
-                  .filter((p) => p.employee?.id === emp.id)
+                  .filter((payroll) => payroll.employee?.id === employee.id)
                   .sort(
                     (a, b) =>
                       new Date(b.generated_at) - new Date(a.generated_at)
                   )[0];
 
                 return (
-                  <tr key={emp.id}>
-                    <td>{emp.employee_code}</td>
-                    <td>{emp.user?.name || "N/A"}</td>
-                    <td>{emp.user?.email || "N/A"}</td>
-                    <td>{emp.user?.role?.name || "N/A"}</td>
-                    <td>{emp.department?.name || "N/A"}</td>
-                    <td>{emp.designation?.title || "N/A"}</td>
-                    <td>{latestPayroll ? latestPayroll.gross_salary : emp.salary_base}</td>
-                    <td>{emp.employment_status}</td>
+                  <tr key={employee.id}>
+                    <td>{employee.employee_code}</td>
+                    <td>{employee.user?.name || "N/A"}</td>
+                    <td>{employee.user?.email || "N/A"}</td>
+                    <td>{employee.user?.role?.name || "N/A"}</td>
+                    <td>{employee.department?.name || "N/A"}</td>
+                    <td>{employee.designation?.title || "N/A"}</td>
+                    <td>{latestPayroll ? latestPayroll.gross_salary : employee.salary_base}</td>
+                    <td>{employee.employment_status}</td>
                     <td>
                       <Button
                         variant="info"
                         size="sm"
                         className="me-2"
-                        onClick={() => navigate(`/employees/${emp.id}`)}
+                        onClick={() => navigate(`/employees/${employee.id}`)}
                       >
                         Details
                       </Button>
@@ -126,7 +126,7 @@ const EmployeeList = ({ user, isAdmin }) => {
                             size="sm"
                             className="me-2"
                             onClick={() =>
-                              navigate(`/employees/${emp.id}/edit`)
+                              navigate(`/employees/${employee.id}/edit`)
                             }
                           >
                             Edit
@@ -134,7 +134,7 @@ const EmployeeList = ({ user, isAdmin }) => {
                           <Button
                             variant="danger"
                             size="sm"
-                            onClick={() => handleDelete(emp.id)}
+                            onClick={() => handleDelete(employee.id)}
                           >
                             Delete
                           </Button>

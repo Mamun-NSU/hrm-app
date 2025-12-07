@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ const SalaryStructureCreate = () => {
   const { name, value } = e.target;
 
     if (name === "employee_id") {
-      const selectedEmployee = employees.find((emp) => emp.id === value);
+      const selectedEmployee = employees.find((employee) => employee.id === value);
 
       setForm({
         ...form,
@@ -84,9 +84,9 @@ const SalaryStructureCreate = () => {
               required
             >
               <option value="">Select Employee</option>
-              {employees.map((emp) => (
-                <option key={emp.id} value={emp.id}>
-                  {emp.user?.name}
+              {employees.map((employee) => (
+                <option key={employee.id} value={employee.id}>
+                  {employee.user?.name}
                 </option>
               ))}
             </Form.Select>

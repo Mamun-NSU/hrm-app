@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -65,19 +65,19 @@ const TrainingList = ({ user, isAdmin }) => {
             </thead>
             <tbody>
               {trainings.length > 0 ? (
-                trainings.map((t) => (
-                  <tr key={t.id}>
-                    <td>{t.id}</td>
-                    <td>{t.title}</td>
-                    <td>{t.description}</td>
-                    <td>{t.start_date}</td>
-                    <td>{t.end_date}</td>
+                trainings.map((training) => (
+                  <tr key={training.id}>
+                    <td>{training.id}</td>
+                    <td>{training.title}</td>
+                    <td>{training.description}</td>
+                    <td>{training.start_date}</td>
+                    <td>{training.end_date}</td>
                     <td>
                       <Button
                         variant="info"
                         size="sm"
                         className="me-2"
-                        onClick={() => handleView(t.id)}
+                        onClick={() => handleView(training.id)}
                       >
                         View
                       </Button>
@@ -87,14 +87,14 @@ const TrainingList = ({ user, isAdmin }) => {
                             variant="warning"
                             size="sm"
                             className="me-2"
-                            onClick={() => handleEdit(t.id)}
+                            onClick={() => handleEdit(training.id)}
                           >
                             Edit
                           </Button>
                           <Button
                             variant="danger"
                             size="sm"
-                            onClick={() => handleDelete(t.id)}
+                            onClick={() => handleDelete(training.id)}
                           >
                             Delete
                           </Button>
