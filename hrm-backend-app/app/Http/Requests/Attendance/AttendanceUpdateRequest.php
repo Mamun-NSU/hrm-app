@@ -16,7 +16,7 @@ class AttendanceUpdateRequest extends FormRequest
         return [
             'check_in_time' => 'nullable|date_format:H:i:s',
             'check_out_time' => 'nullable|date_format:H:i:s',
-            'status' => 'nullable|string|in:Present,Late,Absent',
+            'status' => 'nullable|string|in:Present,Late,Absent,Leave',
         ];
     }
 }

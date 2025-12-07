@@ -26,7 +26,6 @@ import SalaryStructureList from "./api/pages/salary-structure/SalaryStructureLis
 import SalaryStructureCreate from "./api/pages/salary-structure/SalaryStructureCreate";
 import SalaryStructureEdit from "./api/pages/salary-structure/SalaryStructureEdit";
 import SalaryStructureView from "./api/pages/salary-structure/SalaryStructureView";
-import AttendanceCheck from "./api/pages/attendance/AttendanceCheck";
 import AttendanceEdit from "./api/pages/attendance/AttendanceEdit";
 import AttendanceList from "./api/pages/attendance/AttendanceList";
 import RoleList from "./api/pages/role/RoleList";
@@ -280,9 +279,8 @@ function AppWrapper() {
           </>
         )}
 
-        <Route path="/attendance" element={<AttendanceCheck />} />
-        <Route path="/attendance/:id/edit" element={<AttendanceEdit />} />
-        <Route path="/attendance/list" element={<AttendanceList />} />
+        <Route path="/attendance/:id/edit" element={<AttendanceEdit isAdmin={isAdmin} />} />
+        <Route path="/attendance/list" element={<AttendanceList isAdmin={isAdmin} />} />
 
         {user && (
           <>
