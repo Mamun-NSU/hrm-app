@@ -6,7 +6,7 @@ import EmployeeTrainingService from "../../services/EmployeeTrainingService";
 import TrainingService from "../../services/TrainingService";
 import EmployeeService from "../../services/EmployeeService"; 
 
-const EmployeeTrainingCreate = () => {
+const EmployeeTrainingCreate = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({ employee_id: "", training_id: "", status: "pending" });
@@ -67,7 +67,11 @@ const EmployeeTrainingCreate = () => {
               <option value="in_progress">In Progress</option>
             </Form.Select>
           </Form.Group>
-          <Button type="submit">{id ? "Update" : "Create"}</Button>
+          {isAdmin && (
+            <Button type="submit">
+              {id ? "Update" : "Create"}
+            </Button>
+          )}
         </Form>
       </Card.Body>
     </Card>

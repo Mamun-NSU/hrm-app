@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PerformanceKPIService from "../../services/PerformanceKPIService";
 
-const PerformanceKPIList = () => {
+const PerformanceKPIList = ({ isAdmin }) => {
   const [kpis, setKpis] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -75,9 +75,35 @@ const PerformanceKPIList = () => {
                     <td>{new Date(kpi.created_at).toLocaleString()}</td>
                     <td>{new Date(kpi.updated_at).toLocaleString()}</td>
                     <td>
-                      <Button variant="info" size="sm" className="me-2" onClick={() => handleView(kpi.id)}>View</Button>
-                      <Button variant="warning" size="sm" className="me-2" onClick={() => handleEdit(kpi.id)}>Edit</Button>
-                      <Button variant="danger" size="sm" onClick={() => handleDelete(kpi.id)}>Delete</Button>
+                      <Button
+                        variant="info"
+                        size="sm"
+                        className="me-2"
+                        onClick={() => handleView(kpi.id)}
+                      >
+                        View
+                      </Button>
+
+                      {isAdmin && (
+                        <>
+                          <Button
+                            variant="warning"
+                            size="sm"
+                            className="me-2"
+                            onClick={() => handleEdit(kpi.id)}
+                          >
+                            Edit
+                          </Button>
+
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => handleDelete(kpi.id)}
+                          >
+                            Delete
+                          </Button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))

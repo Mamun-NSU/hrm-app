@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TrainingService from "../../services/TrainingService";
 
-const TrainingEdit = () => {
+const TrainingEdit = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [training, setTraining] = useState({
@@ -99,12 +99,24 @@ const TrainingEdit = () => {
                 />
               </Form.Group>
               <div className="d-flex gap-2">
-                <Button variant="secondary" className="w-50" onClick={() => navigate("/trainings")}>
+                <Button
+                  variant="secondary"
+                  className="w-50"
+                  onClick={() => navigate("/trainings")}
+                >
                   Back
                 </Button>
-                <Button variant="primary" className="w-50" type="submit" disabled={saving}>
-                  {saving ? "Saving..." : "Update Training"}
-                </Button>
+
+                {isAdmin && (
+                  <Button
+                    variant="primary"
+                    className="w-50"
+                    type="submit"
+                    disabled={saving}
+                  >
+                    {saving ? "Saving..." : "Update Training"}
+                  </Button>
+                )}
               </div>
             </Form>
           </Card>

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "./employee.api";
 import { toast } from "react-toastify";
 
-const EmployeeDetails = ({ user, isAdmin }) => {
+const EmployeeDetails = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 

@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Table, Card, Button, Spinner } from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./leave.api";
 
 const LeaveList = ({ user, isAdmin }) => {
-  const navigate = useNavigate();
   const [leaves, setLeaves] = useState([]);
   const [loading, setLoading] = useState(true);
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EmployeeTrainingService from "../../services/EmployeeTrainingService";
 
-const EmployeeTrainingList = ({ user, isAdmin }) => {
+const EmployeeTrainingList = ({ isAdmin }) => {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import TrainingService from "../../services/TrainingService";
 
-const TrainingCreate = () => {
+const TrainingCreate = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [training, setTraining] = useState({ title: "", description: "", start_date: "", end_date: "" });
@@ -45,7 +45,11 @@ const TrainingCreate = () => {
           <Form.Group className="mb-3"><Form.Label>End Date</Form.Label>
             <Form.Control type="date" name="end_date" value={training.end_date} onChange={handleChange} required />
           </Form.Group>
-          <Button type="submit">{id ? "Update" : "Create"}</Button>
+          {isAdmin && (
+            <Button type="submit">
+              {id ? "Update" : "Create"}
+            </Button>
+          )}
         </Form>
       </Card.Body>
     </Card>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./employee.api";
 
-const EmployeeList = ({ user, isAdmin }) => {
+const EmployeeList = ({ isAdmin }) => {
   const [employees, setEmployees] = useState([]);
   const [payrolls, setPayrolls] = useState([]);
   const [loading, setLoading] = useState(true);

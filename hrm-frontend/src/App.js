@@ -238,10 +238,10 @@ function AppWrapper() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         {isAdmin && <Route path="/users" element={<Users />} />}
-        <Route path="/employees" element={<EmployeeList user={user} isAdmin={isAdmin}/>} />
+        <Route path="/employees" element={<EmployeeList isAdmin={isAdmin}/>} />
         <Route path="/employees/create" element={<EmployeeCreate isAdmin={isAdmin}/>} />
-        <Route path="/employees/:id/edit" element={<EmployeeEdit user={user} isAdmin={isAdmin}/>} />
-        <Route path="/employees/:id" element={<EmployeeDetails user={user} isAdmin={isAdmin}/>} />
+        <Route path="/employees/:id/edit" element={<EmployeeEdit isAdmin={isAdmin}/>} />
+        <Route path="/employees/:id" element={<EmployeeDetails isAdmin={isAdmin}/>} />
 
         {isAdmin && (
           <>
@@ -275,7 +275,7 @@ function AppWrapper() {
             <Route path="/salary-structures" element={<SalaryStructureList />} />
             <Route path="/salary-structures/create" element={<SalaryStructureCreate />} />
             <Route path="/salary-structures/:id/edit" element={<SalaryStructureEdit />} />
-            <Route path="/salary-structures/:id" element={<SalaryStructureView user={user} isAdmin={isAdmin} />} />
+            <Route path="/salary-structures/:id" element={<SalaryStructureView isAdmin={isAdmin} />} />
           </>
         )}
 
@@ -311,7 +311,7 @@ function AppWrapper() {
 
         {isAdmin && (
           <>
-            <Route path="/performance-kpis" element={<PerformanceKPIList user={user} />} />
+            <Route path="/performance-kpis" element={<PerformanceKPIList isAdmin={isAdmin} />} />
             <Route path="/performance-kpis/create" element={<PerformanceKPICreate />} />
             <Route path="/performance-kpis/:id" element={<PerformanceKPIView />} />
             <Route path="/performance-kpis/:id/edit" element={<PerformanceKPIEdit />} />
@@ -320,50 +320,41 @@ function AppWrapper() {
 
         {user && (
           <>
+            <Route path="/performance-evaluations" element={<PerformanceEvaluationList isAdmin={isAdmin} />} />
+            <Route path="/performance-evaluations/:id" element={<PerformanceEvaluationView />} />
             {isAdmin && (
               <>
-                <Route path="/performance-evaluations" element={<PerformanceEvaluationList user={user} isAdmin={isAdmin} />} />
                 <Route path="/performance-evaluations/create" element={<PerformanceEvaluationCreate />} />
                 <Route path="/performance-evaluations/:id/edit" element={<PerformanceEvaluationEdit />} />
               </>
             )}
-            {!isAdmin && (
-              <Route path="/performance-evaluations" element={<PerformanceEvaluationList user={user} />} />
-            )}
-            <Route path="/performance-evaluations/:id" element={<PerformanceEvaluationView />} />
           </>
         )}
 
         {user && (
           <>
+            <Route path="/trainings" element={<TrainingList isAdmin={isAdmin} />} />
+            <Route path="/trainings/:id" element={<TrainingView isAdmin={isAdmin} />} />
             {isAdmin && (
               <>
-                <Route path="/trainings" element={<TrainingList user={user} isAdmin={isAdmin} />} />
-                <Route path="/trainings/create" element={<TrainingCreate user={user} />} />
-                <Route path="/trainings/:id/edit" element={<TrainingEdit user={user} />} />
+                <Route path="/trainings/create" element={<TrainingCreate isAdmin={isAdmin} />} />
+                <Route path="/trainings/:id/edit" element={<TrainingEdit isAdmin={isAdmin} />} />
               </>
             )}
-            {!isAdmin && (
-              <Route path="/trainings" element={<TrainingList user={user} />} /> 
-            )}
-            <Route path="/trainings/:id" element={<TrainingView user={user} isAdmin={isAdmin} />} />
           </>
           
         )}
 
         {user && (
           <>
+            <Route path="/employee-trainings" element={<EmployeeTrainingList isAdmin={isAdmin} />} />
+            <Route path="/employee-trainings/:id" element={<EmployeeTrainingView isAdmin={isAdmin} />} />
             {isAdmin && (
               <>
-                <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} isAdmin={isAdmin} />} />
-                <Route path="/employee-trainings/create" element={<EmployeeTrainingCreate user={user} />} />
-                <Route path="/employee-trainings/:id/edit" element={<EmployeeTrainingEdit user={user} />} />
+                <Route path="/employee-trainings/create" element={<EmployeeTrainingCreate isAdmin={isAdmin} />} />
+                <Route path="/employee-trainings/:id/edit" element={<EmployeeTrainingEdit isAdmin={isAdmin} />} />
               </>
             )}
-            {!isAdmin && (
-              <Route path="/employee-trainings" element={<EmployeeTrainingList user={user} />} />
-            )}
-            <Route path="/employee-trainings/:id" element={<EmployeeTrainingView user={user} isAdmin={isAdmin} />} />
           </>
         )}
 
@@ -393,7 +384,7 @@ function AppWrapper() {
 
         {isAdmin && (
           <>
-            <Route path="/admin/job-applications" element={<JobApplicationList user={user} isAdmin={isAdmin}/>} />
+            <Route path="/admin/job-applications" element={<JobApplicationList isAdmin={isAdmin}/>} />
             <Route path="/admin/job-applications/:id" element={<JobApplicationView />} />
             <Route path="/admin/job-applications/:id/edit" element={<JobApplicationEdit />} />
           </>

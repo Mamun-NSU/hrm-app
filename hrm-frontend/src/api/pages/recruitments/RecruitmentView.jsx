@@ -3,7 +3,7 @@ import { Card, Spinner, Table, Button, Container } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "./recruitment.api";
 
-const RecruitmentView = () => {
+const RecruitmentView = ({ user }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [recruitment, setRecruitment] = useState(null);

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axios";
 import { toast } from "react-toastify";
 
-const TrainingView = ({ user, isAdmin }) => {
+const TrainingView = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [training, setTraining] = useState(null);

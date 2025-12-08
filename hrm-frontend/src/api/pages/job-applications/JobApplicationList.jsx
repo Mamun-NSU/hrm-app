@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./job-application.api";
 
-const JobApplicationList = ({ user, isAdmin }) => {
+const JobApplicationList = ({ isAdmin }) => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ import EmployeeTrainingService from "../../services/EmployeeTrainingService";
 import EmployeeService from "../../services/EmployeeService";
 import TrainingService from "../../services/TrainingService";
 
-const EmployeeTrainingEdit = () => {
+const EmployeeTrainingEdit = ({ isAdmin }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [record, setRecord] = useState({
@@ -110,12 +110,24 @@ const EmployeeTrainingEdit = () => {
                 </Form.Select>
               </Form.Group>
               <div className="d-flex gap-2">
-                <Button variant="secondary" className="w-50" onClick={() => navigate("/employee-trainings")}>
+                <Button
+                  variant="secondary"
+                  className="w-50"
+                  onClick={() => navigate("/employee-trainings")}
+                >
                   Back
                 </Button>
-                <Button variant="primary" className="w-50" type="submit" disabled={saving}>
-                  {saving ? "Saving..." : "Update Record"}
-                </Button>
+
+                {isAdmin && (
+                  <Button
+                    variant="primary"
+                    className="w-50"
+                    type="submit"
+                    disabled={saving}
+                  >
+                    {saving ? "Saving..." : "Update Record"}
+                  </Button>
+                )}
               </div>
             </Form>
           </Card>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import TrainingService from "../../services/TrainingService";
 
-const TrainingList = ({ user, isAdmin }) => {
+const TrainingList = ({ isAdmin }) => {
   const [trainings, setTrainings] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
