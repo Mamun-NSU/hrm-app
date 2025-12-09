@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AttendanceService from "../../services/AttendanceService";
 

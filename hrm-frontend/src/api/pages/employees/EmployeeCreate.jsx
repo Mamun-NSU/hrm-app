@@ -8,9 +8,9 @@ const EmployeeCreate = ({ isAdmin }) => {
   const navigate = useNavigate();
 
   const [departments, setDepartments] = useState([]);
-  const [designations, setDesignations] = useState([]);
-  const [users, setUsers] = useState([]);
 
+  const [designations, setDesignations] = useState([]);
+  
   const [form, setForm] = useState({
     user_id: "",
     department_id: "",
@@ -24,6 +24,8 @@ const EmployeeCreate = ({ isAdmin }) => {
     salary_base: ""
   });
 
+  const [users, setUsers] = useState([]);
+
   useEffect(() => {
     fetchDepartments();
     fetchDesignations();
@@ -32,16 +34,19 @@ const EmployeeCreate = ({ isAdmin }) => {
 
   const fetchDepartments = async () => {
     const res = await api.get("/department/list");
+
     setDepartments(res.data.data.departments);
   };
 
   const fetchDesignations = async () => {
     const res = await api.get("/designation/list");
+
     setDesignations(res.data.data.designations);
   };
 
   const fetchUsers = async () => {
     const res = await api.get("/user/list");
+
     setUsers(res.data.data.users);
   };
 
@@ -59,12 +64,7 @@ const EmployeeCreate = ({ isAdmin }) => {
       navigate("/employees");
 
     } catch (error) {
-      console.error(error);
-      console.log("error data: ", error);
-      const message =
-        error?.response?.data?.message || "Error creating employee.";
-
-      toast.error(message);
+      toast.error(error?.response?.data?.message || "Error creating employee.");
     }
   };
 
@@ -78,47 +78,93 @@ const EmployeeCreate = ({ isAdmin }) => {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>User</Form.Label>
-            <Form.Select name="user_id" onChange={handleChange} required>
+
+            <Form.Select 
+              name="user_id" 
+              onChange={handleChange} 
+              required
+            >
               <option value="">Select User</option>
+              
               {users.map(user => (
-                <option key={user.id} value={user.id}>{user.name}</option>
+                <option 
+                  key={user.id} 
+                  value={user.id}
+                >
+                  {user.name}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Department</Form.Label>
-            <Form.Select name="department_id" onChange={handleChange}>
+            
+            <Form.Select 
+              name="department_id" 
+              onChange={handleChange}
+            >
               <option value="">Select Department</option>
+
               {departments.map(department => (
-                <option key={department.id} value={department.id}>{department.name}</option>
+                <option 
+                  key={department.id} 
+                  value={department.id}
+                >
+                  {department.name}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Designation</Form.Label>
-            <Form.Select name="designation_id" onChange={handleChange}>
+
+            <Form.Select 
+              name="designation_id" 
+              onChange={handleChange}
+            >
               <option value="">Select Designation</option>
+
               {designations.map(designation => (
-                <option key={designation.id} value={designation.id}>{designation.title}</option>
+                <option 
+                  key={designation.id} 
+                  value={designation.id}
+                >
+                  {designation.title}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Employee Code</Form.Label>
-            <Form.Control type="text" name="employee_code" onChange={handleChange} required />
+
+            <Form.Control 
+              name="employee_code" 
+              onChange={handleChange} 
+              required 
+              type="text" 
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Phone</Form.Label>
-            <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
+
+            <Form.Control 
+              name="phone"
+              onChange={handleChange}
+              type="text" 
+              value={form.phone} 
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Gender</Form.Label>
-            <Form.Select name="gender" onChange={handleChange}>
+            <Form.Select 
+              name="gender" 
+              onChange={handleChange}
+            >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -128,17 +174,31 @@ const EmployeeCreate = ({ isAdmin }) => {
 
           <Form.Group className="mb-3">
             <Form.Label>Date of Birth</Form.Label>
-            <Form.Control type="date" name="date_of_birth" onChange={handleChange} />
+
+            <Form.Control 
+              name="date_of_birth" 
+              onChange={handleChange}
+              type="date"  
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Join Date</Form.Label>
-            <Form.Control type="date" name="join_date" onChange={handleChange} />
+
+            <Form.Control 
+              name="join_date" 
+              onChange={handleChange}
+              type="date" 
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Employment Status</Form.Label>
-            <Form.Select name="employment_status" onChange={handleChange}>
+
+            <Form.Select 
+              name="employment_status" 
+              onChange={handleChange}
+            >
               <option value="Active">Active</option>
               <option value="Probation">Probation</option>
               <option value="Resigned">Resigned</option>
@@ -147,7 +207,12 @@ const EmployeeCreate = ({ isAdmin }) => {
 
           <Form.Group className="mb-3">
             <Form.Label>Salary Base</Form.Label>
-            <Form.Control type="number" name="salary_base" onChange={handleChange} />
+
+            <Form.Control 
+              name="salary_base" 
+              onChange={handleChange}
+              type="number" 
+            />
           </Form.Group>
 
           <div
@@ -156,19 +221,21 @@ const EmployeeCreate = ({ isAdmin }) => {
                 ? "d-flex gap-2"
                 : "d-flex justify-content-center"
             } >
+              
             {isAdmin && (
               <Button
+                className="w-50"
                 type="submit"
                 variant="primary"
-                className="w-50"
               >
                 Create Employee
               </Button>
             )}
+
             <Button
-              variant="secondary"
               className={isAdmin ? "w-50" : "w-75"}
               onClick={() => navigate("/employees")}
+              variant="secondary"
             >
               Back
             </Button>

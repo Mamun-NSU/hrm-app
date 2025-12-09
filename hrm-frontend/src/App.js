@@ -7,8 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import api from "./api/axios";
 import Login from "./api/pages/auth/Login";
-import Register from "./api/pages/auth/Register";
 import Profile from "./api/pages/auth/Profile";
+import Register from "./api/pages/auth/Register";
 import Users from "./api/pages/User/Users";
 import EmployeeList from "./api/pages/employees/EmployeeList";
 import EmployeeCreate from "./api/pages/employees/EmployeeCreate";
