@@ -1,86 +1,90 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Navbar, Container, Nav, Button, Offcanvas, Spinner } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from 'react';
+import { Navbar, Container, Nav, Button, Offcanvas, Spinner } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import api from "./Modules/axios";
-import Login from "./Modules/auth/Login";
-import Profile from "./Modules/auth/Profile";
-import Register from "./Modules/auth/Register";
-import Users from "./Modules/User/Users";
-import EmployeeList from "./Modules/employees/EmployeeList";
-import EmployeeCreate from "./Modules/employees/EmployeeCreate";
-import EmployeeEdit from "./Modules/employees/EmployeeEdit";
-import EmployeeDetails from "./Modules/employees/EmployeeDetails";
-import DepartmentList from "./Modules/department/DepartmentList";
-import DepartmentCreate from "./Modules/department/DepartmentCreate";
-import DepartmentEdit from "./Modules/department/DepartmentEdit";
-import DepartmentView from "./Modules/department/DepartmentView";
-import DesignationList from "./Modules/designation/DesignationList";
-import DesignationCreate from "./Modules/designation/DesignationCreate";
-import DesignationEdit from "./Modules/designation/DesignationEdit";
-import DesignationView from "./Modules/designation/DesignationView";
-import SalaryStructureList from "./Modules/salary-structure/SalaryStructureList";
-import SalaryStructureCreate from "./Modules/salary-structure/SalaryStructureCreate";
-import SalaryStructureEdit from "./Modules/salary-structure/SalaryStructureEdit";
-import SalaryStructureView from "./Modules/salary-structure/SalaryStructureView";
-import AttendanceEdit from "./Modules/attendance/AttendanceEdit";
-import AttendanceList from "./Modules/attendance/AttendanceList";
-import RoleList from "./Modules/role/RoleList";
-import RoleCreate from "./Modules/role/RoleCreate";
-import RoleEdit from "./Modules/role/RoleEdit";
-import RoleView from "./Modules/role/RoleView";
-import PayrollList from "./Modules/payroll/PayrollList";
-import PayrollCreate from "./Modules/payroll/PayrollCreate";
-import PayrollEdit from "./Modules/payroll/PayrollEdit";
-import PayslipViewer from "./Modules/payroll/PayslipViewer";
-import LeaveList from "./Modules/leaves/LeaveList";
-import LeaveCreate from "./Modules/leaves/LeaveCreate";
-import LeaveTypeList from "./Modules/leave-type/LeaveTypeList";
-import LeaveTypeCreate from "./Modules/leave-type/LeaveTypeCreate";
-import LeaveTypeView from "./Modules/leave-type/LeaveTypeView";
-import LeaveTypeEdit from "./Modules/leave-type/LeaveTypeEdit";
-import PerformanceKPIList from "./Modules/performance/PerformanceKPIList";
-import PerformanceKPICreate from "./Modules/performance/PerformanceKPICreate";
-import PerformanceKPIEdit from "./Modules/performance/PerformanceKPIEdit";
-import PerformanceKPIView from "./Modules/performance/PerformanceKPIView";
-import PerformanceEvaluationList from "./Modules/performance/PerformanceEvaluationList";
-import PerformanceEvaluationCreate from "./Modules/performance/PerformanceEvaluationCreate";
-import PerformanceEvaluationEdit from "./Modules/performance/PerformanceEvaluationEdit";
-import PerformanceEvaluationView from "./Modules/performance/PerformanceEvaluationView";
-import TrainingList from "./Modules/training/TrainingList";
-import TrainingEdit from "./Modules/training/TrainingEdit";
-import TrainingCreate from "./Modules/training/TrainingCreate"; 
-import TrainingView from "./Modules/training/TrainingView";
-import EmployeeTrainingList from "./Modules/training/EmployeeTrainingList";
-import EmployeeTrainingEdit from "./Modules/training/EmployeeTrainingEdit";
-import EmployeeTrainingCreate from "./Modules/training/EmployeeTrainingCreate";
-import EmployeeTrainingView from "./Modules/training/EmployeeTrainingView";
-import RecruitmentList from "./Modules/recruitments/RecruitmentList";
-import RecruitmentCreate from "./Modules/recruitments/RecruitmentCreate";
-import RecruitmentEdit from "./Modules/recruitments/RecruitmentEdit";
-import RecruitmentView from "./Modules/recruitments/RecruitmentView";
-import JobApplicationList from "./Modules/job-applications/JobApplicationList";
-import JobApplicationEdit from "./Modules/job-applications/JobApplicationEdit";
-import JobApplicationView from "./Modules/job-applications/JobApplicationView";
-import JobApplicationEmployee from "./Modules/job-applications/JobApplicationEmployee";
-import JobApplicationPublic from "./Modules/job-applications/JobApplicationPublic";
-import PublicRecruitmentList from "./Modules/recruitments/PublicRecruitmentList";
+import api from './Modules/axios';
+import AttendanceEdit from './Modules/attendance/AttendanceEdit';
+import AttendanceList from './Modules/attendance/AttendanceList';
+import Login from './Modules/auth/Login';
+import Profile from './Modules/auth/Profile';
+import Register from './Modules/auth/Register';
+import DepartmentCreate from './Modules/department/DepartmentCreate';
+import DepartmentEdit from './Modules/department/DepartmentEdit';
+import DepartmentList from './Modules/department/DepartmentList';
+import DepartmentView from './Modules/department/DepartmentView';
+import DesignationCreate from './Modules/designation/DesignationCreate';
+import DesignationEdit from './Modules/designation/DesignationEdit';
+import DesignationList from './Modules/designation/DesignationList';
+import DesignationView from './Modules/designation/DesignationView';
+import EmployeeCreate from './Modules/employees/EmployeeCreate';
+import EmployeeDetails from './Modules/employees/EmployeeDetails';
+import EmployeeEdit from './Modules/employees/EmployeeEdit';
+import EmployeeList from './Modules/employees/EmployeeList';
+import EmployeeTrainingEdit from './Modules/training/EmployeeTrainingEdit';
+import EmployeeTrainingCreate from './Modules/training/EmployeeTrainingCreate';
+import EmployeeTrainingList from './Modules/training/EmployeeTrainingList';
+import EmployeeTrainingView from './Modules/training/EmployeeTrainingView';
+import JobApplicationEdit from './Modules/job-applications/JobApplicationEdit';
+import JobApplicationEmployee from './Modules/job-applications/JobApplicationEmployee';
+import JobApplicationList from './Modules/job-applications/JobApplicationList';
+import JobApplicationPublic from './Modules/job-applications/JobApplicationPublic';
+import JobApplicationView from './Modules/job-applications/JobApplicationView';
+import LeaveTypeCreate from './Modules/leave-type/LeaveTypeCreate';
+import LeaveTypeEdit from './Modules/leave-type/LeaveTypeEdit';
+import LeaveTypeList from './Modules/leave-type/LeaveTypeList';
+import LeaveTypeView from './Modules/leave-type/LeaveTypeView';
+import LeaveCreate from './Modules/leaves/LeaveCreate';
+import LeaveList from './Modules/leaves/LeaveList';
+import PayrollCreate from './Modules/payroll/PayrollCreate';
+import PayrollEdit from './Modules/payroll/PayrollEdit';
+import PayrollList from './Modules/payroll/PayrollList';
+import PayslipViewer from './Modules/payroll/PayslipViewer';
+import PerformanceEvaluationCreate from './Modules/performance/PerformanceEvaluationCreate';
+import PerformanceEvaluationEdit from './Modules/performance/PerformanceEvaluationEdit';
+import PerformanceEvaluationList from './Modules/performance/PerformanceEvaluationList';
+import PerformanceEvaluationView from './Modules/performance/PerformanceEvaluationView';
+import PerformanceKPICreate from './Modules/performance/PerformanceKPICreate';
+import PerformanceKPIEdit from './Modules/performance/PerformanceKPIEdit';
+import PerformanceKPIList from './Modules/performance/PerformanceKPIList';
+import PerformanceKPIView from './Modules/performance/PerformanceKPIView';
+import PublicRecruitmentList from './Modules/recruitments/PublicRecruitmentList';
+import RecruitmentCreate from './Modules/recruitments/RecruitmentCreate';
+import RecruitmentEdit from './Modules/recruitments/RecruitmentEdit';
+import RecruitmentList from './Modules/recruitments/RecruitmentList';
+import RecruitmentView from './Modules/recruitments/RecruitmentView';
+import RoleCreate from './Modules/role/RoleCreate';
+import RoleEdit from './Modules/role/RoleEdit';
+import RoleList from './Modules/role/RoleList';
+import RoleView from './Modules/role/RoleView';
+import SalaryStructureCreate from './Modules/salary-structure/SalaryStructureCreate';
+import SalaryStructureEdit from './Modules/salary-structure/SalaryStructureEdit';
+import SalaryStructureList from './Modules/salary-structure/SalaryStructureList';
+import SalaryStructureView from './Modules/salary-structure/SalaryStructureView';
+import TrainingCreate from './Modules/training/TrainingCreate';
+import TrainingEdit from './Modules/training/TrainingEdit';
+import TrainingList from './Modules/training/TrainingList';
+import TrainingView from './Modules/training/TrainingView';
+import Users from './Modules/User/Users';
 
 function AppWrapper() {
-
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+
   const [loadingUser, setLoadingUser] = useState(true);
+
   const [showDrawer, setShowDrawer] = useState(false);
+
+  const [user, setUser] = useState(null);
+
   const toggleDrawer = () => setShowDrawer(!showDrawer);
 
-  const isAdmin = user?.role?.name === "Admin";
+  const isAdmin = user?.role?.name === 'Admin';
 
   useEffect(() => {
     const fetchUser = async () => {
+
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -91,9 +95,11 @@ function AppWrapper() {
 
       try {
         const response = await api.get("/about/user", {
+
           headers: { Authorization: `Bearer ${token}` },
         });
         const loggedUser = response?.data?.data?.user ?? null;
+
         setUser(loggedUser);
       } catch (error) {
         console.error("Failed to fetch user:", error);
@@ -117,6 +123,7 @@ function AppWrapper() {
       try {
         await api.post(
           "/attendance/store",
+
           { type: "logout" },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -126,14 +133,20 @@ function AppWrapper() {
       }
     }
     localStorage.removeItem("token");
+
     setUser(null);
+
     navigate("/login");
+
     toast.success("You have logged out successfully.");
   };
 
     if (loadingUser) {
       return (
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+        <div 
+          className="d-flex justify-content-center align-items-center" 
+          style={{ minHeight: "100vh" }}
+        >
           <Spinner animation="border" />
         </div>
       );
@@ -142,12 +155,24 @@ function AppWrapper() {
   return (
     <>
       <ToastContainer />
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar 
+        bg="dark" 
+        expand="lg"
+        variant="dark" 
+      >
         <Container>
-          <Navbar.Brand as={Link} to="/">HRM App</Navbar.Brand>
+          <Navbar.Brand 
+            as={Link} 
+            to="/"
+          >
+            HRM App
+          </Navbar.Brand>
 
            {isAdmin && (
-            <Button variant="outline-light" onClick={toggleDrawer}>
+            <Button 
+              variant="outline-light" 
+              onClick={toggleDrawer}
+            >
               Menus
             </Button>
           )}
