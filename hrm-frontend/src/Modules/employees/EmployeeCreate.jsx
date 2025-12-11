@@ -3,6 +3,7 @@ import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./employee.api";
+import SelectField from "../../Components/SelectField";
 
 const EmployeeCreate = ({ isAdmin }) => {
   const navigate = useNavigate();
@@ -160,16 +161,14 @@ const EmployeeCreate = ({ isAdmin }) => {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Gender</Form.Label>
-            <Form.Select 
-              name="gender" 
-              onChange={handleChange}
-            >
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </Form.Select>
+              <SelectField
+                label="Gender"
+                name="gender"
+                value={form.gender}
+                onChange={handleChange}
+                required
+                options={["Male", "Female", "Other"]}
+              />
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -193,16 +192,14 @@ const EmployeeCreate = ({ isAdmin }) => {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Employment Status</Form.Label>
-
-            <Form.Select 
-              name="employment_status" 
+            <SelectField
+              label="Employment Status"
+              name="employment_status"
+              value={form.employment_status}
               onChange={handleChange}
-            >
-              <option value="Active">Active</option>
-              <option value="Probation">Probation</option>
-              <option value="Resigned">Resigned</option>
-            </Form.Select>
+              required
+              options={["Active", "Probation", "Resigned"]}
+            />
           </Form.Group>
 
           <Form.Group className="mb-3">

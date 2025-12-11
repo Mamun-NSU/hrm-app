@@ -3,6 +3,7 @@ import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./recruitment.api";
+import SelectField from "../../Components/SelectField";
 
 const RecruitmentEdit = () => {
   const { id } = useParams();
@@ -86,18 +87,18 @@ const RecruitmentEdit = () => {
             ))}
           </Form.Select>
         </Form.Group>
+
         <Form.Group className="mb-3">
-          <Form.Label>Status</Form.Label>
-          <Form.Select
+          <SelectField
+            label="Status"
             name="status"
             value={form.status}
             onChange={handleChange}
             required
-          >
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
-          </Form.Select>
+            options={["open", "closed"]}
+          />
         </Form.Group>
+
         <Button type="submit">Update</Button>
       </Form>
     </Card>

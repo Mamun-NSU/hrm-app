@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Card, Form, Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import AttendanceService from '../services/AttendanceService';
+import SelectField from '../../Components/SelectField';
 
 const AttendanceEdit = ({ isAdmin }) => {
   const navigate = useNavigate();
@@ -116,17 +117,13 @@ const AttendanceEdit = ({ isAdmin }) => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Status</Form.Label>
-          <Form.Select
+          <SelectField
+            label="Status"
+            value={attendance.status}
             onChange={handleStatusChange}
             required
-            value={attendance.status}
-          >
-            <option value="Present">Present</option>
-            <option value="Absent">Absent</option>
-            <option value="Late">Late</option>
-            <option value="Leave">Leave</option>
-          </Form.Select>
+            options={["Present", "Absent", "Late", "Leave"]}
+          />
         </Form.Group>
 
         <Button type="submit" disabled={loading}>

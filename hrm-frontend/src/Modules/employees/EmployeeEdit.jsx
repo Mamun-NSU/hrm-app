@@ -3,6 +3,7 @@ import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstra
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "./employee.api";
+import SelectField from "../../Components/SelectField";
 
 const EmployeeEdit = ({ isAdmin }) => {
   const { id } = useParams();
@@ -163,13 +164,14 @@ const EmployeeEdit = ({ isAdmin }) => {
                 <Form.Control type="text" name="phone" value={form.phone} onChange={handleChange} />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Gender</Form.Label>
-                <Form.Select name="gender" value={form.gender} onChange={handleChange}>
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </Form.Select>
+                <SelectField
+                  label="Gender"
+                  name="gender"
+                  value={form.gender}
+                  onChange={handleChange}
+                  required
+                  options={["Male", "Female", "Other"]}
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Date of Birth</Form.Label>
@@ -179,14 +181,18 @@ const EmployeeEdit = ({ isAdmin }) => {
                 <Form.Label>Join Date</Form.Label>
                 <Form.Control type="date" name="join_date" value={form.join_date} onChange={handleChange} />
               </Form.Group>
+
               <Form.Group className="mb-3">
-                <Form.Label>Employment Status</Form.Label>
-                <Form.Select name="employment_status" value={form.employment_status} onChange={handleChange}>
-                  <option value="Active">Active</option>
-                  <option value="Probation">Probation</option>
-                  <option value="Resigned">Resigned</option>
-                </Form.Select>
+                <SelectField
+                  label="Employment Status"
+                  name="employment_status"
+                  value={form.employment_status}
+                  onChange={handleChange}
+                  required
+                  options={["Active", "Probation", "Resigned"]}
+                />
               </Form.Group>
+
               <Form.Group className="mb-3">
                 <Form.Label>Salary Base</Form.Label>
                 <Form.Control type="number" name="salary_base"  disabled={!isAdmin} value={form.salary_base} onChange={handleChange} />

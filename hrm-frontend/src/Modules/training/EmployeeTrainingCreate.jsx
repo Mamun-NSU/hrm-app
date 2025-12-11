@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import EmployeeTrainingService from "../services/EmployeeTrainingService";
 import TrainingService from "../services/TrainingService";
 import EmployeeService from "../services/EmployeeService"; 
+import SelectField from "../../Components/SelectField";
 
 const EmployeeTrainingCreate = ({ isAdmin }) => {
   const { id } = useParams();
@@ -59,14 +60,18 @@ const EmployeeTrainingCreate = ({ isAdmin }) => {
               {trainings.map(training => <option key={training.id} value={training.id}>{training.title}</option>)}
             </Form.Select>
           </Form.Group>
+
           <Form.Group className="mb-3">
-            <Form.Label>Status</Form.Label>
-            <Form.Select name="status" value={data.status} onChange={handleChange}>
-              <option value="pending">Pending</option>
-              <option value="completed">Completed</option>
-              <option value="in_progress">In Progress</option>
-            </Form.Select>
+            <SelectField
+              label="Status"
+              name="status"
+              value={data.status}
+              onChange={handleChange}
+              required
+              options={["pending", "completed", "in_progress"]}
+            />
           </Form.Group>
+
           {isAdmin && (
             <Button type="submit">
               {id ? "Update" : "Create"}
