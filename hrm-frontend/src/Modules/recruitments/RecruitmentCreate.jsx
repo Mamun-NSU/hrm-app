@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
 import api from "./recruitment.api";
+import SelectField from "../../Components/SelectField";
 
 const RecruitmentCreate = () => {
   const [form, setForm] = useState({
@@ -72,18 +74,18 @@ const RecruitmentCreate = () => {
             ))}
           </Form.Select>
         </Form.Group>
+
         <Form.Group className="mb-3">
-          <Form.Label>Status</Form.Label>
-          <Form.Select
+          <SelectField
+            label="Status"
             name="status"
             value={form.status}
             onChange={handleChange}
             required
-          >
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
-          </Form.Select>
+            options={["open", "closed"]}
+          />
         </Form.Group>
+
         <Button type="submit">Create</Button>
       </Form>
     </Card>
