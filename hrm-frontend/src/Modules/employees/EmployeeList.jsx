@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
-import { Table, Card, Button, Spinner } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import api from "./employee.api";
+import { useEffect, useState } from 'react';
+import { Button, Card, Table, Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import api from './employee.api';
 
 const EmployeeList = ({ isAdmin }) => {
   const [employees, setEmployees] = useState([]);
-  const [payrolls, setPayrolls] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
+  const [payrolls, setPayrolls] = useState([]);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +21,8 @@ const EmployeeList = ({ isAdmin }) => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await api.get("/employee/list");
+      const response = await api.get('/employee/list');
+
       setEmployees(response.data.data.employees);
     } catch (error) {
       console.error("Error fetching employees:", error);
@@ -28,11 +33,13 @@ const EmployeeList = ({ isAdmin }) => {
   const fetchPayrolls = async () => {
     try {
       const token = localStorage.getItem("token"); 
-      const response = await api.get("/payroll/list", {
+
+      const response = await api.get('/payroll/list', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       const allPayrolls = response.data.data.payrolls || [];
+
       setPayrolls(allPayrolls);
     } catch (error) {
       console.error("Failed to fetch payrolls:", error);
@@ -45,7 +52,9 @@ const EmployeeList = ({ isAdmin }) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
         await api.delete(`/employee/${id}/delete`);
+
         toast.success("Employee deleted successfully!");
+
         fetchEmployees();
       } catch (error) {
         console.error("Error deleting employee:", error);
@@ -66,15 +75,17 @@ const EmployeeList = ({ isAdmin }) => {
     <Card className="mt-4 shadow-sm">
       <Card.Header className="d-flex justify-content-between align-items-center">
         <h3>Employees List</h3>
+
         {isAdmin && (
           <Button
+            onClick={() => navigate('/employees/create')}
             variant="primary"
-            onClick={() => navigate("/employees/create")}
           >
             + Add Employee
           </Button>
         )}
       </Card.Header>
+
       <Card.Body>
         <Table striped bordered hover responsive>
           <thead>
@@ -94,7 +105,7 @@ const EmployeeList = ({ isAdmin }) => {
             {employees.length > 0 ? (
               employees.map((employee) => {
                 const latestPayroll = payrolls
-                  .filter((payroll) => payroll.employee?.id === employee.id)
+                  .filter((payroll) => payroll?.employee?.id === employee.id)
                   .sort(
                     (a, b) =>
                       new Date(b.generated_at) - new Date(a.generated_at)
@@ -112,29 +123,32 @@ const EmployeeList = ({ isAdmin }) => {
                     <td>{employee.employment_status}</td>
                     <td>
                       <Button
-                        variant="info"
-                        size="sm"
                         className="me-2"
-                        onClick={() => navigate(`/employees/${employee.id}`)}
+                        onClick={() => 
+                          navigate(`/employees/${employee.id}`)}
+                        size="sm"
+                        variant="info"
                       >
                         Details
                       </Button>
                       {isAdmin && (
                         <>
                           <Button
-                            variant="warning"
-                            size="sm"
                             className="me-2"
                             onClick={() =>
                               navigate(`/employees/${employee.id}/edit`)
                             }
+                            size="sm"
+                            variant="warning"
                           >
                             Edit
                           </Button>
                           <Button
-                            variant="danger"
+                            onClick={() => 
+                              handleDelete(employee.id)
+                            }
                             size="sm"
-                            onClick={() => handleDelete(employee.id)}
+                            variant="danger"
                           >
                             Delete
                           </Button>
@@ -146,7 +160,10 @@ const EmployeeList = ({ isAdmin }) => {
               })
             ) : (
               <tr>
-                <td colSpan="9" className="text-center">
+                <td 
+                className="text-center"
+                colSpan="9" 
+                >
                   No employees found.
                 </td>
               </tr>

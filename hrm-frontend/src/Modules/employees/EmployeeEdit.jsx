@@ -1,31 +1,37 @@
 import { useState, useEffect } from "react";
-import { Card, Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "./employee.api";
-import SelectField from "../../Components/SelectField";
+
+import api from './employee.api';
+import SelectField from '../../Components/SelectField';
 
 const EmployeeEdit = ({ isAdmin }) => {
   const { id } = useParams();
+
   const navigate = useNavigate();
 
   const [departments, setDepartments] = useState([]);
+
   const [designations, setDesignations] = useState([]);
+
   const [users, setUsers] = useState([]);
+
   const [form, setForm] = useState({
-    user_id: "",
+    employee_code: "",
+    employment_status: "Active",
+    date_of_birth: "",
     department_id: "",
     designation_id: "",
-    employee_code: "",
-    phone: "",
     gender: "",
-    date_of_birth: "",
     join_date: "",
-    employment_status: "Active",
+    user_id: "",
+    phone: "",
     salary_base: ""
   });
 
   const [loading, setLoading] = useState(true);
+
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -72,10 +78,11 @@ const EmployeeEdit = ({ isAdmin }) => {
     setSaving(true);
     try {
       await api.put(`/employee/${id}/update`, form);
+
       toast.success("Employee updated successfully!");
+
       navigate("/employees");
     } catch (error) {
-          console.error(error);
           console.log("error data: ", error);
           const message =
             error?.response?.data?.message || "Error Updating employee.";
@@ -86,7 +93,11 @@ const EmployeeEdit = ({ isAdmin }) => {
   };
 
   if (loading)
-    return <Spinner animation="border" className="d-block mx-auto mt-5" />;
+    return 
+    <Spinner 
+      animation="border" 
+      className="d-block mx-auto mt-5" 
+    />;
 
   return (
     <Container
@@ -101,16 +112,20 @@ const EmployeeEdit = ({ isAdmin }) => {
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
                 <Form.Label>User</Form.Label>
+
                 <Form.Select
-                  name="user_id"
-                  value={form.user_id}
-                  onChange={handleChange}
-                  required
                   disabled={!isAdmin}
+                  name="user_id"
+                  onChange={handleChange}
+                  require
+                  value={form.user_id}
                 >
                   <option value="">Select User</option>
                   {users.map((user) => (
-                    <option key={user.id} value={user.id}>
+                    <option 
+                      key={user?.id} 
+                      value={user.id}
+                    >
                       {user.name}
                     </option>
                   ))}
@@ -118,45 +133,59 @@ const EmployeeEdit = ({ isAdmin }) => {
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Department</Form.Label>
+
                 <Form.Select
-                  name="department_id"
-                  value={form.department_id}
-                  onChange={handleChange}
                   disabled={!isAdmin}
+                  name="department_id"
+                  onChange={handleChange}
+                  value={form.department_id}
                 >
                   <option value="">Select Department</option>
+
                   {departments.map((department) => (
-                    <option key={department.id} value={department.id}>
-                      {department.name}
+                    <option 
+                      key={department?.id} 
+                      value={department?.id}
+                    >
+                      {department?.name}
                     </option>
                   ))}
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Designation</Form.Label>
+
                 <Form.Select
-                  name="designation_id"
-                  value={form.designation_id}
-                  onChange={handleChange}
                   disabled={!isAdmin}
+                  name="designation_id"
+                  onChange={handleChange}
+                  value={form.designation_id}
                 >
                   <option value="">Select Designation</option>
+
                   {designations.map((designation) => (
-                    <option key={designation.id} value={designation.id}>
-                      {designation.title}
+                    <option 
+                      key={designation?.id} 
+                      value={designation?.id}
+                    >
+                      {designation?.title}
                     </option>
                   ))}
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Employee Code</Form.Label>
+
                 <Form.Control
-                  type="text"
+                disabled={!isAdmin}
+                  
                   name="employee_code"
-                  value={form.employee_code}
+                 
                   onChange={handleChange}
                   required
-                  disabled={!isAdmin}
+                  type="text"
+                  value={form.employee_code}
+                  
                 />
               </Form.Group>
               <Form.Group className="mb-3">
